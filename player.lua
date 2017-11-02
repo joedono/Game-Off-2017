@@ -13,7 +13,7 @@ Player = Class {
     self.rightPressed = false;
     self.upPressed = false;
     self.downPressed = false;
-    self.pickupPressed = false;
+    self.pickUpPressed = false;
 
     self.velocity = { x = 0, y = 0 };
     self.rotation = 0;
@@ -28,7 +28,7 @@ function Player:resetKeys()
   self.rightPressed = false;
   self.upPressed = false;
   self.downPressed = false;
-  self.pickupPressed = false;
+  self.pickUpPressed = false;
 end
 
 function Player:update(dt)
@@ -99,7 +99,7 @@ function Player:draw()
   love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
 
   if DRAW_BOXES then
-    love.graphics.setColor(255, 0, 0);
+    love.graphics.setColor(255, 255, 255);
     love.graphics.rectangle("line", self.box.x, self.box.y, self.box.w, self.box.h);
   end
 end

@@ -28,7 +28,7 @@ function State_Game:keypressed(key, scancode, isrepeat)
   end
 
   if key == KEY_PICKUP then
-    self.player.pickupPressed = true;
+    self.player.pickUpPressed = true;
   end
 end
 
@@ -54,18 +54,14 @@ function State_Game:keyreleased(key, scancode)
   end
 
   if key == KEY_PICKUP then
-    self:tryThrow();
-    self.player.pickupPressed = false;
+    self.ball:throw();
+    self.player.pickUpPressed = false;
   end
-end
-
-function State_Game:tryThrow()
-  --TODO Throw the ball if the player has it
 end
 
 function State_Game:update(dt)
   self.player:update(dt);
-  self.ball:update(dt);
+  self.ball:update(dt, self.player);
 end
 
 function State_Game:draw()
@@ -76,5 +72,6 @@ function State_Game:draw()
   if DRAW_POSITIONS then
     love.graphics.setColor(255, 255, 255);
     love.graphics.print("Player: " .. self.player.box.x .. ", " .. self.player.box.y, 32, 32);
+    love.graphics.print("Ball: " .. self.ball.box.x .. ", " .. self.ball.box.y, 32, 48);
   end
 end
