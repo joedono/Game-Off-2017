@@ -6,6 +6,7 @@ KEY_RIGHT = "right";
 KEY_UP = "up";
 KEY_DOWN = "down";
 KEY_QUIT = "escape";
+KEY_HOLD = "z";
 
 PLAYER_WIDTH = 32;
 PLAYER_HEIGHT = 32;
@@ -17,6 +18,14 @@ PLAYER_INITIAL_DIMENSIONS = {
   h = PLAYER_HEIGHT
 };
 
+BALL_SIZE = 6;
+BALL_INITIAL_DIMENSIONS = {
+  x = 108,
+  y = 208,
+  w = BALL_SIZE,
+  h = BALL_SIZE
+};
+
 -- Debug Variables
-DRAW_POSITIONS = true;
+DRAW_POSITIONS = false;
 DRAW_BOXES = false;

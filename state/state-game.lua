@@ -1,11 +1,13 @@
 require "config/collisions";
 require "player";
+require "ball";
 
 State_Game = {};
 
 function State_Game:init()
   BumpWorld = Bump.newWorld(32);
   self.player = Player();
+  self.ball = Ball();
 end
 
 function State_Game:keypressed(key, scancode, isrepeat)
@@ -24,13 +26,14 @@ function State_Game:keypressed(key, scancode, isrepeat)
   if key == KEY_DOWN then
     self.player.downPressed = true;
   end
+
+  if key == KEY_PICKUP then
+    self.player.pickupPressed = true;
+  end
 end
 
 function State_Game:resume()
-  self.player.leftPressed = false;
-  self.player.rightPressed = false;
-  self.player.upPressed = false;
-  self.player.downPressed = false;
+  self.player:resetKeys();
 end
 
 function State_Game:keyreleased(key, scancode)
@@ -49,15 +52,26 @@ function State_Game:keyreleased(key, scancode)
   if key == KEY_DOWN then
     self.player.downPressed = false;
   end
+
+  if key == KEY_PICKUP then
+    self:tryThrow();
+    self.player.pickupPressed = false;
+  end
+end
+
+function State_Game:tryThrow()
+  --TODO Throw the ball if the player has it
 end
 
 function State_Game:update(dt)
   self.player:update(dt);
+  self.ball:update(dt);
 end
 
 function State_Game:draw()
   love.graphics.setColor(255, 255, 255);
   self.player:draw();
+  self.ball:draw();
 
   if DRAW_POSITIONS then
     love.graphics.setColor(255, 255, 255);

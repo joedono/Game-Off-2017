@@ -13,6 +13,7 @@ Player = Class {
     self.rightPressed = false;
     self.upPressed = false;
     self.downPressed = false;
+    self.pickupPressed = false;
 
     self.velocity = { x = 0, y = 0 };
     self.rotation = 0;
@@ -21,6 +22,14 @@ Player = Class {
     self.type = "player";
   end
 };
+
+function Player:resetKeys()
+  self.leftPressed = false;
+  self.rightPressed = false;
+  self.upPressed = false;
+  self.downPressed = false;
+  self.pickupPressed = false;
+end
 
 function Player:update(dt)
   self:updateVelocity();
