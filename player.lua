@@ -16,7 +16,7 @@ Player = Class {
     self.pickUpPressed = false;
 
     self.velocity = { x = 0, y = 0 };
-    self.rotation = 0;
+    self.facing = { x = 0, y = 0 };
 
     self.active = true;
     self.type = "player";
@@ -67,17 +67,8 @@ end
 
 function Player:updateRotation()
   if self.velocity.x ~= 0 or self.velocity.y ~= 0 then
-    if self.velocity.y < 0 then
-      self.rotation = 3;
-    elseif self.velocity.y > 0 then
-      self.rotation = 1;
-    end
-
-    if self.velocity.x < 0 then
-      self.rotation = 2;
-    elseif self.velocity.x > 0 then
-      self.rotation = 0;
-    end
+    self.facing.x = self.velocity.x;
+    self.facing.y = self.velocity.y;
   end
 end
 

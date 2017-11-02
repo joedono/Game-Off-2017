@@ -30,7 +30,19 @@ function Ball:update(dt, player)
 end
 
 function Ball:followPlayer(player)
-  --TODO stay in front of the player
+  local dx = player.facing.x;
+  local dy = player.facing.y;
+
+  dx, dy = math.normalize(dx, dy);
+
+  dx = player.box.x + player.box.w / 2 + dx * 20;
+  dy = player.box.y + player.box.h / 2 + dy * 20;
+
+  dx = dx - BALL_SIZE;
+  dy = dy - BALL_SIZE;
+
+  self.box.x = dx;
+  self.box.y = dy;
 end
 
 function Ball:moveAndBounce(dt)
@@ -46,12 +58,19 @@ function Ball:moveAndBounce(dt)
   self.box.y = actualY;
 end
 
-function Ball:throw()
+function Ball:throw(player)
   if not self.pickedUp then
     return;
   end
 
-  --TODO throw ball in direction player is facing
+  local vx = player.facing.x;
+  local vy = player.facing.y;
+
+  vx, vy = math.normalize(vx, vy);
+
+  self.velocity.x = vx * BALL_SPEED;
+  self.velocity.y = vy * BALL_SPEED;
+  self.pickedUp = false;
 end
 
 function Ball:draw()

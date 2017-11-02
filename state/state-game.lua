@@ -54,7 +54,7 @@ function State_Game:keyreleased(key, scancode)
   end
 
   if key == KEY_PICKUP then
-    self.ball:throw();
+    self.ball:throw(self.player);
     self.player.pickUpPressed = false;
   end
 end
