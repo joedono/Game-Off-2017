@@ -1,0 +1,22 @@
+SCREEN_WIDTH = 800;
+SCREEN_HEIGHT = 600;
+
+KEY_LEFT = "left";
+KEY_RIGHT = "right";
+KEY_UP = "up";
+KEY_DOWN = "down";
+KEY_QUIT = "escape";
+
+PLAYER_WIDTH = 32;
+PLAYER_HEIGHT = 32;
+PLAYER_SPEED = 200;
+PLAYER_INITIAL_DIMENSIONS = {
+  x = 100,
+  y = 100,
+  w = PLAYER_WIDTH,
+  h = PLAYER_HEIGHT
+};
+
+-- Debug Variables
+DRAW_POSITIONS = true;
+DRAW_BOXES = false;
