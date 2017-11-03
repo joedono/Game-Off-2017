@@ -1,23 +1,21 @@
 # Game-Off-2017
 
 # Hi there!!
-You're here looking for JoeZ's entry into Game Off 2017. You're in the right place. Here you can follow my development and progress, look through the images and assets (when I get to them), and download and run the current version of my game.
+You're here looking for JoeZ's entry into [Game Off 2017](https://itch.io/jam/game-off-2017). You're in the right place. Here you can follow my development and progress, look through the images and assets (when I get to them), and download and run the current version of my game.
 
-Here is a link to the game jam where the game will eventually be uploaded at the end of November, 2017. https://itch.io/jam/game-off-2017
-
-When the game is all completed and packaged up, you'll be able to download it on http://itch.io/ or from this page through that "Releases" link up above.
+When the game is all completed and packaged up, you'll be able to download it on [itch.io](http://itch.io/) or from this page through that "Releases" link up above.
 
 ## Running the game
 
 Until the game is completed, here's how you can check out the "in progress" version of the game.
 
-1. Go here and download the appropriate version of the Love2D library for your operating system: http://love2d.org/. The game uses version 0.10.
+1. Download the appropriate version of [Love2D](http://love2d.org/) for your operating system. This game uses version 0.10.
 2. Click the green "Clone or Download" button in the upper right of this page.
 3. Click "Download Zip"
 4. Unzip the folder. You should now have a folder called Game-Off-2017-master with some lua files, a couple folders, a README file and a RUNME file.
 5. If you downloaded one of the installers during step 1 and are on Windows, just double-click the RUNME file to run the game.
 6. If you downloaded one of the zip files during step 1, unzip it, find the love.exe or love.app file, and drag-and-drop the Game-Off-2017-master folder onto the love.exe or love.app file.
-7. If all else fails, read the "Running Games" section here: http://love2d.org/wiki/Getting_Started
+7. If all else fails, read the "Running Games" section [here](http://love2d.org/wiki/Getting_Started)
 
 ## Controls
 
