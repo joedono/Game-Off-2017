@@ -3,6 +3,10 @@ playerCollision = function(player, other)
     return nil;
   end
 
+  if other.type == "wall" then
+    return "slide";
+  end
+
   if other.type == "ball" then
     if other.pickedUp then
       return nil;
@@ -18,5 +22,13 @@ playerCollision = function(player, other)
 end
 
 ballCollision = function(ball, other)
+  if not other.active then
+    return nil;
+  end
+
+  if other.type == "wall" then
+    return "bounce";
+  end
+
   return nil;
 end

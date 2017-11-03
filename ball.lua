@@ -54,6 +54,18 @@ function Ball:moveAndBounce(dt)
 
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, ballCollision);
 
+  for i = 1, len do
+    if cols[i].other.type == "wall" then
+      local vx = cols[i].bounce.x - cols[i].touch.x;
+      local vy = cols[i].bounce.y - cols[i].touch.y;
+
+      vx, vy = math.normalize(vx, vy);
+
+      self.velocity.x = vx * BALL_SPEED;
+      self.velocity.y = vy * BALL_SPEED;
+    end
+  end
+
   self.box.x = actualX;
   self.box.y = actualY;
 end

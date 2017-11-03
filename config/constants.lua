@@ -19,13 +19,15 @@ PLAYER_INITIAL_DIMENSIONS = {
 };
 
 BALL_SIZE = 8;
-BALL_SPEED = 150;
+BALL_SPEED = 400;
 BALL_INITIAL_DIMENSIONS = {
   x = 108,
   y = 208,
   w = BALL_SIZE * 2,
   h = BALL_SIZE * 2
 };
+
+WALL_DEPTH = 32;
 
 -- Debug Variables
 DRAW_POSITIONS = false;

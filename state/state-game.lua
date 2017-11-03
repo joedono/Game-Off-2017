@@ -1,6 +1,7 @@
 require "config/collisions";
 require "player";
 require "ball";
+require "wall";
 
 State_Game = {};
 
@@ -8,6 +9,14 @@ function State_Game:init()
   BumpWorld = Bump.newWorld(32);
   self.player = Player();
   self.ball = Ball();
+
+  self.walls = {
+    Wall(0, 0, SCREEN_WIDTH, WALL_DEPTH),
+    Wall(0, 0, WALL_DEPTH, SCREEN_HEIGHT),
+
+    Wall(0, SCREEN_HEIGHT - WALL_DEPTH, SCREEN_WIDTH, WALL_DEPTH),
+    Wall(SCREEN_WIDTH - WALL_DEPTH, 0, WALL_DEPTH, SCREEN_HEIGHT),
+  }
 end
 
 function State_Game:keypressed(key, scancode, isrepeat)
@@ -66,6 +75,9 @@ end
 
 function State_Game:draw()
   love.graphics.setColor(255, 255, 255);
+  for i, w in ipairs(self.walls) do
+    w:draw();
+  end
   self.player:draw();
   self.ball:draw();
 
@@ -73,5 +85,6 @@ function State_Game:draw()
     love.graphics.setColor(255, 255, 255);
     love.graphics.print("Player: " .. self.player.box.x .. ", " .. self.player.box.y, 32, 32);
     love.graphics.print("Ball: " .. self.ball.box.x .. ", " .. self.ball.box.y, 32, 48);
+    love.graphics.print("Ball Velocity: " .. self.ball.velocity.x .. ", " .. self.ball.velocity.y, 32, 64);
   end
 end
