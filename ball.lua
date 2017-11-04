@@ -11,6 +11,7 @@ Ball = Class {
 
     self.velocity = { x = 0, y = BALL_SPEED };
 
+    self.thrown = false;
     self.pickedUp = false;
     self.active = true;
     self.type = "ball";
@@ -83,10 +84,15 @@ function Ball:throw(player)
   self.velocity.x = vx * BALL_SPEED;
   self.velocity.y = vy * BALL_SPEED;
   self.pickedUp = false;
+  self.thrown = true;
 end
 
 function Ball:draw()
-  love.graphics.setColor(255, 0, 0);
+  if self.thrown then
+    love.graphics.setColor(255, 255, 0);
+  else
+    love.graphics.setColor(255, 0, 0);
+  end
   love.graphics.circle("fill", self.box.x + self.box.w / 2, self.box.y + self.box.h / 2, BALL_SIZE);
 
   if DRAW_BOXES then
