@@ -30,3 +30,5 @@ The theme this year is "throwback." I don't think I'm going to have a lot of tim
 I seem to be stuck on this food idea. I could have the person put together spaghetti and meatball meals. That can be put together in any order and needs pasta, meatballs, and sauce. 3 is a good number. I can also throw trash at the player. I just need to figure out how to ramp up the difficulty. I will either need hazards and some method of gradually preventing the player from building meals, or I can just add a flat timer and give them a star or score rating.
 
 Is there any other game type where I can use a catch-and-throw mechanic and still have it be fun? Maybe this is the part where I start playing around with some mechanics.
+
+Writing this down before I forget. I think the throwback theme would fit really well with a shoot ‘em up style game where you don’t shoot on your own. Instead, you can catch certain types of bullets and bombs and throw them back.
