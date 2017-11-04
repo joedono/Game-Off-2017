@@ -8,11 +8,13 @@ playerCollision = function(player, other)
   end
 
   if other.type == "ball" then
-    if other.pickedUp then
+    if other.pickedUp or player.holding then
       return nil;
     end
 
     if player.pickUpPressed then
+      player.caughtBall = other;
+      player.holding = true;
       other:pickUp();
       return "cross";
     end

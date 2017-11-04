@@ -14,6 +14,8 @@ Player = Class {
     self.velocity = { x = 0, y = 0 };
     self.facing = { x = 0, y = 0 };
 
+    self.holding = false;
+
     self.active = true;
     self.type = "player";
   end
@@ -68,10 +70,9 @@ function Player:updateVelocity()
 end
 
 function Player:updateRotation()
-  if self.velocity.x ~= 0 or self.velocity.y ~= 0 then
-    self.facing.x = self.velocity.x;
-    self.facing.y = self.velocity.y;
-  end
+  local fx, fy = math.normalize(self.velocity.x, self.velocity.y);
+  self.facing.x = fx;
+  self.facing.y = fy;
 end
 
 function Player:updatePosition(dt)

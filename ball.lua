@@ -1,15 +1,15 @@
 Ball = Class {
-  init = function(self)
+  init = function(self, x, y)
     self.box = {
-      x = BALL_INITIAL_DIMENSIONS.x,
-      y = BALL_INITIAL_DIMENSIONS.y,
+      x = x,
+      y = y,
       w = BALL_INITIAL_DIMENSIONS.w,
       h = BALL_INITIAL_DIMENSIONS.h
     };
 
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
 
-    self.velocity = { x = 0, y = 0 };
+    self.velocity = { x = 0, y = BALL_SPEED };
 
     self.pickedUp = false;
     self.active = true;
@@ -31,7 +31,7 @@ end
 
 function Ball:followPlayer(player)
   local dx = player.facing.x;
-  local dy = player.facing.y;
+  local dy = -1;
 
   dx, dy = math.normalize(dx, dy);
 
@@ -76,7 +76,7 @@ function Ball:throw(player)
   end
 
   local vx = player.facing.x;
-  local vy = player.facing.y;
+  local vy = -1;
 
   vx, vy = math.normalize(vx, vy);
 
