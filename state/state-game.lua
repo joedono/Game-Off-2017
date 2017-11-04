@@ -36,6 +36,10 @@ function State_Game:keypressed(key, scancode, isrepeat)
     self.player.downPressed = true;
   end
 
+  if key == KEY_RUN then
+    self.player.runPressed = true;
+  end
+
   if key == KEY_PICKUP then
     self.player.pickUpPressed = true;
   end
@@ -60,6 +64,10 @@ function State_Game:keyreleased(key, scancode)
 
   if key == KEY_DOWN then
     self.player.downPressed = false;
+  end
+
+  if key == KEY_RUN then
+    self.player.runPressed = false;
   end
 
   if key == KEY_PICKUP then

@@ -9,11 +9,7 @@ Player = Class {
 
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
 
-    self.leftPressed = false;
-    self.rightPressed = false;
-    self.upPressed = false;
-    self.downPressed = false;
-    self.pickUpPressed = false;
+    self:resetKeys();
 
     self.velocity = { x = 0, y = 0 };
     self.facing = { x = 0, y = 0 };
@@ -28,6 +24,7 @@ function Player:resetKeys()
   self.rightPressed = false;
   self.upPressed = false;
   self.downPressed = false;
+  self.runPressed = false;
   self.pickUpPressed = false;
 end
 
@@ -61,8 +58,13 @@ function Player:updateVelocity()
     vx, vy = math.normalize(vx, vy);
   end
 
-  self.velocity.x = vx * PLAYER_SPEED;
-  self.velocity.y = vy * PLAYER_SPEED;
+  if self.runPressed then
+    self.velocity.x = vx * PLAYER_RUN_SPEED;
+    self.velocity.y = vy * PLAYER_RUN_SPEED;
+  else
+    self.velocity.x = vx * PLAYER_SPEED;
+    self.velocity.y = vy * PLAYER_SPEED;
+  end
 end
 
 function Player:updateRotation()

@@ -5,12 +5,14 @@ KEY_LEFT = "left";
 KEY_RIGHT = "right";
 KEY_UP = "up";
 KEY_DOWN = "down";
+KEY_RUN = "lshift";
 KEY_QUIT = "escape";
 KEY_PICKUP = "z";
 
 PLAYER_WIDTH = 32;
 PLAYER_HEIGHT = 32;
 PLAYER_SPEED = 200;
+PLAYER_RUN_SPEED = 300;
 PLAYER_INITIAL_DIMENSIONS = {
   x = 100,
   y = 100,
