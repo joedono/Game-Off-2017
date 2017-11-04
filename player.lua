@@ -60,19 +60,16 @@ function Player:updateVelocity()
     vx, vy = math.normalize(vx, vy);
   end
 
-  if self.runPressed then
-    self.velocity.x = vx * PLAYER_RUN_SPEED;
-    self.velocity.y = vy * PLAYER_RUN_SPEED;
-  else
-    self.velocity.x = vx * PLAYER_SPEED;
-    self.velocity.y = vy * PLAYER_SPEED;
-  end
+  self.velocity.x = vx * PLAYER_SPEED;
+  self.velocity.y = vy * PLAYER_SPEED;
 end
 
 function Player:updateRotation()
-  local fx, fy = math.normalize(self.velocity.x, self.velocity.y);
-  self.facing.x = fx;
-  self.facing.y = fy;
+  if self.velocity.x ~= 0 or self.velocity.y ~= 0 then
+    local fx, fy = math.normalize(self.velocity.x, self.velocity.y);
+    self.facing.x = fx;
+    self.facing.y = fy;
+  end
 end
 
 function Player:updatePosition(dt)
