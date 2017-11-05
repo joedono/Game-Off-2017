@@ -1,6 +1,7 @@
 require "config/collisions";
 require "player";
 require "bullet";
+require "enemy";
 require "wall";
 
 State_Game = {};
@@ -8,6 +9,7 @@ State_Game = {};
 function State_Game:init()
   BumpWorld = Bump.newWorld(32);
   self.player = Player();
+  self.enemy = Enemy(100, 100);
   self.bullets = {};
 
   self.walls = {
@@ -63,9 +65,10 @@ function State_Game:leave()
 end
 
 function State_Game:spawnBullet()
-  local buffer = BULLET_SIZE + 5
-  local bx = love.math.random(WALL_DEPTH + buffer, SCREEN_WIDTH - WALL_DEPTH - buffer);
-  table.insert(self.bullets, Bullet(bx, WALL_DEPTH + buffer));
+  local bx = self.enemy.box.x + self.enemy.box.w / 2 - BULLET_SIZE;
+  local by = self.enemy.box.y + self.enemy.box.h / 2 - BULLET_SIZE;
+
+  table.insert(self.bullets, Bullet(bx, by));
 end
 
 function State_Game:keyreleased(key, scancode)
@@ -100,6 +103,7 @@ function State_Game:update(dt)
   local activeBullets = {};
 
   Timer.update(dt);
+  self.enemy:update(dt);
   self.player:update(dt);
   for index, bullet in ipairs(self.bullets) do
     bullet:update(dt, self.player);
@@ -117,6 +121,8 @@ function State_Game:draw()
   for i, w in ipairs(self.walls) do
     w:draw();
   end
+
+  self.enemy:draw();
   self.player:draw();
   for index, bullet in ipairs(self.bullets) do
     bullet:draw();
