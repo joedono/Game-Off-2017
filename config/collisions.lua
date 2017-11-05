@@ -7,7 +7,7 @@ playerCollision = function(player, other)
     return "slide";
   end
 
-  if other.type == "ball" then
+  if other.type == "bullet" then
     if other.pickedUp or player.holding then
       return nil;
     end
@@ -23,7 +23,7 @@ playerCollision = function(player, other)
   return nil;
 end
 
-ballCollision = function(ball, other)
+bulletCollision = function(ball, other)
   if not other.active then
     return nil;
   end

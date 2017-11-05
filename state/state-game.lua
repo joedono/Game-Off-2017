@@ -1,6 +1,6 @@
 require "config/collisions";
 require "player";
-require "ball";
+require "bullet";
 require "wall";
 
 State_Game = {};
@@ -8,7 +8,7 @@ State_Game = {};
 function State_Game:init()
   BumpWorld = Bump.newWorld(32);
   self.player = Player();
-  self.balls = {};
+  self.bullets = {};
 
   self.walls = {
     Wall(0, 0, SCREEN_WIDTH, WALL_DEPTH),
@@ -55,17 +55,17 @@ function State_Game:resume()
 end
 
 function State_Game:startTimer()
-  Timer.every(1, function() self:spawnBall() end);
+  Timer.every(1, function() self:spawnBullet() end);
 end
 
 function State_Game:leave()
   Timer.clear();
 end
 
-function State_Game:spawnBall()
-  local buffer = BALL_SIZE + 5
+function State_Game:spawnBullet()
+  local buffer = BULLET_SIZE + 5
   local bx = love.math.random(WALL_DEPTH + buffer, SCREEN_WIDTH - WALL_DEPTH - buffer);
-  table.insert(self.balls, Ball(bx, WALL_DEPTH + buffer));
+  table.insert(self.bullets, Bullet(bx, WALL_DEPTH + buffer));
 end
 
 function State_Game:keyreleased(key, scancode)
@@ -97,11 +97,19 @@ function State_Game:keyreleased(key, scancode)
 end
 
 function State_Game:update(dt)
+  local activeBullets = {};
+
   Timer.update(dt);
   self.player:update(dt);
-  for index, ball in ipairs(self.balls) do
-    ball:update(dt, self.player);
+  for index, bullet in ipairs(self.bullets) do
+    bullet:update(dt, self.player);
+
+    if bullet.active then
+      table.insert(activeBullets, bullet);
+    end
   end
+
+  self.bullets = activeBullets;
 end
 
 function State_Game:draw()
@@ -110,14 +118,12 @@ function State_Game:draw()
     w:draw();
   end
   self.player:draw();
-  for index, ball in ipairs(self.balls) do
-    ball:draw();
+  for index, bullet in ipairs(self.bullets) do
+    bullet:draw();
   end
 
   if DRAW_POSITIONS then
     love.graphics.setColor(255, 255, 255);
     love.graphics.print("Player: " .. self.player.box.x .. ", " .. self.player.box.y, 32, 32);
-    love.graphics.print("Ball: " .. self.ball.box.x .. ", " .. self.ball.box.y, 32, 48);
-    love.graphics.print("Ball Velocity: " .. self.ball.velocity.x .. ", " .. self.ball.velocity.y, 32, 64);
   end
 end
