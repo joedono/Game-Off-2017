@@ -20,6 +20,6 @@ function Wall:draw()
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);
-    love.graphics.rectangle("line", self.box.x, self.box.y, self.box.w, self.box.h);
+    love.graphics.rectangle("line", BumpWorld:getRect(self));
   end
 end

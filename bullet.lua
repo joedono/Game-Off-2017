@@ -41,6 +41,8 @@ function Bullet:followPlayer(player)
   dx = dx - BULLET_SIZE;
   dy = dy - BULLET_SIZE - 20;
 
+  BumpWorld:update(self, dx, dy);
+
   self.box.x = dx;
   self.box.y = dy;
 end
@@ -55,7 +57,7 @@ function Bullet:moveAndBounce(dt)
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, bulletCollision);
 
   for i = 1, len do
-    if cols[i].other.type == "wall" then
+    if cols[i].other.type == "wall" or cols[i].other.type == "enemy" then
       self.active = false;
     end
   end
@@ -85,10 +87,10 @@ function Bullet:draw()
   else
     love.graphics.setColor(255, 0, 0);
   end
-  love.graphics.circle("fill", self.box.x + self.box.w / 2, self.box.y + self.box.h / 2, BULLET_SIZE);
+  love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);
-    love.graphics.rectangle("line", self.box.x, self.box.y, self.box.w, self.box.h);
+    love.graphics.rectangle("line", BumpWorld:getRect(self));
   end
 end

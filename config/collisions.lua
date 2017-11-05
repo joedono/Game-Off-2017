@@ -8,24 +8,19 @@ playerCollision = function(player, other)
   end
 
   if other.type == "bullet" then
-    if other.pickedUp or player.holding then
-      return nil;
-    end
-
-    if player.pickUpPressed then
-      player.caughtBall = other;
-      player.holding = true;
-      other:pickUp();
-      return "cross";
-    end
+    return "cross";
   end
 
   return nil;
 end
 
-bulletCollision = function(ball, other)
+bulletCollision = function(bullet, other)
   if not other.active then
     return nil;
+  end
+
+  if other.type == "enemy" and bullet.thrown then
+    return "cross";
   end
 
   if other.type == "wall" then

@@ -131,5 +131,6 @@ function State_Game:draw()
   if DRAW_POSITIONS then
     love.graphics.setColor(255, 255, 255);
     love.graphics.print("Player: " .. self.player.box.x .. ", " .. self.player.box.y, 32, 32);
+    love.graphics.print("Enemy Timer: " .. self.enemy.moveTimer, 32, 48);
   end
 end

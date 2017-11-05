@@ -81,6 +81,16 @@ function Player:updatePosition(dt)
 
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, playerCollision);
 
+  for i = 1, len do
+    if cols[i].other.type == "bullet" then
+      if self.pickUpPressed and not cols[i].other.pickedUp and not self.holding then
+        self.caughtBall = cols[i].other;
+        self.holding = true;
+        cols[i].other:pickUp();
+      end
+    end
+  end
+
   self.box.x = actualX;
   self.box.y = actualY;
 end
@@ -91,6 +101,6 @@ function Player:draw()
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);
-    love.graphics.rectangle("line", self.box.x, self.box.y, self.box.w, self.box.h);
+    love.graphics.rectangle("line", BumpWorld:getRect(self));
   end
 end
