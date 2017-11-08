@@ -6,14 +6,17 @@ ManagerEnemy = Class {
   init = function(self, weaponManager)
     self.weaponManager = weaponManager;
     self.enemies = {};
-
-    table.insert(self.enemies, EnemySideways(100, 1, self.weaponManager));
-    table.insert(self.enemies, EnemySideways(150, -1, self.weaponManager));
   end
 };
 
-function ManagerEnemy:spawnEnemy(bx, by, type)
-
+function ManagerEnemy:spawnEnemy(enemy)
+  if enemy.type == "straight" then
+    table.insert(self.enemies, EnemyStraight(enemy.x, enemy.y, self.weaponManager));
+  elseif enemy.type == "sideways" then
+    table.insert(self.enemies, EnemySideways(enemy.x, enemy.y, self.weaponManager));
+  elseif enemy.type == "pendulum" then
+    table.insert(self.enemies, EnemyPendulum(enemy.x, enemy.y, self.weaponManager));
+  end
 end
 
 function ManagerEnemy:update(dt)

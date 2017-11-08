@@ -1,5 +1,5 @@
 EnemySideways = Class {
-  init = function(self, y, direction, weaponManager)
+  init = function(self, direction, y, weaponManager)
     self.box = {
       x = 0,
       y = y,

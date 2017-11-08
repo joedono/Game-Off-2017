@@ -2,6 +2,7 @@ require "collisions";
 require "player";
 require "weapon/manager-weapon";
 require "enemy/manager-enemy";
+require "asset/config/game-timeline";
 
 State_Game = {};
 
@@ -10,6 +11,10 @@ function State_Game:init()
   self.player = Player();
   self.weaponManager = ManagerWeapon(self.player);
   self.enemyManager = ManagerEnemy(self.weaponManager);
+
+  self.timePassed = 0;
+  self.timelineIndex = 1;
+  self.lastTime = 0;
 end
 
 function State_Game:enter()
@@ -75,11 +80,28 @@ function State_Game:keyreleased(key, scancode)
 end
 
 function State_Game:update(dt)
-  local activeBullets = {};
-
+  self:updateTimeline(dt);
   self.enemyManager:update(dt);
   self.player:update(dt);
   self.weaponManager:update(dt);
+end
+
+function State_Game:updateTimeline(dt)
+  self.timePassed = self.timePassed + dt;
+
+  if(GAME_TIMELINE[self.timelineIndex]) then
+    if(self.lastTime + self.timePassed > self.lastTime + GAME_TIMELINE[self.timelineIndex].time) then
+      local enemies = GAME_TIMELINE[self.timelineIndex].enemies;
+
+      for index, enemy in ipairs(enemies) do
+        self.enemyManager:spawnEnemy(enemy);
+      end
+
+      self.lastTime = self.lastTime + GAME_TIMELINE[self.timelineIndex].time;
+      self.timelineIndex = self.timelineIndex + 1;
+      self.timePassed = 0;
+    end
+  end
 end
 
 function State_Game:draw()
