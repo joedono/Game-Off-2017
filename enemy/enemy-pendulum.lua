@@ -1,10 +1,10 @@
-Enemy = Class {
+EnemyPendulum = Class {
   init = function(self, x, y, bulletManager)
     self.box = {
       x = x,
       y = y,
-      w = ENEMY_INITIAL_DIMENSIONS.w,
-      h = ENEMY_INITIAL_DIMENSIONS.h
+      w = PENDULUM_ENEMY_INITIAL_DIMENSIONS.w,
+      h = PENDULUM_ENEMY_INITIAL_DIMENSIONS.h
     };
 
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
@@ -20,7 +20,7 @@ Enemy = Class {
   end
 };
 
-function Enemy:fireBullets()
+function EnemyPendulum:fireBullets()
   self.fireTimer:script(function(wait)
     for i = 1, 5 do
       self:fireBullet(i);
@@ -29,7 +29,7 @@ function Enemy:fireBullets()
   end);
 end
 
-function Enemy:fireBullet(index)
+function EnemyPendulum:fireBullet(index)
   local type = "bullet";
   if index == 5 then
     type = "bulletPickup";
@@ -40,20 +40,29 @@ function Enemy:fireBullet(index)
   self.bulletManager:spawnBullet(bx, by, type);
 end
 
-function Enemy:update(dt)
+function EnemyPendulum:update(dt)
   if not self.active then
     return;
   end
 
   self.fireTimer:update(dt);
   self.moveTimer = self.moveTimer + dt;
-  self.box.x = cerp(ENEMY_LEFT_LIMIT, ENEMY_RIGHT_LIMIT, self.moveTimer / ENEMY_MOVEMENT_RATE);
+  local dx = cerp(PENDULUM_ENEMY_LEFT_LIMIT, PENDULUM_ENEMY_RIGHT_LIMIT, self.moveTimer / PENDULUM_ENEMY_MOVEMENT_RATE);
+  local dy = self.box.y + PENDULUM_ENEMY_SPEED * dt;
 
-  if self.moveTimer > ENEMY_MOVEMENT_RATE * 2 then
+  if self.moveTimer > PENDULUM_ENEMY_MOVEMENT_RATE * 2 then
     self.moveTimer = 0;
   end
 
-  local actualX, actualY, cols, len = BumpWorld:move(self, self.box.x, self.box.y, enemyCollision);
+  local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, enemyCollision);
+
+  self.box.x = actualX;
+  self.box.y = actualY;
+
+  if self.box.y > SCREEN_HEIGHT then
+    self.active = false;
+    return;
+  end
 
   for i = 1, len do
     if cols[i].other.type == "bulletPickup" and cols[i].other.thrown then
@@ -63,7 +72,7 @@ function Enemy:update(dt)
   end
 end
 
-function Enemy:draw()
+function EnemyPendulum:draw()
   if not self.active then
     return;
   end

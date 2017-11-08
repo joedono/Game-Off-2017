@@ -1,11 +1,11 @@
-require "enemy/enemy";
+require "enemy/enemy-pendulum";
 
 EnemyManager = Class {
   init = function(self, bulletManager)
     self.bulletManager = bulletManager;
     self.enemies = {};
 
-    table.insert(self.enemies, Enemy(100, 100, self.bulletManager));
+    table.insert(self.enemies, EnemyPendulum(100, 0, self.bulletManager));
   end
 };
 
