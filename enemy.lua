@@ -56,7 +56,7 @@ function Enemy:update(dt)
   local actualX, actualY, cols, len = BumpWorld:move(self, self.box.x, self.box.y, enemyCollision);
 
   for i = 1, len do
-    if cols[i].other.type == "bulletPickup"and cols[i].other.thrown then
+    if cols[i].other.type == "bulletPickup" and cols[i].other.thrown then
       self.active = false;
       cols[i].other.active = false;
     end

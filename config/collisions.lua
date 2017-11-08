@@ -27,7 +27,7 @@ enemyCollision = function(enemy, other)
     return nil;
   end
 
-  if other.type == "bulletPickup" and other.thrown then
+  if other.type == "bulletPickup" then
     return "touch";
   end
 
