@@ -13,7 +13,7 @@ EnemyStraight = Class {
     self.bulletIndex = 0;
     self.bulletManager = bulletManager;
 
-    self.fireTimer:every(1.5, function() self:fireBullet() end);
+    self.fireTimer:every(1, function() self:fireBullet() end);
 
     self.active = true;
     self.type = "enemy";
@@ -23,7 +23,7 @@ EnemyStraight = Class {
 function EnemyStraight:fireBullet()
   local type = "bullet";
   self.bulletIndex = self.bulletIndex + 1;
-  if self.bulletIndex % 5 == 4 then
+  if self.bulletIndex % 2 == 1 then
     type = "bulletPickup";
   end
 
