@@ -41,18 +41,33 @@ function Enemy:fireBullet(index)
 end
 
 function Enemy:update(dt)
+  if not self.active then
+    return;
+  end
+
   self.fireTimer:update(dt);
   self.moveTimer = self.moveTimer + dt;
   self.box.x = cerp(ENEMY_LEFT_LIMIT, ENEMY_RIGHT_LIMIT, self.moveTimer / ENEMY_MOVEMENT_RATE);
 
-  BumpWorld:update(self, self.box.x, self.box.y);
-
   if self.moveTimer > ENEMY_MOVEMENT_RATE * 2 then
     self.moveTimer = 0;
+  end
+
+  local actualX, actualY, cols, len = BumpWorld:move(self, self.box.x, self.box.y, enemyCollision);
+
+  for i = 1, len do
+    if cols[i].other.type == "bulletPickup"and cols[i].other.thrown then
+      self.active = false;
+      cols[i].other.active = false;
+    end
   end
 end
 
 function Enemy:draw()
+  if not self.active then
+    return;
+  end
+
   love.graphics.setColor(255, 0, 0);
   love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
 

@@ -31,6 +31,10 @@ function Player:resetKeys()
 end
 
 function Player:update(dt)
+  if not self.active then
+    return;
+  end
+
   self:updateVelocity();
   self:updateRotation();
   self:updatePosition(dt);
@@ -87,7 +91,13 @@ function Player:updatePosition(dt)
         self.caughtBullet = cols[i].other;
         self.holding = true;
         cols[i].other:pickUp();
+      elseif not cols[i].other.thrown and not cols[i].other.pickedUp then
+        self.active = false;
+        cols[i].other.active = false;
       end
+    elseif cols[i].other.type == "bullet" then
+      self.active = false;
+      cols[i].other.active = false;
     end
   end
 
@@ -96,6 +106,10 @@ function Player:updatePosition(dt)
 end
 
 function Player:draw()
+  if not self.active then
+    return;
+  end
+
   love.graphics.setColor(0, 0, 255);
   love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
 

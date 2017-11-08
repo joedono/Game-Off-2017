@@ -29,3 +29,15 @@ bulletCollision = function(bullet, other)
 
   return nil;
 end
+
+enemyCollision = function(enemy, other)
+  if not other.active then
+    return nil;
+  end
+
+  if other.type == "bulletPickup" and other.thrown then
+    return "touch";
+  end
+
+  return nil;
+end
