@@ -4,7 +4,7 @@ Timer = require "lib/hump/timer";
 Bump = require "lib/bump";
 
 require "lib/general";
-require "config/constants";
+require "constants";
 
 require "state/state-game";
 
