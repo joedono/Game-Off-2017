@@ -1,6 +1,6 @@
 require "config/collisions";
 require "player";
-require "bullet";
+require "bullet-manager";
 require "enemy";
 require "wall";
 
@@ -9,9 +9,8 @@ State_Game = {};
 function State_Game:init()
   BumpWorld = Bump.newWorld(32);
   self.player = Player();
-  self.enemy = Enemy(100, 100);
-  self.bullets = {};
-  self.bulletCounter = 0;
+  self.bulletManager = BulletManager(self.player);
+  self.enemy = Enemy(100, 100, self.bulletManager);
 
   self.walls = {
     Wall(0, 0, SCREEN_WIDTH, WALL_DEPTH),
@@ -23,7 +22,7 @@ function State_Game:init()
 end
 
 function State_Game:enter()
-  self:startTimer();
+
 end
 
 function State_Game:keypressed(key, scancode, isrepeat)
@@ -54,29 +53,6 @@ end
 
 function State_Game:resume()
   self.player:resetKeys();
-  self:startTimer();
-end
-
-function State_Game:startTimer()
-  Timer.every(1, function() self:spawnBullet() end);
-end
-
-function State_Game:leave()
-  Timer.clear();
-end
-
-function State_Game:spawnBullet()
-  self.bulletCounter = self.bulletCounter + 1;
-  local type = "bullet";
-
-  if self.bulletCounter % 5 == 0 then
-    type = "bulletPickup";
-  end
-
-  local bx = self.enemy.box.x + self.enemy.box.w / 2 - BULLET_SIZE;
-  local by = self.enemy.box.y + self.enemy.box.h / 2 - BULLET_SIZE;
-
-  table.insert(self.bullets, Bullet(bx, by, type));
 end
 
 function State_Game:keyreleased(key, scancode)
@@ -100,8 +76,8 @@ function State_Game:keyreleased(key, scancode)
     self.player.runPressed = false;
   end
 
-  if key == KEY_PICKUP and self.player.caughtBall ~= nil then
-    self.player.caughtBall:throw(self.player);
+  if key == KEY_PICKUP and self.player.caughtBullet ~= nil then
+    self.player.caughtBullet:throw(self.player);
     self.player.holding = false;
     self.player.pickUpPressed = false;
   end
@@ -110,18 +86,9 @@ end
 function State_Game:update(dt)
   local activeBullets = {};
 
-  Timer.update(dt);
   self.enemy:update(dt);
   self.player:update(dt);
-  for index, bullet in ipairs(self.bullets) do
-    bullet:update(dt, self.player);
-
-    if bullet.active then
-      table.insert(activeBullets, bullet);
-    end
-  end
-
-  self.bullets = activeBullets;
+  self.bulletManager:update(dt);
 end
 
 function State_Game:draw()
@@ -132,9 +99,7 @@ function State_Game:draw()
 
   self.enemy:draw();
   self.player:draw();
-  for index, bullet in ipairs(self.bullets) do
-    bullet:draw();
-  end
+  self.bulletManager:draw();
 
   if DRAW_POSITIONS then
     love.graphics.setColor(255, 255, 255);

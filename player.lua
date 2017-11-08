@@ -84,7 +84,7 @@ function Player:updatePosition(dt)
   for i = 1, len do
     if cols[i].other.type == "bulletPickup" then
       if self.pickUpPressed and not cols[i].other.pickedUp and not self.holding then
-        self.caughtBall = cols[i].other;
+        self.caughtBullet = cols[i].other;
         self.holding = true;
         cols[i].other:pickUp();
       end

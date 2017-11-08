@@ -1,5 +1,5 @@
 Enemy = Class {
-  init = function(self, x, y)
+  init = function(self, x, y, bulletManager)
     self.box = {
       x = x,
       y = y,
@@ -9,14 +9,39 @@ Enemy = Class {
 
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
 
+    self.fireTimer = Timer.new();
+    self.bulletManager = bulletManager;
     self.moveTimer = 0;
+
+    self.fireTimer:every(2.5, function() self:fireBullets() end);
 
     self.active = true;
     self.type = "enemy";
   end
 };
 
+function Enemy:fireBullets()
+  self.fireTimer:script(function(wait)
+    for i = 1, 5 do
+      self:fireBullet(i);
+      wait(0.1);
+    end
+  end);
+end
+
+function Enemy:fireBullet(index)
+  local type = "bullet";
+  if index == 5 then
+    type = "bulletPickup";
+  end
+
+  local bx = self.box.x + self.box.w / 2 - BULLET_SIZE;
+  local by = self.box.y + self.box.h / 2 - BULLET_SIZE;
+  self.bulletManager:spawnBullet(bx, by, type);
+end
+
 function Enemy:update(dt)
+  self.fireTimer:update(dt);
   self.moveTimer = self.moveTimer + dt;
   self.box.x = cerp(ENEMY_LEFT_LIMIT, ENEMY_RIGHT_LIMIT, self.moveTimer / ENEMY_MOVEMENT_RATE);
 
