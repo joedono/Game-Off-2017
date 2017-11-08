@@ -1,6 +1,6 @@
 require "config/collisions";
 require "player";
-require "bullet-manager";
+require "weapon/bullet-manager";
 require "enemy";
 
 State_Game = {};

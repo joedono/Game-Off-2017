@@ -1,4 +1,4 @@
-require "bullet";
+require "weapon/bullet";
 
 BulletManager = Class {
   init = function(self, player)
