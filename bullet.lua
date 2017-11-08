@@ -30,7 +30,7 @@ function Bullet:update(dt, player)
   if self.pickedUp then
     self:followPlayer(player);
   else
-    self:moveAndBounce(dt);
+    self:updatePosition(dt);
   end
 end
 
@@ -47,7 +47,7 @@ function Bullet:followPlayer(player)
   self.box.y = dy;
 end
 
-function Bullet:moveAndBounce(dt)
+function Bullet:updatePosition(dt)
   local dx = self.box.x + self.velocity.x * dt;
   local dy = self.box.y + self.velocity.y * dt;
 
@@ -57,13 +57,17 @@ function Bullet:moveAndBounce(dt)
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, bulletCollision);
 
   for i = 1, len do
-    if cols[i].other.type == "wall" or cols[i].other.type == "enemy" then
+    if cols[i].other.type == "enemy" then
       self.active = false;
     end
   end
 
   self.box.x = actualX;
   self.box.y = actualY;
+
+  if self.box.x < 0 - BULLET_SIZE or self.box.x > SCREEN_WIDTH or self.box.y < 0 - BULLET_SIZE or self.box.y > SCREEN_HEIGHT then
+    self.active = false;
+  end
 end
 
 function Bullet:throw(player)

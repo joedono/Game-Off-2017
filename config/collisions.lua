@@ -3,10 +3,6 @@ playerCollision = function(player, other)
     return nil;
   end
 
-  if other.type == "wall" then
-    return "slide";
-  end
-
   if other.type == "bullet" or other.type == "bulletPickup" then
     return "cross";
   end
@@ -21,10 +17,6 @@ bulletCollision = function(bullet, other)
 
   if other.type == "enemy" and bullet.thrown then
     return "cross";
-  end
-
-  if other.type == "wall" then
-    return "bounce";
   end
 
   return nil;

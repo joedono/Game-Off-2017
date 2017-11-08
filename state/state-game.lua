@@ -2,7 +2,6 @@ require "config/collisions";
 require "player";
 require "bullet-manager";
 require "enemy";
-require "wall";
 
 State_Game = {};
 
@@ -11,14 +10,6 @@ function State_Game:init()
   self.player = Player();
   self.bulletManager = BulletManager(self.player);
   self.enemy = Enemy(100, 100, self.bulletManager);
-
-  self.walls = {
-    Wall(0, 0, SCREEN_WIDTH, WALL_DEPTH),
-    Wall(0, 0, WALL_DEPTH, SCREEN_HEIGHT),
-
-    Wall(0, SCREEN_HEIGHT - WALL_DEPTH, SCREEN_WIDTH, WALL_DEPTH),
-    Wall(SCREEN_WIDTH - WALL_DEPTH, 0, WALL_DEPTH, SCREEN_HEIGHT)
-  }
 end
 
 function State_Game:enter()
@@ -93,9 +84,6 @@ end
 
 function State_Game:draw()
   love.graphics.setColor(255, 255, 255);
-  for i, w in ipairs(self.walls) do
-    w:draw();
-  end
 
   self.enemy:draw();
   self.player:draw();
