@@ -1,3 +1,4 @@
+require "enemy/enemy-straight";
 require "enemy/enemy-pendulum";
 
 EnemyManager = Class {
@@ -5,7 +6,7 @@ EnemyManager = Class {
     self.bulletManager = bulletManager;
     self.enemies = {};
 
-    table.insert(self.enemies, EnemyPendulum(100, 0, self.bulletManager));
+    table.insert(self.enemies, EnemyStraight(100, 0, self.bulletManager));
   end
 };
 

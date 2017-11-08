@@ -53,12 +53,6 @@ function Bullet:updatePosition(dt)
 
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, bulletCollision);
 
-  for i = 1, len do
-    if cols[i].other.type == "enemy" and self.thrown then
-      self.active = false;
-    end
-  end
-
   self.box.x = actualX;
   self.box.y = actualY;
 
