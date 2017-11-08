@@ -1,20 +1,20 @@
 require "enemy/enemy-straight";
 require "enemy/enemy-pendulum";
 
-EnemyManager = Class {
-  init = function(self, bulletManager)
-    self.bulletManager = bulletManager;
+ManagerEnemy = Class {
+  init = function(self, weaponManager)
+    self.weaponManager = weaponManager;
     self.enemies = {};
 
-    table.insert(self.enemies, EnemyStraight(100, 0, self.bulletManager));
+    table.insert(self.enemies, EnemyStraight(100, 0, self.weaponManager));
   end
 };
 
-function EnemyManager:spawnEnemy(bx, by, type)
+function ManagerEnemy:spawnEnemy(bx, by, type)
 
 end
 
-function EnemyManager:update(dt)
+function ManagerEnemy:update(dt)
   local activeEnemies = {};
 
   for index, enemy in ipairs(self.enemies) do
@@ -28,7 +28,7 @@ function EnemyManager:update(dt)
   self.enemies = activeEnemies;
 end
 
-function EnemyManager:draw()
+function ManagerEnemy:draw()
   for index, enemy in ipairs(self.enemies) do
     enemy:draw();
   end

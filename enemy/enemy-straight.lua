@@ -1,5 +1,5 @@
 EnemyStraight = Class {
-  init = function(self, x, y, bulletManager)
+  init = function(self, x, y, weaponManager)
     self.box = {
       x = x,
       y = y,
@@ -11,7 +11,7 @@ EnemyStraight = Class {
 
     self.fireTimer = Timer.new();
     self.bulletIndex = 0;
-    self.bulletManager = bulletManager;
+    self.weaponManager = weaponManager;
 
     self.fireTimer:every(1, function() self:fireBullet() end);
 
@@ -29,7 +29,7 @@ function EnemyStraight:fireBullet()
 
   local bx = self.box.x + self.box.w / 2 - BULLET_SIZE;
   local by = self.box.y + self.box.h / 2 - BULLET_SIZE;
-  self.bulletManager:spawnBullet(bx, by, type);
+  self.weaponManager:spawnBullet(bx, by, type);
 end
 
 function EnemyStraight:update(dt)

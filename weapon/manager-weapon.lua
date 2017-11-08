@@ -1,17 +1,17 @@
-require "weapon/bullet";
+require "weapon/weapon-bullet";
 
-BulletManager = Class {
+ManagerWeapon = Class {
   init = function(self, player)
     self.bullets = {};
     self.player = player;
   end
 };
 
-function BulletManager:spawnBullet(bx, by, type)
+function ManagerWeapon:spawnBullet(bx, by, type)
   table.insert(self.bullets, Bullet(bx, by, type));
 end
 
-function BulletManager:update(dt)
+function ManagerWeapon:update(dt)
   local activeBullets = {};
 
   for index, bullet in ipairs(self.bullets) do
@@ -25,7 +25,7 @@ function BulletManager:update(dt)
   self.bullets = activeBullets;
 end
 
-function BulletManager:draw()
+function ManagerWeapon:draw()
   for index, bullet in ipairs(self.bullets) do
     bullet:draw();
   end

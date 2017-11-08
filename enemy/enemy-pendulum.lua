@@ -1,5 +1,5 @@
 EnemyPendulum = Class {
-  init = function(self, x, y, bulletManager)
+  init = function(self, x, y, weaponManager)
     self.box = {
       x = x,
       y = y,
@@ -10,7 +10,7 @@ EnemyPendulum = Class {
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
 
     self.fireTimer = Timer.new();
-    self.bulletManager = bulletManager;
+    self.weaponManager = weaponManager;
     self.moveTimer = 0;
 
     self.fireTimer:every(2.5, function() self:fireBullets() end);
@@ -37,7 +37,7 @@ function EnemyPendulum:fireBullet(index)
 
   local bx = self.box.x + self.box.w / 2 - BULLET_SIZE;
   local by = self.box.y + self.box.h / 2 - BULLET_SIZE;
-  self.bulletManager:spawnBullet(bx, by, type);
+  self.weaponManager:spawnBullet(bx, by, type);
 end
 
 function EnemyPendulum:update(dt)
