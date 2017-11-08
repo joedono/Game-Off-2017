@@ -1,5 +1,5 @@
 Bullet = Class {
-  init = function(self, x, y)
+  init = function(self, x, y, type)
     self.box = {
       x = x,
       y = y,
@@ -14,7 +14,7 @@ Bullet = Class {
     self.thrown = false;
     self.pickedUp = false;
     self.active = true;
-    self.type = "bullet";
+    self.type = type;
   end
 };
 
@@ -82,7 +82,7 @@ function Bullet:draw()
     return;
   end
 
-  if self.thrown then
+  if self.type == "bulletPickup" then
     love.graphics.setColor(255, 255, 0);
   else
     love.graphics.setColor(255, 0, 0);

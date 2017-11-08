@@ -11,6 +11,7 @@ function State_Game:init()
   self.player = Player();
   self.enemy = Enemy(100, 100);
   self.bullets = {};
+  self.bulletCounter = 0;
 
   self.walls = {
     Wall(0, 0, SCREEN_WIDTH, WALL_DEPTH),
@@ -65,10 +66,17 @@ function State_Game:leave()
 end
 
 function State_Game:spawnBullet()
+  self.bulletCounter = self.bulletCounter + 1;
+  local type = "bullet";
+
+  if self.bulletCounter % 5 == 0 then
+    type = "bulletPickup";
+  end
+
   local bx = self.enemy.box.x + self.enemy.box.w / 2 - BULLET_SIZE;
   local by = self.enemy.box.y + self.enemy.box.h / 2 - BULLET_SIZE;
 
-  table.insert(self.bullets, Bullet(bx, by));
+  table.insert(self.bullets, Bullet(bx, by, type));
 end
 
 function State_Game:keyreleased(key, scancode)

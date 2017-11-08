@@ -7,7 +7,7 @@ playerCollision = function(player, other)
     return "slide";
   end
 
-  if other.type == "bullet" then
+  if other.type == "bullet" or other.type == "bulletPickup" then
     return "cross";
   end
 
