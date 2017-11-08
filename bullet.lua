@@ -51,9 +51,6 @@ function Bullet:updatePosition(dt)
   local dx = self.box.x + self.velocity.x * dt;
   local dy = self.box.y + self.velocity.y * dt;
 
-  dx = math.clamp(dx, 0, SCREEN_WIDTH - BULLET_SIZE * 2);
-  dy = math.clamp(dy, 0, SCREEN_HEIGHT - BULLET_SIZE * 2);
-
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, bulletCollision);
 
   for i = 1, len do
