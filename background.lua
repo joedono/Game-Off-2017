@@ -19,3 +19,7 @@ function Background:draw()
     love.graphics.draw(self.image, 0, p);
   end
 end
+
+function dummy()
+
+end
