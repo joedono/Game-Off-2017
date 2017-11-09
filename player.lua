@@ -86,17 +86,16 @@ function Player:updatePosition(dt)
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, playerCollision);
 
   for i = 1, len do
-    if cols[i].other.type == "bulletPickup" then
+    if cols[i].other.type == "bullet-pickup" then
       if self.pickUpPressed and not cols[i].other.pickedUp and not self.holding then
         self.caughtBullet = cols[i].other;
         self.holding = true;
         cols[i].other:pickUp();
-      elseif not cols[i].other.thrown and not cols[i].other.pickedUp then
-        self.active = false;
-        cols[i].other.active = false;
       end
     elseif cols[i].other.type == "bullet" then
-      self.active = false;
+      if KILL_PLAYER then
+        self.active = false;
+      end
       cols[i].other.active = false;
     end
   end

@@ -24,7 +24,7 @@ function EnemyStraight:fireBullet()
   local type = "bullet";
   self.bulletIndex = self.bulletIndex + 1;
   if self.bulletIndex % 2 == 1 then
-    type = "bulletPickup";
+    type = "bullet-pickup";
   end
 
   local bx = self.box.x + self.box.w / 2 - BULLET_SIZE;
@@ -51,7 +51,7 @@ function EnemyStraight:update(dt)
   end
 
   for i = 1, len do
-    if cols[i].other.type == "bulletPickup" and cols[i].other.thrown then
+    if cols[i].other.type == "bullet-pickup" and cols[i].other.thrown then
       self.active = false;
       cols[i].other.active = false;
     end
