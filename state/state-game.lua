@@ -3,6 +3,7 @@ require "player";
 require "weapon/manager-weapon";
 require "enemy/manager-enemy";
 require "asset/config/game-timeline";
+require "background";
 
 State_Game = {};
 
@@ -11,6 +12,7 @@ function State_Game:init()
   self.player = Player();
   self.weaponManager = ManagerWeapon(self.player);
   self.enemyManager = ManagerEnemy(self.weaponManager);
+  self.background = Background();
 
   self.timePassed = 0;
   self.timelineIndex = 1;
@@ -81,6 +83,7 @@ end
 
 function State_Game:update(dt)
   self:updateTimeline(dt);
+  self.background:update(dt);
   self.enemyManager:update(dt);
   self.player:update(dt);
   self.weaponManager:update(dt);
@@ -107,6 +110,7 @@ end
 function State_Game:draw()
   love.graphics.setColor(255, 255, 255);
 
+  self.background:draw();
   self.enemyManager:draw();
   self.player:draw();
   self.weaponManager:draw();
