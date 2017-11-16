@@ -61,7 +61,7 @@ function BulletPickup:updatePosition(dt)
   end
 end
 
-function BulletPickup:throw(player)
+function BulletPickup:throwStraight()
   if not self.pickedUp then
     return;
   end

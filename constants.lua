@@ -7,7 +7,7 @@ KEY_UP = "up";
 KEY_DOWN = "down";
 KEY_RUN = "lshift";
 KEY_QUIT = "escape";
-KEY_PICKUP = "z";
+KEY_FIRE_STREAM = "z";
 
 BACKGROUND_SPEED = 100;
 

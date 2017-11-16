@@ -24,6 +24,8 @@ Player = Class {
     self.facing = { x = 0, y = 0 };
     self.caughtBullets = {};
 
+    self.streamTimer = Timer.new();
+
     self.active = true;
     self.type = "player";
   end
@@ -35,10 +37,27 @@ function Player:resetKeys()
   self.upPressed = false;
   self.downPressed = false;
   self.runPressed = false;
+
+  self.streaming = false;
 end
 
 function Player:fireStream()
+  if not self.streaming then
+    local caughtBullets = self.caughtBullets;
+    self.caughtBullets = {};
 
+    self.streamTimer:script(function(wait)
+      self.streaming = true;
+
+      while #caughtBullets > 0 do
+        caughtBullets[1]:throwStraight();
+        table.remove(caughtBullets, 1);
+        wait(0.2);
+      end
+
+      self.streaming = false;
+    end);
+  end
 end
 
 function Player:update(dt)
@@ -46,6 +65,7 @@ function Player:update(dt)
     return;
   end
 
+  self.streamTimer:update(dt);
   self:updateVelocity();
   self:updateRotation();
   self:updatePosition(dt);
@@ -114,7 +134,7 @@ function Player:updatePosition(dt)
   local actualX, actualY, cols, len = BumpWorld:move(self.pickupBox, pux, puy, pickupBoxCollision);
 
   for i = 1, len do
-    if cols[i].other.type == "bullet-pickup" and not cols[i].other.pickedUp then
+    if cols[i].other.type == "bullet-pickup" and not cols[i].other.pickedUp and not cols[i].other.thrown then
       table.insert(self.caughtBullets, cols[i].other);
       cols[i].other:pickUp();
     end
