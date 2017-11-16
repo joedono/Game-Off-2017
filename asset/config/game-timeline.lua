@@ -1,11 +1,13 @@
 GAME_TIMELINE = {
   {time = 4, enemies = {{type = "straight", x = 288, y = -30}}},
   {time = 4, enemies = {{type = "sideways", x = 1, y = 288}}},
-  {time = 4, enemies = {{type = "straight", x = 288, y = -30}}},
-  {time = 4, enemies = {{type = "sideways", x = 1, y = 288}}},
-  {time = 4, enemies = {{type = "straight", x = 288, y = -30}}},
-  {time = 4, enemies = {{type = "sideways", x = 1, y = 288}}},
-  {time = 4, enemies = {{type = "straight", x = 288, y = -30}}},
+  {time = 4, enemies = {{type = "straight", x = 160, y = -30}, {type = "straight", x = 416, y = -30}}},
+  {time = 6, enemies = {{type = "pendulum", x = 200, y = -30}}},
+  {time = 2, enemies = {{type = "pendulum", x = 200, y = -30}}},
+  {time = 2, enemies = {{type = "pendulum", x = 200, y = -30}}},
+  {time = 2, enemies = {{type = "pendulum", x = 200, y = -30}}},
+  {time = 4, enemies = {{type = "straight", x = 288, y = -30}, {type = "straight", x = 192, y = -30}, {type = "straight", x = 384, y = -30}}},
+  
   {time = 4, enemies = {{type = "sideways", x = 1, y = 288}}},
   {time = 4, enemies = {{type = "straight", x = 288, y = -30}}},
   {time = 4, enemies = {{type = "sideways", x = 1, y = 288}}},
