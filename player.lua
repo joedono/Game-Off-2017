@@ -64,13 +64,8 @@ function Player:fireSpread()
   local caughtBullets = self.caughtBullets;
   self.caughtBullets = {};
 
-  local spread = BULLET_SPREAD_ODD;
-  if #caughtBullets % 2 == 0 then
-    spread = BULLET_SPREAD_EVEN;
-  end
-
   for index, bullet in ipairs(caughtBullets) do
-    local angle = spread[index];
+    local angle = BULLET_SPREAD[index];
     bullet:throwSpread(angle);
   end
 end

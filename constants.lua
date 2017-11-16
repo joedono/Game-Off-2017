@@ -34,7 +34,7 @@ PICKUP_BOX_INITIAL_DIMENSIONS = {
   h = PICKUP_BOX_HEIGHT
 };
 
-MAX_HELD_BULLETS = 10;
+MAX_HELD_BULLETS = 9;
 BULLET_SIZE = 8;
 BULLET_SPEED = 400;
 BULLET_INITIAL_DIMENSIONS = {
@@ -42,8 +42,17 @@ BULLET_INITIAL_DIMENSIONS = {
   h = BULLET_SIZE * 2
 };
 
-BULLET_SPREAD_EVEN = {math.pi * 3/2, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-BULLET_SPREAD_ODD = {math.pi * 3/2, 0, 0, 0, 0, 0, 0, 0, 0};
+BULLET_SPREAD = {
+  math.pi * 24/16,
+  math.pi * 23/16,
+  math.pi * 25/16,
+  math.pi * 22/16,
+  math.pi * 26/16,
+  math.pi * 21/16,
+  math.pi * 27/16,
+  math.pi * 20/16,
+  math.pi * 28/16
+};
 
 ENEMY_SIZE = 32;
 
