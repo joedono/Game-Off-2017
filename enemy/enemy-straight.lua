@@ -13,7 +13,7 @@ EnemyStraight = Class {
     self.bulletIndex = 0;
     self.weaponManager = weaponManager;
 
-    self.fireTimer:every(1, function() self:fireBullet() end);
+    self.fireTimer:every(STRAIGHT_ENEMY_FIRE_RATE, function() self:fireBullet() end);
 
     self.active = true;
     self.type = "enemy";
