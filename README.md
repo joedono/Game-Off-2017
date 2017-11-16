@@ -18,8 +18,8 @@ Until the game is completed, here's how you can check out the "in progress" vers
 
 After you've gone through this process once, you'll only need to repeat steps 2-7 to get and play the latest version of the game.
 
-## Controls
-The blue box is you. Use the arrow keys to move around. The grey box is your "tractor field" that will grab the yellow bullets for you. Press Z to fire all your grabbed bullets in a line. Press X to fire all your grabbed bullets in a spreading wave.
+## How to Play
+The blue box is you. Use the arrow keys to move around. The grey box is your "tractor field" that will grab the yellow bullets for you. Press Z to fire all your grabbed bullets in a line. Press X to fire all your grabbed bullets in a spreading wave. The blue boxes at the top of the screen are your health.
 
 ## Progress
 If you're interested in a log of my progress, click on the "# commits" link in the upper-left of this page.
