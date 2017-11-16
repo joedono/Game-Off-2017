@@ -7,14 +7,22 @@ Player = Class {
       h = PLAYER_INITIAL_DIMENSIONS.h
     };
 
+    self.pickupBox = {
+      x = PICKUP_BOX_INITIAL_DIMENSIONS.x,
+      y = PICKUP_BOX_INITIAL_DIMENSIONS.y,
+      w = PICKUP_BOX_INITIAL_DIMENSIONS.w,
+      h = PICKUP_BOX_INITIAL_DIMENSIONS.h,
+      type = "pickup-box"
+    }
+
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
+    BumpWorld:add(self.pickupBox, self.pickupBox.x, self.pickupBox.y, self.pickupBox.w, self.pickupBox.h);
 
     self:resetKeys();
 
     self.velocity = { x = 0, y = 0 };
     self.facing = { x = 0, y = 0 };
-
-    self.holding = false;
+    self.caughtBullets = {};
 
     self.active = true;
     self.type = "player";
@@ -27,7 +35,10 @@ function Player:resetKeys()
   self.upPressed = false;
   self.downPressed = false;
   self.runPressed = false;
-  self.pickUpPressed = false;
+end
+
+function Player:fireStream()
+
 end
 
 function Player:update(dt)
@@ -86,13 +97,7 @@ function Player:updatePosition(dt)
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, playerCollision);
 
   for i = 1, len do
-    if cols[i].other.type == "bullet-pickup" then
-      if self.pickUpPressed and not cols[i].other.pickedUp and not self.holding then
-        self.caughtBullet = cols[i].other;
-        self.holding = true;
-        cols[i].other:pickUp();
-      end
-    elseif cols[i].other.type == "bullet" then
+    if cols[i].other.type == "bullet" then
       if KILL_PLAYER then
         self.active = false;
       end
@@ -102,12 +107,30 @@ function Player:updatePosition(dt)
 
   self.box.x = actualX;
   self.box.y = actualY;
+
+  local pux = actualX + PLAYER_WIDTH / 2 - PICKUP_BOX_WIDTH / 2;
+  local puy = actualY + PLAYER_HEIGHT / 2 - PICKUP_BOX_HEIGHT / 2;
+
+  local actualX, actualY, cols, len = BumpWorld:move(self.pickupBox, pux, puy, pickupBoxCollision);
+
+  for i = 1, len do
+    if cols[i].other.type == "bullet-pickup" and not cols[i].other.pickedUp then
+      table.insert(self.caughtBullets, cols[i].other);
+      cols[i].other:pickUp();
+    end
+  end
+
+  self.pickupBox.x = actualX;
+  self.pickupBox.y = actualY;
 end
 
 function Player:draw()
   if not self.active then
     return;
   end
+
+  love.graphics.setColor(255, 255, 255, 150);
+  love.graphics.rectangle("line", self.pickupBox.x, self.pickupBox.y, self.pickupBox.w, self.pickupBox.h);
 
   love.graphics.setColor(0, 0, 255);
   love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);

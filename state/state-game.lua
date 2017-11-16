@@ -44,8 +44,8 @@ function State_Game:keypressed(key, scancode, isrepeat)
     self.player.runPressed = true;
   end
 
-  if key == KEY_PICKUP then
-    self.player.pickUpPressed = true;
+  if key == KEY_FIRE_STREAM then
+    self.player:fireStream();
   end
 end
 
@@ -72,12 +72,6 @@ function State_Game:keyreleased(key, scancode)
 
   if key == KEY_RUN then
     self.player.runPressed = false;
-  end
-
-  if key == KEY_PICKUP and self.player.caughtBullet ~= nil then
-    self.player.caughtBullet:throw(self.player);
-    self.player.holding = false;
-    self.player.pickUpPressed = false;
   end
 end
 
