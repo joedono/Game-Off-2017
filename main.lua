@@ -1,6 +1,7 @@
 GameState = require "lib/hump/gamestate";
 Class = require "lib/hump/class";
 Timer = require "lib/hump/timer";
+Vector = require "lib/hump/vector";
 Bump = require "lib/bump";
 
 require "lib/general";

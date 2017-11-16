@@ -47,6 +47,10 @@ function State_Game:keypressed(key, scancode, isrepeat)
   if key == KEY_FIRE_STREAM then
     self.player:fireStream();
   end
+
+  if key == KEY_FIRE_SPREAD then
+    self.player:fireSpread();
+  end
 end
 
 function State_Game:resume()

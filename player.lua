@@ -60,6 +60,21 @@ function Player:fireStream()
   end
 end
 
+function Player:fireSpread()
+  local caughtBullets = self.caughtBullets;
+  self.caughtBullets = {};
+
+  local spread = BULLET_SPREAD_ODD;
+  if #caughtBullets % 2 == 0 then
+    spread = BULLET_SPREAD_EVEN;
+  end
+
+  for index, bullet in ipairs(caughtBullets) do
+    local angle = spread[index];
+    bullet:throwSpread(angle);
+  end
+end
+
 function Player:update(dt)
   if not self.active then
     return;
@@ -135,8 +150,12 @@ function Player:updatePosition(dt)
 
   for i = 1, len do
     if cols[i].other.type == "bullet-pickup" and not cols[i].other.pickedUp and not cols[i].other.thrown then
-      table.insert(self.caughtBullets, cols[i].other);
-      cols[i].other:pickUp();
+      if #self.caughtBullets < MAX_HELD_BULLETS then
+        table.insert(self.caughtBullets, cols[i].other);
+        cols[i].other:pickUp();
+      else
+        cols[i].other.active = false;
+      end
     end
   end
 

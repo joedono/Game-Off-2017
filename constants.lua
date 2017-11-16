@@ -7,7 +7,9 @@ KEY_UP = "up";
 KEY_DOWN = "down";
 KEY_RUN = "lshift";
 KEY_QUIT = "escape";
+
 KEY_FIRE_STREAM = "z";
+KEY_FIRE_SPREAD = "x";
 
 BACKGROUND_SPEED = 100;
 
@@ -32,12 +34,16 @@ PICKUP_BOX_INITIAL_DIMENSIONS = {
   h = PICKUP_BOX_HEIGHT
 };
 
+MAX_HELD_BULLETS = 10;
 BULLET_SIZE = 8;
 BULLET_SPEED = 400;
 BULLET_INITIAL_DIMENSIONS = {
   w = BULLET_SIZE * 2,
   h = BULLET_SIZE * 2
 };
+
+BULLET_SPREAD_EVEN = {math.pi * 3/2, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+BULLET_SPREAD_ODD = {math.pi * 3/2, 0, 0, 0, 0, 0, 0, 0, 0};
 
 ENEMY_SIZE = 32;
 

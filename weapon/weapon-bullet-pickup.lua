@@ -66,10 +66,24 @@ function BulletPickup:throwStraight()
     return;
   end
 
-  self.velocity.x = 0;
-  self.velocity.y = -BULLET_SPEED;
   self.pickedUp = false;
   self.thrown = true;
+
+  self.velocity.x = 0;
+  self.velocity.y = -BULLET_SPEED;
+end
+
+function BulletPickup:throwSpread(angle)
+  if not self.pickedUp then
+    return;
+  end
+
+  self.pickedUp = false;
+  self.thrown = true;
+
+  local v = Vector.fromPolar(angle, 1);
+  self.velocity.x = v.x * BULLET_SPEED;
+  self.velocity.y = v.y * BULLET_SPEED;
 end
 
 function BulletPickup:draw()
