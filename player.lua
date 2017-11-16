@@ -23,6 +23,7 @@ Player = Class {
     self.velocity = { x = 0, y = 0 };
     self.facing = { x = 0, y = 0 };
     self.caughtBullets = {};
+    self.health = PLAYER_MAX_HEALTH;
 
     self.streamTimer = Timer.new();
 
@@ -129,7 +130,12 @@ function Player:updatePosition(dt)
   for i = 1, len do
     if cols[i].other.type == "bullet" then
       if KILL_PLAYER then
-        self.active = false;
+        self.health = self.health - 1;
+
+        if self.health <= 0 then
+          self.caughtBullets = {};
+          self.active = false;
+        end
       end
       cols[i].other.active = false;
     end
@@ -168,6 +174,16 @@ function Player:draw()
 
   love.graphics.setColor(0, 0, 255);
   love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
+
+  -- Draw Health
+  love.graphics.setColor(0, 255, 255);
+  for i=1, self.health do
+    love.graphics.rectangle("fill", i * 68, 16, 60, 32);
+  end
+
+  for i=self.health, PLAYER_MAX_HEALTH do
+    love.graphics.rectangle("line", i * 68, 16, 60, 32);
+  end
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);
