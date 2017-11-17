@@ -133,6 +133,10 @@ function Player:updatePosition(dt)
         self.health = self.health - 1;
 
         if self.health <= 0 then
+          for index, bullet in ipairs(self.caughtBullets) do
+            bullet.active = false;
+          end
+          
           self.caughtBullets = {};
           self.active = false;
         end
