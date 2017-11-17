@@ -17,6 +17,10 @@ function State_Game:init()
   self.timePassed = 0;
   self.timelineIndex = 1;
   self.lastTime = 0;
+  self.totalTime = 0;
+  for index, event in ipairs(GAME_TIMELINE) do
+    self.totalTime = self.totalTime + event.time;
+  end
 end
 
 function State_Game:enter()
@@ -116,5 +120,6 @@ function State_Game:draw()
   if DRAW_POSITIONS then
     love.graphics.setColor(255, 255, 255);
     love.graphics.print("Player: " .. self.player.box.x .. ", " .. self.player.box.y, 32, 32);
+    love.graphics.print("Total Time: " .. (self.totalTime / 60), 32, 64);
   end
 end
