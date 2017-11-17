@@ -8,6 +8,9 @@ When the game is all completed and packaged up, you'll be able to download it on
 ## Running the game
 Until the game is completed, here's how you can check out the "in progress" version of the game.
 
+When I remember to build it, you can play a version in your browser right [here](https://joedono.github.io/Game-Off-2017/).
+
+Otherwise, here's how to play the most up-to-date version:
 1. Download the appropriate version of [Love2D](http://love2d.org/) for your operating system. This game uses version 0.10.
 2. Click the green "Clone or Download" button in the upper right of this page.
 3. Click "Download Zip"
