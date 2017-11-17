@@ -22,6 +22,7 @@ GAME_TIMELINE = {
   {time = 0.5, enemies = {{type = "pendulum", x = 0, y = -30}}},
   {time = 4, enemies = {{type = "straight", x = 160, y = -30}, {type = "straight", x = 416, y = -30}}},
   {time = 0.5, enemies = {{type = "straight", x = 160, y = -30}, {type = "straight", x = 416, y = -30}}},
+  -- 1 Minute
   {time = 0.5, enemies = {{type = "straight", x = 160, y = -30}, {type = "straight", x = 416, y = -30}}},
   {time = 4, enemies = {{type = "straight", x = 160, y = -30}, {type = "straight", x = 416, y = -30}, {type = "pendulum", x = 200, y = -30}}},
   {time = 2, enemies = {{type = "sideways", x = 1, y = 128}, {type = "sideways", x = 1, y = 128}}},
@@ -51,6 +52,14 @@ GAME_TIMELINE = {
   {time = 4, enemies = {{type = "straight", x = 416, y = -30}, {type = "straight", x = 160, y = -30}, {type = "straight", x = 288, y = -30}}},
   {time = 3, enemies = {{type = "straight", x = 416, y = -30}, {type = "straight", x = 160, y = -30}, {type = "straight", x = 288, y = -30}}},
   {time = 3, enemies = {{type = "straight", x = 416, y = -30}, {type = "straight", x = 160, y = -30}, {type = "straight", x = 288, y = -30}}},
+  {time = 5.5, enemies = {{type = "pendulum", x = 0, y = -30}, {type = "pendulum", x = 576, y = -30}}},
+  {time = 1, enemies = {{type = "pendulum", x = 0, y = -30}, {type = "pendulum", x = 576, y = -30}}},
+  {time = 1, enemies = {{type = "pendulum", x = 0, y = -30}, {type = "pendulum", x = 576, y = -30}}},
+  {time = 1, enemies = {{type = "pendulum", x = 0, y = -30}, {type = "pendulum", x = 576, y = -30}}},
+  {time = 3, enemies = {{type = "pendulum", x = 0, y = -30}, {type = "pendulum", x = 576, y = -30}, {type = "pendulum", x = 288, y = -30}}},
+  {time = 1, enemies = {{type = "pendulum", x = 0, y = -30}, {type = "pendulum", x = 576, y = -30}, {type = "pendulum", x = 288, y = -30}}},
+  {time = 1, enemies = {{type = "pendulum", x = 0, y = -30}, {type = "pendulum", x = 576, y = -30}, {type = "pendulum", x = 288, y = -30}}},
+  -- 2 Minutes
 }
 
 --{time = 2, enemies = {{type = "straight", x = 100, y = -30}}},
