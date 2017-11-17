@@ -8,18 +8,10 @@ When the game is all completed and packaged up, you'll be able to download it on
 ## Running the game
 Until the game is completed, here's how you can check out the "in progress" version of the game.
 
-When I remember to build it, you can play a version in your browser right [here](https://joedono.github.io/Game-Off-2017/).
-
 Otherwise, here's how to play the most up-to-date version:
-1. Download the appropriate version of [Love2D](http://love2d.org/) for your operating system. This game uses version 0.10.
-2. Click the green "Clone or Download" button in the upper right of this page.
-3. Click "Download Zip"
-4. Unzip the folder. You should now have a folder called Game-Off-2017-master with some lua files, a couple folders, a README file and a RUNME file.
-5. If you downloaded one of the installers during step 1 and are on Windows, just double-click the RUNME file to run the game.
-6. If you downloaded one of the zip files during step 1, unzip it, find the love.exe or love.app file, and drag-and-drop the Game-Off-2017-master folder onto the love.exe or love.app file.
-7. If all else fails, read the "Running Games" section on the [Love2D Wiki](http://love2d.org/wiki/Getting_Started)
-
-After you've gone through this process once, you'll only need to repeat steps 2-7 to get and play the latest version of the game.
+1. Download and install the appropriate version of [Love2D](http://love2d.org/) for your operating system. This game uses version 0.10.
+2. Download the latest release of this game [here](https://github.com/joedono/Game-Off-2017/releases).
+3. Double-click the .love file download in step 2.
 
 ## Controls
 The blue box is you. Use the arrow keys to move around. The grey box is your "tractor field" that will grab the yellow bullets for you. Press Z to fire all your grabbed bullets in a line. Press X to fire all your grabbed bullets in a spreading wave.
