@@ -27,18 +27,25 @@ function State_Game:init()
 end
 
 function State_Game:enter()
+  self.active = true;
   self.music:play();
 end
 
 function State_Game:focus(focused)
   if focused then
+    self.active = true;
     self.music:resume();
   else
+    self.active = false;
     self.music:pause();
   end
 end
 
 function State_Game:keypressed(key, scancode, isrepeat)
+  if not self.active then
+    return;
+  end
+
   if key == KEY_LEFT then
     self.player.leftPressed = true;
   end
@@ -74,6 +81,10 @@ function State_Game:resume()
 end
 
 function State_Game:keyreleased(key, scancode)
+  if not self.active then
+    return;
+  end
+
   if key == KEY_LEFT then
     self.player.leftPressed = false;
   end
@@ -96,6 +107,10 @@ function State_Game:keyreleased(key, scancode)
 end
 
 function State_Game:update(dt)
+  if not self.active then
+    return;
+  end
+
   self:updateTimeline(dt);
   self.background:update(dt);
   self.enemyManager:update(dt);
