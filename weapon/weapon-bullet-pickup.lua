@@ -60,6 +60,7 @@ function BulletPickup:followPlayer(player)
 end
 
 function BulletPickup:protectPlayer(dt, player)
+  self.active = false;
   -- TODO
 end
 
@@ -121,13 +122,23 @@ end
 
 function BulletPickup:throwSlaves()
   local slaves = self.slaves;
+  local count = #slaves - 1;
+  if count == 0 then
+    return;
+  end
+
+  local ratio = 0;
+  local angle = 0;
   self.slaves = {};
 
   for index, bullet in ipairs(slaves) do
     bullet.isSlave = false;
-    local angle = 0;
+    ratio = (index - 1) / count;
+    angle = ratio * math.pi * 2;
 
-    bullet:throwSpread(angle);
+    local v = Vector.fromPolar(angle, 1);
+    bullet.velocity.x = v.x * BULLET_SPEED;
+    bullet.velocity.y = v.y * BULLET_SPEED;
   end
 end
 
