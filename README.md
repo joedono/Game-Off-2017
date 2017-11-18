@@ -14,7 +14,7 @@ Otherwise, here's how to play the most up-to-date version:
 3. Double-click the .love file download in step 2.
 
 ## How to Play
-The blue box is you. Use the arrow keys to move around. The grey box is your "tractor field" that will grab the yellow bullets for you. Press Z to fire all your grabbed bullets in a line. Press X to fire all your grabbed bullets in a spreading wave. The blue boxes at the top of the screen are your health.
+The blue box is you. Use the arrow keys to move around. The grey box is your "tractor field" that will grab the yellow bullets for you. Press Z to fire all your grabbed bullets in a line. Press X to fire all your grabbed bullets in a spreading wave. Press C to fire all your bullets in a small bomb that explodes when it hits an enemy. Press V to turn your bullets into a protective force field. The blue boxes at the top of the screen are your health.
 
 ## Progress
 If you're interested in a log of my progress, click on the "# commits" link in the upper-left of this page.
