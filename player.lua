@@ -24,6 +24,7 @@ Player = Class {
     self.velocity = { x = 0, y = 0 };
     self.facing = { x = 0, y = 0 };
     self.caughtBullets = {};
+    self.forcefieldBullets = {};
     self.health = PLAYER_MAX_HEALTH;
 
     self.streamTimer = Timer.new();
@@ -44,6 +45,8 @@ function Player:resetKeys()
 end
 
 function Player:fireStream()
+  self:clearForcefield();
+
   if not self.streaming then
     local caughtBullets = self.caughtBullets;
     self.caughtBullets = {};
@@ -63,6 +66,8 @@ function Player:fireStream()
 end
 
 function Player:fireSpread()
+  self:clearForcefield();
+
   local caughtBullets = self.caughtBullets;
   self.caughtBullets = {};
 
@@ -73,6 +78,8 @@ function Player:fireSpread()
 end
 
 function Player:fireBomb()
+  self:clearForcefield();
+
   local caughtBullets = self.caughtBullets;
   self.caughtBullets = {};
 
@@ -86,9 +93,12 @@ function Player:fireBomb()
 end
 
 function Player:fireForcefield()
+  self:clearForcefield();
+
   local caughtBullets = self.caughtBullets;
   local count = #caughtBullets;
   local ratio = 0;
+  self.forcefieldBullets = caughtBullets;
   self.caughtBullets = {};
 
   if count == 0 then
@@ -99,6 +109,14 @@ function Player:fireForcefield()
     ratio = index / count;
     bullet:throwForcefield(ratio);
   end
+end
+
+function Player:clearForcefield()
+  for index, bullet in ipairs(self.forcefieldBullets) do
+    bullet.active = false;
+  end
+
+  self.forcefieldBullets = {};
 end
 
 function Player:update(dt)
