@@ -52,7 +52,7 @@ function EnemyStraight:update(dt)
   end
 
   for i = 1, len do
-    if cols[i].other.type == "bullet-pickup" and cols[i].other.thrown then
+    if cols[i].other.type == "bullet-pickup" and cols[i].other.thrown and not cols[i].other.isSlave then
       self.active = false;
       cols[i].other.active = false;
     end

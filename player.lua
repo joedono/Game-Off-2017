@@ -52,7 +52,7 @@ function Player:fireStream()
       self.streaming = true;
 
       while #caughtBullets > 0 do
-        caughtBullets[1]:throwStraight();
+        caughtBullets[1]:throwStraight(false);
         table.remove(caughtBullets, 1);
         wait(0.2);
       end
@@ -75,14 +75,12 @@ end
 function Player:fireBomb()
   local caughtBullets = self.caughtBullets;
   self.caughtBullets = {};
-  local masterBullet = {};
 
   for index, bullet in ipairs(caughtBullets) do
     if index == 1 then
-      bullet:throwBombMaster();
-      masterBullet = bullet;
+      bullet:throwBombMaster(caughtBullets);
     else
-      bullet:throwBombSlave(masterBullet);
+      bullet:throwStraight(true);
     end
   end
 end
@@ -92,7 +90,7 @@ function Player:fireForcefield()
   self.caughtBullets = {};
 
   for index, bullet in ipairs(caughtBullets) do
-    bullet:throwForcefield(self);
+    bullet:throwForcefield();
   end
 end
 

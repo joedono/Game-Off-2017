@@ -15,6 +15,11 @@ BulletPickup = Class {
     self.thrown = false;
     self.pickedUp = false;
     self.active = true;
+
+    self.isForcefield = false;
+    self.isSlave = false;
+    self.slaves = {};
+
     self.type = "bullet-pickup";
   end
 };
@@ -25,11 +30,17 @@ end
 
 function BulletPickup:update(dt, player)
   if not self.active then
+    if #self.slaves > 0 then
+      self:throwSlaves();
+    end
+
     return;
   end
 
   if self.pickedUp then
     self:followPlayer(player);
+  elseif self.isForcefield then
+    self:protectPlayer(dt, player);
   else
     self:updatePosition(dt);
   end
@@ -48,6 +59,10 @@ function BulletPickup:followPlayer(player)
   self.box.y = dy;
 end
 
+function BulletPickup:protectPlayer(dt, player)
+  -- TODO
+end
+
 function BulletPickup:updatePosition(dt)
   local dx = self.box.x + self.velocity.x * dt;
   local dy = self.box.y + self.velocity.y * dt;
@@ -62,13 +77,14 @@ function BulletPickup:updatePosition(dt)
   end
 end
 
-function BulletPickup:throwStraight()
+function BulletPickup:throwStraight(isSlave)
   if not self.pickedUp then
     return;
   end
 
   self.pickedUp = false;
   self.thrown = true;
+  self.isSlave = isSlave;
 
   self.velocity.x = 0;
   self.velocity.y = -BULLET_SPEED;
@@ -87,16 +103,43 @@ function BulletPickup:throwSpread(angle)
   self.velocity.y = v.y * BULLET_SPEED;
 end
 
-function BulletPickup:throwBombMaster()
+function BulletPickup:throwBombMaster(slaveBullets)
+  if not self.pickedUp then
+    return;
+  end
 
+  self.pickedUp = false;
+  self.thrown = true;
+  self.slaves = slaveBullets;
+
+  self.box.y = self.box.y - 1;
+  BumpWorld:update(self, self.box.x, self.box.y);
+
+  self.velocity.x = 0;
+  self.velocity.y = -BULLET_SPEED;
 end
 
-function BulletPickup:throwBombSlave(masterBullet)
+function BulletPickup:throwSlaves()
+  local slaves = self.slaves;
+  self.slaves = {};
 
+  for index, bullet in ipairs(slaves) do
+    bullet.isSlave = false;
+    local angle = 0;
+
+    bullet:throwSpread(angle);
+  end
 end
 
 function BulletPickup:throwForcefield()
+  if not self.pickedUp then
+    return;
+  end
 
+  self.pickedUp = false;
+  self.thrown = true;
+
+  self.isForcefield = true;
 end
 
 function BulletPickup:draw()
