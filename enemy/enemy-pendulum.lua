@@ -12,7 +12,7 @@ EnemyPendulum = Class {
 
     self.fireTimer = Timer.new();
     self.weaponManager = weaponManager;
-    self.moveTimer = 0;
+    self.moveTimer = x / SCREEN_WIDTH * PENDULUM_ENEMY_MOVEMENT_RATE;
 
     self.fireTimer:every(2.5, function() self:fireBullets() end);
 
