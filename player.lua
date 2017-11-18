@@ -17,6 +17,7 @@ Player = Class {
 
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
     BumpWorld:add(self.pickupBox, self.pickupBox.x, self.pickupBox.y, self.pickupBox.w, self.pickupBox.h);
+    self.shipImage = love.graphics.newImage("asset/image/player.png");
 
     self:resetKeys();
 
@@ -136,7 +137,7 @@ function Player:updatePosition(dt)
           for index, bullet in ipairs(self.caughtBullets) do
             bullet.active = false;
           end
-          
+
           self.caughtBullets = {};
           self.active = false;
         end
@@ -176,8 +177,8 @@ function Player:draw()
   love.graphics.setColor(255, 255, 255, 150);
   love.graphics.rectangle("line", self.pickupBox.x, self.pickupBox.y, self.pickupBox.w, self.pickupBox.h);
 
-  love.graphics.setColor(0, 0, 255);
-  love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
+  love.graphics.setColor(255, 255, 255);
+  love.graphics.draw(self.shipImage, self.box.x, self.box.y);
 
   -- Draw Health
   love.graphics.setColor(0, 255, 255);
