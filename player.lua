@@ -72,6 +72,30 @@ function Player:fireSpread()
   end
 end
 
+function Player:fireBomb()
+  local caughtBullets = self.caughtBullets;
+  self.caughtBullets = {};
+  local masterBullet = {};
+
+  for index, bullet in ipairs(caughtBullets) do
+    if index == 1 then
+      bullet:throwBombMaster();
+      masterBullet = bullet;
+    else
+      bullet:throwBombSlave(masterBullet);
+    end
+  end
+end
+
+function Player:fireForcefield()
+  local caughtBullets = self.caughtBullets;
+  self.caughtBullets = {};
+
+  for index, bullet in ipairs(caughtBullets) do
+    bullet:throwForcefield(self);
+  end
+end
+
 function Player:update(dt)
   if not self.active then
     return;

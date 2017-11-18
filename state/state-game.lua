@@ -86,6 +86,14 @@ function State_Game:keypressed(key, scancode, isrepeat)
   if key == KEY_FIRE_SPREAD then
     self.player:fireSpread();
   end
+
+  if key == KEY_FIRE_BOMB then
+    self.player:fireBomb();
+  end
+
+  if key == KEY_FIRE_FORCEFIELD then
+    self.player:fireForcefield();
+  end
 end
 
 function State_Game:resume()

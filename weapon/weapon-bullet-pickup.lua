@@ -87,6 +87,18 @@ function BulletPickup:throwSpread(angle)
   self.velocity.y = v.y * BULLET_SPEED;
 end
 
+function BulletPickup:throwBombMaster()
+
+end
+
+function BulletPickup:throwBombSlave(masterBullet)
+
+end
+
+function BulletPickup:throwForcefield()
+
+end
+
 function BulletPickup:draw()
   if not self.active then
     return;
