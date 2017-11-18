@@ -10,11 +10,16 @@ EnemyPendulum = Class {
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
     self.image = image;
 
+    self.fireStartTimer = Timer.new();
     self.fireTimer = Timer.new();
     self.weaponManager = weaponManager;
     self.moveTimer = x / SCREEN_WIDTH * PENDULUM_ENEMY_MOVEMENT_RATE;
 
-    self.fireTimer:every(2.5, function() self:fireBullets() end);
+    self.fireStartTimer:after(love.math.random(0, 1.5), function()
+      self:fireBullets();
+      self.fireTimer:every(2, function() self:fireBullets() end);
+      self.fireStartTimer:clear();
+    end);
 
     self.active = true;
     self.type = "enemy";
@@ -43,9 +48,12 @@ end
 
 function EnemyPendulum:update(dt)
   if not self.active then
+    self.fireStartTimer:clear();
+    self.fireTimer:clear();
     return;
   end
 
+  self.fireStartTimer:update(dt);
   self.fireTimer:update(dt);
   self.moveTimer = self.moveTimer + dt;
   local dx = cerp(PENDULUM_ENEMY_LEFT_LIMIT, PENDULUM_ENEMY_RIGHT_LIMIT, self.moveTimer / PENDULUM_ENEMY_MOVEMENT_RATE);
