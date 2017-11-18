@@ -93,7 +93,7 @@ function BulletPickup:draw()
   end
 
   love.graphics.setColor(255, 255, 255);
-  love.graphics.draw(self.image, self.box.x, self.box.y);
+  love.graphics.draw(self.image, self.box.x, self.box.y, 0, BULLET_SCALE, BULLET_SCALE);
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);
