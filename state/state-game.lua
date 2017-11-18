@@ -14,6 +14,9 @@ function State_Game:init()
   self.enemyManager = ManagerEnemy(self.weaponManager);
   self.background = Background();
 
+  self.music = love.audio.newSource("asset/music/gameplay.mp3");
+  self.music:setVolume(0.3);
+
   self.timePassed = 0;
   self.timelineIndex = 1;
   self.lastTime = 0;
@@ -24,7 +27,15 @@ function State_Game:init()
 end
 
 function State_Game:enter()
+  self.music:play();
+end
 
+function State_Game:focus(focused)
+  if focused then
+    self.music:resume();
+  else
+    self.music:pause();
+  end
 end
 
 function State_Game:keypressed(key, scancode, isrepeat)
@@ -59,6 +70,7 @@ end
 
 function State_Game:resume()
   self.player:resetKeys();
+  self.music:resume();
 end
 
 function State_Game:keyreleased(key, scancode)
