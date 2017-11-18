@@ -31,6 +31,10 @@ function State_Game:enter()
   self.music:play();
 end
 
+function State_Game:leave()
+  self.music:stop();
+end
+
 function State_Game:focus(focused)
   if focused then
     self.active = true;

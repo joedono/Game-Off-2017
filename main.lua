@@ -7,13 +7,14 @@ Bump = require "lib/bump";
 require "lib/general";
 require "constants";
 
+require "state/state-title";
 require "state/state-game";
 
 BumpWorld = {};
 
 function love.load()
   GameState.registerEvents();
-  GameState.switch(State_Game);
+  GameState.switch(State_Title);
 end
 
 function love.keypressed(key, scancode, isrepeat)
