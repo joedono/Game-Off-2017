@@ -28,20 +28,29 @@ end
 
 function State_Game:enter()
   self.active = true;
-  self.music:play();
+
+  if PLAY_MUSIC then
+    self.music:play();
+  end
 end
 
 function State_Game:leave()
-  self.music:stop();
+  if PLAY_MUSIC then
+    self.music:stop();
+  end
 end
 
 function State_Game:focus(focused)
   if focused then
     self.active = true;
-    self.music:resume();
+    if PLAY_MUSIC then
+      self.music:resume();
+    end
   else
     self.active = false;
-    self.music:pause();
+    if PLAY_MUSIC then
+      self.music:pause();
+    end
   end
 end
 
@@ -81,7 +90,9 @@ end
 
 function State_Game:resume()
   self.player:resetKeys();
-  self.music:resume();
+  if PLAY_MUSIC then
+    self.music:resume();
+  end
 end
 
 function State_Game:keyreleased(key, scancode)

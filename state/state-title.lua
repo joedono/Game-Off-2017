@@ -7,14 +7,20 @@ function State_Title:init()
 end
 
 function State_Title:enter()
-  self.music:play();
+  if PLAY_MUSIC then
+    self.music:play();
+  end
 end
 
 function State_Title:focus(focused)
   if focused then
-    self.music:resume();
+    if PLAY_MUSIC then
+      self.music:resume();
+    end
   else
-    self.music:pause();
+    if PLAY_MUSIC then
+      self.music:pause();
+    end
   end
 end
 
@@ -25,7 +31,9 @@ function State_Title:keypressed(key, scancode, isrepeat)
 end
 
 function State_Title:leave()
-  self.music:stop();
+  if PLAY_MUSIC then
+    self.music:stop();
+  end
 end
 
 function State_Title:draw()
