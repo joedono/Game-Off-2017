@@ -87,10 +87,17 @@ end
 
 function Player:fireForcefield()
   local caughtBullets = self.caughtBullets;
+  local count = #caughtBullets;
+  local ratio = 0;
   self.caughtBullets = {};
 
+  if count == 0 then
+    return;
+  end
+
   for index, bullet in ipairs(caughtBullets) do
-    bullet:throwForcefield();
+    ratio = index / count;
+    bullet:throwForcefield(ratio);
   end
 end
 

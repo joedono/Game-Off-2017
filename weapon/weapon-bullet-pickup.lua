@@ -17,6 +17,8 @@ BulletPickup = Class {
     self.active = true;
 
     self.isForcefield = false;
+    self.forcefieldPosition = 0;
+    self.forcefieldTimer = 0;
     self.isSlave = false;
     self.slaves = {};
 
@@ -60,8 +62,25 @@ function BulletPickup:followPlayer(player)
 end
 
 function BulletPickup:protectPlayer(dt, player)
-  self.active = false;
-  -- TODO
+  local playerCenterX = player.box.x + player.box.w / 2;
+  local playerCenterY = player.box.y + player.box.h / 2;
+
+  -- Increment the movement timer
+  self.forcefieldTimer = self.forcefieldTimer + dt * FORCEFIELD_RATE;
+  if self.forcefieldTimer > FORCEFIELD_RATE then
+    self.forcefieldTimer = 0;
+  end
+
+  -- Find the current angle based on rotation rate and initial forcefield position
+  local angle = self.forcefieldPosition + math.pi * 2 * self.forcefieldTimer / FORCEFIELD_RATE;
+  local bv = Vector.fromPolar(angle, FORCEFIELD_DISTANCE);
+  local dx = playerCenterX + bv.x - self.box.w / 2;
+  local dy = playerCenterY + bv.y - self.box.h / 2;
+
+  local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, bulletCollision);
+
+  self.box.x = actualX;
+  self.box.y = actualY;
 end
 
 function BulletPickup:updatePosition(dt)
@@ -142,7 +161,7 @@ function BulletPickup:throwSlaves()
   end
 end
 
-function BulletPickup:throwForcefield()
+function BulletPickup:throwForcefield(ratio)
   if not self.pickedUp then
     return;
   end
@@ -151,6 +170,7 @@ function BulletPickup:throwForcefield()
   self.thrown = true;
 
   self.isForcefield = true;
+  self.forcefieldPosition = ratio * math.pi * 2;
 end
 
 function BulletPickup:draw()
