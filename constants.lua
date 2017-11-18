@@ -85,3 +85,5 @@ DRAW_POSITIONS = false;
 DRAW_BOXES = false;
 DRAW_COUNTS = false;
 KILL_PLAYER = true;
+PLAY_MUSIC = true;
+PLAY_SOUNDS = false;
