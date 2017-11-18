@@ -6,16 +6,20 @@ ManagerEnemy = Class {
   init = function(self, weaponManager)
     self.weaponManager = weaponManager;
     self.enemies = {};
+
+    self.imageEnemyStraight = love.graphics.newImage("asset/image/enemy-straight.png");
+    self.imageEnemySideways = love.graphics.newImage("asset/image/enemy-sideways.png");
+    self.imageEnemyPendulum = love.graphics.newImage("asset/image/enemy-pendulum.png");
   end
 };
 
 function ManagerEnemy:spawnEnemy(enemy)
   if enemy.type == "straight" then
-    table.insert(self.enemies, EnemyStraight(enemy.x, enemy.y, self.weaponManager));
+    table.insert(self.enemies, EnemyStraight(enemy.x, enemy.y, self.weaponManager, self.imageEnemyStraight));
   elseif enemy.type == "sideways" then
-    table.insert(self.enemies, EnemySideways(enemy.x, enemy.y, self.weaponManager));
+    table.insert(self.enemies, EnemySideways(enemy.x, enemy.y, self.weaponManager, self.imageEnemySideways));
   elseif enemy.type == "pendulum" then
-    table.insert(self.enemies, EnemyPendulum(enemy.x, enemy.y, self.weaponManager));
+    table.insert(self.enemies, EnemyPendulum(enemy.x, enemy.y, self.weaponManager, self.imageEnemyPendulum));
   end
 end
 

@@ -1,5 +1,5 @@
 EnemySideways = Class {
-  init = function(self, direction, y, weaponManager)
+  init = function(self, direction, y, weaponManager, image)
     self.box = {
       x = 0,
       y = y,
@@ -15,6 +15,7 @@ EnemySideways = Class {
     end
 
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
+    self.image = image;
 
     self.fireTimer = Timer.new();
     self.bulletIndex = 0;
@@ -70,8 +71,8 @@ function EnemySideways:draw()
     return;
   end
 
-  love.graphics.setColor(0, 0, 150);
-  love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
+  love.graphics.setColor(255, 255, 255);
+  love.graphics.draw(self.image, self.box.x, self.box.y);
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);

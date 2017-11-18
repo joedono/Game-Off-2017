@@ -1,5 +1,5 @@
 EnemyStraight = Class {
-  init = function(self, x, y, weaponManager)
+  init = function(self, x, y, weaponManager, image)
     self.box = {
       x = x,
       y = y,
@@ -8,6 +8,7 @@ EnemyStraight = Class {
     };
 
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
+    self.image = image;
 
     self.fireTimer = Timer.new();
     self.bulletIndex = 0;
@@ -63,8 +64,8 @@ function EnemyStraight:draw()
     return;
   end
 
-  love.graphics.setColor(0, 150, 0);
-  love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
+  love.graphics.setColor(255, 255, 255);
+  love.graphics.draw(self.image, self.box.x, self.box.y);
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);
