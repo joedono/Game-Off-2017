@@ -178,7 +178,7 @@ function Player:draw()
   love.graphics.rectangle("line", self.pickupBox.x, self.pickupBox.y, self.pickupBox.w, self.pickupBox.h);
 
   love.graphics.setColor(255, 255, 255);
-  love.graphics.draw(self.shipImage, self.box.x, self.box.y);
+  love.graphics.draw(self.shipImage, self.box.x, self.box.y, 0, PLAYER_SCALE, PLAYER_SCALE);
 
   -- Draw Health
   love.graphics.setColor(0, 255, 255);
