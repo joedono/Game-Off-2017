@@ -1,6 +1,7 @@
 State_Title = {};
 
 function State_Title:init()
+  self.image = love.graphics.newImage("asset/image/title.png");
   self.music = love.audio.newSource("asset/music/title.mp3");
   self.music:setVolume(0.3);
 end
@@ -29,5 +30,5 @@ end
 
 function State_Title:draw()
   love.graphics.setColor(255, 255, 255);
-  love.graphics.print("Press Z to play", 32, 32);
+  love.graphics.draw(self.image, 0, 0);
 end
