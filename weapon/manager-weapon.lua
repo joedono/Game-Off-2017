@@ -5,14 +5,17 @@ ManagerWeapon = Class {
   init = function(self, player)
     self.weapons = {};
     self.player = player;
+
+    self.imageBullet = love.graphics.newImage("asset/image/bullet.png");
+    self.imageBulletPickup = love.graphics.newImage("asset/image/bullet-pickup.png");
   end
 };
 
 function ManagerWeapon:spawnBullet(bx, by, type)
   if type == "bullet" then
-    table.insert(self.weapons, Bullet(bx, by));
+    table.insert(self.weapons, Bullet(bx, by, self.imageBullet));
   elseif type == "bullet-pickup" then
-    table.insert(self.weapons, BulletPickup(bx, by));
+    table.insert(self.weapons, BulletPickup(bx, by, self.imageBulletPickup));
   end
 end
 

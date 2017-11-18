@@ -1,5 +1,5 @@
 BulletPickup = Class {
-  init = function(self, x, y)
+  init = function(self, x, y, image)
     self.box = {
       x = x,
       y = y,
@@ -10,6 +10,7 @@ BulletPickup = Class {
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
 
     self.velocity = { x = 0, y = BULLET_SPEED };
+    self.image = image;
 
     self.thrown = false;
     self.pickedUp = false;
@@ -38,8 +39,8 @@ function BulletPickup:followPlayer(player)
   local dx = player.box.x + player.box.w / 2;
   local dy = player.box.y + player.box.h / 2;
 
-  dx = dx - BULLET_SIZE;
-  dy = dy - BULLET_SIZE - 20;
+  dx = dx - BULLET_WIDTH;
+  dy = dy - BULLET_WIDTH - 20;
 
   BumpWorld:update(self, dx, dy);
 
@@ -56,7 +57,7 @@ function BulletPickup:updatePosition(dt)
   self.box.x = actualX;
   self.box.y = actualY;
 
-  if self.box.x < 0 - BULLET_SIZE or self.box.x > SCREEN_WIDTH or self.box.y < 0 - BULLET_SIZE or self.box.y > SCREEN_HEIGHT then
+  if self.box.x < 0 - BULLET_WIDTH or self.box.x > SCREEN_WIDTH or self.box.y < 0 - BULLET_WIDTH or self.box.y > SCREEN_HEIGHT then
     self.active = false;
   end
 end
@@ -91,8 +92,8 @@ function BulletPickup:draw()
     return;
   end
 
-  love.graphics.setColor(255, 255, 0);
-  love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
+  love.graphics.setColor(255, 255, 255);
+  love.graphics.draw(self.image, self.box.x, self.box.y);
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);

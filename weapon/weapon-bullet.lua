@@ -1,5 +1,5 @@
 Bullet = Class {
-  init = function(self, x, y)
+  init = function(self, x, y, image)
     self.box = {
       x = x,
       y = y,
@@ -8,6 +8,7 @@ Bullet = Class {
     };
 
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
+    self.image = image;
 
     self.velocity = { x = 0, y = BULLET_SPEED };
 
@@ -29,7 +30,7 @@ function Bullet:update(dt, player)
   self.box.x = actualX;
   self.box.y = actualY;
 
-  if self.box.x < 0 - BULLET_SIZE or self.box.x > SCREEN_WIDTH or self.box.y > SCREEN_HEIGHT then
+  if self.box.x < 0 - BULLET_WIDTH or self.box.x > SCREEN_WIDTH or self.box.y > SCREEN_HEIGHT then
     self.active = false;
   end
 end
@@ -39,8 +40,8 @@ function Bullet:draw()
     return;
   end
 
-  love.graphics.setColor(255, 0, 0);
-  love.graphics.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h);
+  love.graphics.setColor(255, 255, 255);
+  love.graphics.draw(self.image, self.box.x, self.box.y);
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);

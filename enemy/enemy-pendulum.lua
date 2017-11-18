@@ -35,8 +35,8 @@ function EnemyPendulum:fireBullet(index)
     type = "bullet-pickup";
   end
 
-  local bx = self.box.x + self.box.w / 2 - BULLET_SIZE;
-  local by = self.box.y + self.box.h / 2 - BULLET_SIZE;
+  local bx = self.box.x + self.box.w / 2 - BULLET_WIDTH;
+  local by = self.box.y + self.box.h / 2 - BULLET_WIDTH;
   self.weaponManager:spawnBullet(bx, by, type);
 end
 
