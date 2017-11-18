@@ -1,4 +1,4 @@
-require "collisions";
+require "config/collisions";
 require "player";
 require "weapon/manager-weapon";
 require "enemy/manager-enemy";

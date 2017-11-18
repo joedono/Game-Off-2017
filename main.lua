@@ -5,7 +5,7 @@ Vector = require "lib/hump/vector";
 Bump = require "lib/bump";
 
 require "lib/general";
-require "constants";
+require "config/constants";
 
 require "state/state-title";
 require "state/state-game";
