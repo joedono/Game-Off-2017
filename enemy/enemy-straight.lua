@@ -65,7 +65,7 @@ function EnemyStraight:draw()
   end
 
   love.graphics.setColor(255, 255, 255);
-  love.graphics.draw(self.image, self.box.x, self.box.y);
+  love.graphics.draw(self.image, self.box.x, self.box.y, 0, ENEMY_SCALE, ENEMY_SCALE);
 
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);
