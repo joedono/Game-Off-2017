@@ -30,6 +30,12 @@ function State_Title:keypressed(key, scancode, isrepeat)
   end
 end
 
+function State_Title:gamepadpressed(joystick, button)
+  if button == "start" then
+    GameState.switch(State_Game);
+  end
+end
+
 function State_Title:leave()
   if PLAY_MUSIC then
     self.music:stop();

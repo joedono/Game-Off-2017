@@ -13,6 +13,15 @@ KEY_FIRE_SPREAD = "x";
 KEY_FIRE_BOMB = "c";
 KEY_FIRE_FORCEFIELD = "v";
 
+JOY_LEFT = "dpleft";
+JOY_RIGHT = "dpright";
+JOY_UP = "dpup";
+JOY_DOWN = "dpdown";
+JOY_FIRE_STREAM = "a";
+JOY_FIRE_SPREAD = "b";
+JOY_FIRE_BOMB = "x";
+JOY_FIRE_FORCEFIELD = "y";
+
 BACKGROUND_SPEED = 150;
 
 UNIVERSAL_SCALE = 0.6;

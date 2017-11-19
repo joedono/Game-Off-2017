@@ -96,13 +96,6 @@ function State_Game:keypressed(key, scancode, isrepeat)
   end
 end
 
-function State_Game:resume()
-  self.player:resetKeys();
-  if PLAY_MUSIC then
-    self.music:resume();
-  end
-end
-
 function State_Game:keyreleased(key, scancode)
   if not self.active then
     return;
@@ -126,6 +119,73 @@ function State_Game:keyreleased(key, scancode)
 
   if key == KEY_RUN then
     self.player.runPressed = false;
+  end
+end
+
+function State_Game:gamepadpressed(joystick, button)
+  if not self.active then
+    return;
+  end
+
+  if button == JOY_LEFT then
+    self.player.leftPressed = true;
+  end
+
+  if button == JOY_RIGHT then
+    self.player.rightPressed = true;
+  end
+
+  if button == JOY_UP then
+    self.player.upPressed = true;
+  end
+
+  if button == JOY_DOWN then
+    self.player.downPressed = true;
+  end
+
+  if button == JOY_FIRE_STREAM then
+    self.player:fireStream();
+  end
+
+  if button == JOY_FIRE_SPREAD then
+    self.player:fireSpread();
+  end
+
+  if button == JOY_FIRE_BOMB then
+    self.player:fireBomb();
+  end
+
+  if button == JOY_FIRE_FORCEFIELD then
+    self.player:fireForcefield();
+  end
+end
+
+function State_Game:gamepadreleased(joystick, button)
+  if not self.active then
+    return;
+  end
+
+  if button == JOY_LEFT then
+    self.player.leftPressed = false;
+  end
+
+  if button == JOY_RIGHT then
+    self.player.rightPressed = false;
+  end
+
+  if button == JOY_UP then
+    self.player.upPressed = false;
+  end
+
+  if button == JOY_DOWN then
+    self.player.downPressed = false;
+  end
+end
+
+function State_Game:resume()
+  self.player:resetKeys();
+  if PLAY_MUSIC then
+    self.music:resume();
   end
 end
 
