@@ -12,7 +12,7 @@ ManagerEnemy = Class {
     self.imageEnemySideways = love.graphics.newImage("asset/image/enemy-sideways.png");
     self.imageEnemyPendulum = love.graphics.newImage("asset/image/enemy-pendulum.png");
 
-    local partImage = love.graphics.newImage("asset/image/enemy-death-effect.png");
+    local partImage = love.graphics.newImage("asset/image/effect-enemy-death.png");
     local ps = love.graphics.newParticleSystem(partImage, 50);
     -- TODO build enemy death effect
     self.enemyDeathEffect = ps;
