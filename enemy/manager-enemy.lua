@@ -6,10 +6,16 @@ ManagerEnemy = Class {
   init = function(self, weaponManager)
     self.weaponManager = weaponManager;
     self.enemies = {};
+    self.effects = {};
 
     self.imageEnemyStraight = love.graphics.newImage("asset/image/enemy-straight.png");
     self.imageEnemySideways = love.graphics.newImage("asset/image/enemy-sideways.png");
     self.imageEnemyPendulum = love.graphics.newImage("asset/image/enemy-pendulum.png");
+
+    local partImage = love.graphics.newImage("asset/image/enemy-death-effect.png");
+    local ps = love.graphics.newParticleSystem(partImage, 50);
+    -- TODO build enemy death effect
+    self.enemyDeathEffect = ps;
   end
 };
 
@@ -24,6 +30,11 @@ function ManagerEnemy:spawnEnemy(enemy)
 end
 
 function ManagerEnemy:update(dt)
+  self:updateEnemies(dt);
+  self:updateEffects(dt);
+end
+
+function ManagerEnemy:updateEnemies(dt)
   local activeEnemies = {};
 
   for index, enemy in ipairs(self.enemies) do
@@ -31,15 +42,38 @@ function ManagerEnemy:update(dt)
 
     if enemy.active then
       table.insert(activeEnemies, enemy);
+    else
+      local ps = self.enemyDeathEffect:clone();
+      ps:setPosition(enemy.box.x + enemy.box.w / 2, enemy.box.y + enemy.box.h / 2);
+      ps:emit(50);
+      table.insert(self.effects, ps);
     end
   end
 
   self.enemies = activeEnemies;
 end
 
+function ManagerEnemy:updateEffects(dt)
+  local activeEffects = {};
+
+  for index, effect in ipairs(self.effects) do
+    effect:update(dt);
+
+    if effect:getCount() > 0 then
+      table.insert(activeEffects, effect);
+    end
+  end
+
+  self.effects = activeEffects;
+end
+
 function ManagerEnemy:draw()
   for index, enemy in ipairs(self.enemies) do
     enemy:draw();
+  end
+
+  for index, effect in ipairs(self.effects) do
+    love.graphics.draw(effect);
   end
 
   if DRAW_COUNTS then
