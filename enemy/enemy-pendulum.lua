@@ -31,14 +31,14 @@ function EnemyPendulum:fireBullets()
   self.fireTimer:script(function(wait)
     for i = 1, 5 do
       self:fireBullet(i);
-      wait(0.1);
+      wait(0.3);
     end
   end);
 end
 
 function EnemyPendulum:fireBullet(index)
   local type = "bullet";
-  if index == 5 then
+  if index == 1 or index == 5 then
     type = "bullet-pickup";
   end
 
