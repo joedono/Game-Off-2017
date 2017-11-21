@@ -25,11 +25,6 @@ ManagerWeapon = Class {
   end
 };
 
-function ManagerWeapon:reset()
-  self.weapons = {};
-  self.effects = {};
-end
-
 function ManagerWeapon:spawnBullet(bx, by, type)
   if type == "bullet" then
     table.insert(self.weapons, Bullet(bx, by, self.imageBullet));
@@ -53,7 +48,7 @@ function ManagerWeapon:updateWeapons(dt)
       table.insert(activeWeapons, weapon);
     else
       BumpWorld:remove(weapon);
-      
+
       if not weapon.isOffScreen then
         local ps = self.bulletDeathEffect:clone();
         if weapon.type == "bullet" then

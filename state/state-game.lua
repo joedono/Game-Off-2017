@@ -9,31 +9,21 @@ State_Game = {};
 
 function State_Game:init()
   BumpWorld = Bump.newWorld(32);
+
+  self.music = love.audio.newSource("asset/music/gameplay.mp3");
+  self.deathTimer = Timer.new();
+end
+
+function State_Game:enter()
+  local items = BumpWorld:getItems();
+  for index, item in pairs(items) do
+    BumpWorld:remove(item);
+  end
+
   self.player = Player();
   self.weaponManager = ManagerWeapon(self.player);
   self.enemyManager = ManagerEnemy(self.weaponManager);
   self.background = Background();
-
-  self.music = love.audio.newSource("asset/music/gameplay.mp3");
-  self.music:setVolume(0.3);
-
-  self.timePassed = 0;
-  self.timelineIndex = 1;
-  self.lastTime = 0;
-  self.totalTime = 0;
-  for index, event in ipairs(GAME_TIMELINE) do
-    self.totalTime = self.totalTime + event.time;
-  end
-
-  self.deathTimer = Timer.new();
-  self.deathTimerRunning = false;
-end
-
-function State_Game:enter()
-  self.player:reset();
-  self.weaponManager:reset();
-  self.enemyManager:reset();
-  self.background:reset();
 
   self.timePassed = 0;
   self.timelineIndex = 1;
@@ -48,6 +38,7 @@ function State_Game:enter()
   self.deathTimerRunning = false;
 
   if PLAY_MUSIC then
+    self.music:setVolume(0.3);
     self.music:play();
   end
 end
@@ -223,7 +214,18 @@ function State_Game:update(dt)
   self.weaponManager:update(dt);
 
   if not self.player.active and not self.deathTimerRunning then
-    -- TODO fade out music then switch to State_Credits
+    self.deathTimerRunning = true;
+
+    self.deathTimer:script(function(wait)
+      self.music:setVolume(0.2);
+      wait(2);
+      self.music:setVolume(0.1);
+      wait(2);
+      self.music:setVolume(0);
+      wait(1);
+      self.active = false;
+      GameState.switch(State_Credits);
+    end);
   end
 end
 

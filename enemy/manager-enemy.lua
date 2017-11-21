@@ -27,11 +27,6 @@ ManagerEnemy = Class {
   end
 };
 
-function ManagerEnemy:reset()
-  self.enemies = {};
-  self.effects = {};
-end
-
 function ManagerEnemy:spawnEnemy(enemy)
   if enemy.type == "straight" then
     table.insert(self.enemies, EnemyStraight(enemy.x, enemy.y, self.weaponManager, self.imageEnemyStraight));
@@ -57,7 +52,7 @@ function ManagerEnemy:updateEnemies(dt)
       table.insert(activeEnemies, enemy);
     else
       BumpWorld:remove(enemy);
-      
+
       if not enemy.isOffScreen then
         local ps = self.enemyDeathEffect:clone();
         ps:setPosition(enemy.box.x + enemy.box.w / 2, enemy.box.y + enemy.box.h / 2);

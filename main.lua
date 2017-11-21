@@ -15,9 +15,9 @@ BumpWorld = {};
 
 function love.load()
   GameState.registerEvents();
-  --GameState.switch(State_Title);
-  GameState.switch(State_Game);
-  GameState.switch(State_Credits);
+  GameState.switch(State_Title);
+  --GameState.switch(State_Game);
+  --GameState.switch(State_Credits);
 end
 
 function love.keypressed(key, scancode, isrepeat)
