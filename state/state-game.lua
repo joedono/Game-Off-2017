@@ -221,9 +221,10 @@ function State_Game:update(dt)
       wait(2);
       self.music:setVolume(0.1);
       wait(2);
-      self.music:setVolume(0);
+      self.music:setVolume(0.05);
       wait(1);
-      self.active = false;
+      self.music:setVolume(0);
+      wait(0.5);
       GameState.switch(State_Credits);
     end);
   end
