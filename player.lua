@@ -17,7 +17,7 @@ Player = Class {
 
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
     BumpWorld:add(self.pickupBox, self.pickupBox.x, self.pickupBox.y, self.pickupBox.w, self.pickupBox.h);
-    self.shipImage = love.graphics.newImage("asset/image/player.png");
+    self.shipImage = love.graphics.newImage("asset/image/sprite/player.png");
 
     self:resetKeys();
 

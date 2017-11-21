@@ -1,7 +1,7 @@
 State_Title = {};
 
 function State_Title:init()
-  self.image = love.graphics.newImage("asset/image/title.png");
+  self.image = love.graphics.newImage("asset/image/screen/title.png");
   self.music = love.audio.newSource("asset/music/title.mp3");
   self.music:setVolume(0.3);
 end

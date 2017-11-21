@@ -7,10 +7,10 @@ ManagerWeapon = Class {
     self.effects = {};
     self.player = player;
 
-    self.imageBullet = love.graphics.newImage("asset/image/bullet.png");
-    self.imageBulletPickup = love.graphics.newImage("asset/image/bullet-pickup.png");
+    self.imageBullet = love.graphics.newImage("asset/image/sprite/bullet.png");
+    self.imageBulletPickup = love.graphics.newImage("asset/image/sprite/bullet-pickup.png");
 
-    local partImage = love.graphics.newImage("asset/image/effect-bullet-death.png");
+    local partImage = love.graphics.newImage("asset/image/effect/effect-bullet-death.png");
     local ps = love.graphics.newParticleSystem(partImage, 50);
     ps:setColors(
       255, 255, 255, 255,

@@ -8,11 +8,11 @@ ManagerEnemy = Class {
     self.enemies = {};
     self.effects = {};
 
-    self.imageEnemyStraight = love.graphics.newImage("asset/image/enemy-straight.png");
-    self.imageEnemySideways = love.graphics.newImage("asset/image/enemy-sideways.png");
-    self.imageEnemyPendulum = love.graphics.newImage("asset/image/enemy-pendulum.png");
+    self.imageEnemyStraight = love.graphics.newImage("asset/image/sprite/enemy-straight.png");
+    self.imageEnemySideways = love.graphics.newImage("asset/image/sprite/enemy-sideways.png");
+    self.imageEnemyPendulum = love.graphics.newImage("asset/image/sprite/enemy-pendulum.png");
 
-    local partImage = love.graphics.newImage("asset/image/effect-enemy-death.png");
+    local partImage = love.graphics.newImage("asset/image/effect/effect-enemy-death.png");
     local ps = love.graphics.newParticleSystem(partImage, 50);
     ps:setColors(
       255, 255, 255, 255,
