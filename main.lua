@@ -9,6 +9,7 @@ require "config/constants";
 
 require "state/state-title";
 require "state/state-game";
+require "state/state-credits";
 
 BumpWorld = {};
 
@@ -16,6 +17,7 @@ function love.load()
   GameState.registerEvents();
   --GameState.switch(State_Title);
   GameState.switch(State_Game);
+  GameState.switch(State_Credits);
 end
 
 function love.keypressed(key, scancode, isrepeat)
