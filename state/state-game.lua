@@ -11,6 +11,7 @@ function State_Game:init()
   BumpWorld = Bump.newWorld(32);
 
   self.musicGameplay = love.audio.newSource("asset/music/gameplay.mp3");
+  self.musicBoss = love.audio.newSource("asset/music/boss.mp3");
   self.deathTimer = Timer.new();
 end
 
@@ -46,6 +47,7 @@ end
 function State_Game:leave()
   if PLAY_MUSIC then
     self.musicGameplay:stop();
+    self.musicBoss:stop();
   end
 end
 
@@ -53,12 +55,17 @@ function State_Game:focus(focused)
   if focused then
     self.active = true;
     if PLAY_MUSIC then
-      self.musicGameplay:resume();
+      if self.enemyManager.bossIsActive then
+        self.musicBoss:resume();
+      else
+        self.musicGameplay:resume();
+      end
     end
   else
     self.active = false;
     if PLAY_MUSIC then
       self.musicGameplay:pause();
+      self.musicBoss:pause();
     end
   end
 end
@@ -194,7 +201,11 @@ end
 function State_Game:resume()
   self.player:resetKeys();
   if PLAY_MUSIC then
-    self.musicGameplay:resume();
+    if self.enemyManager.bossIsActive then
+      self.musicBoss:resume();
+    else
+      self.musicGameplay:resume();
+    end
   end
 end
 
@@ -213,17 +224,29 @@ function State_Game:update(dt)
   self.player:update(dt);
   self.weaponManager:update(dt);
 
+  -- Switch to boss music
+  if PLAY_MUSIC and self.enemyManager.bossIsActive and not self.musicBoss:isPlaying() then
+    self.musicGamePlay:stop();
+    self.musicBoss:setVolume(0.3);
+    self.musicBoss:play();
+  end
+
+  -- If player or boss is dead, fade out music and switch to credits screen
   if (not self.player.active or self.enemyManager:bossIsDead()) and not self.deathTimerRunning then
     self.deathTimerRunning = true;
 
     self.deathTimer:script(function(wait)
       self.musicGameplay:setVolume(0.2);
+      self.musicBoss:setVolume(0.2);
       wait(2);
       self.musicGameplay:setVolume(0.1);
+      self.musicBoss:setVolume(0.1);
       wait(2);
       self.musicGameplay:setVolume(0.05);
+      self.musicBoss:setVolume(0.05);
       wait(1);
       self.musicGameplay:setVolume(0);
+      self.musicBoss:setVolume(0);
       wait(0.5);
       GameState.switch(State_Credits);
     end);
