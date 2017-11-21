@@ -225,7 +225,7 @@ function Player:draw()
   love.graphics.rectangle("line", self.pickupBox.x, self.pickupBox.y, self.pickupBox.w, self.pickupBox.h);
 
   love.graphics.setColor(255, 255, 255);
-  love.graphics.draw(self.shipImage, self.box.x, self.box.y, 0, PLAYER_SCALE, PLAYER_SCALE);
+  love.graphics.draw(self.shipImage, self.box.x - PLAYER_OFFSET_X, self.box.y - PLAYER_OFFSET_Y, 0, PLAYER_SCALE, PLAYER_SCALE);
 
   -- Draw Health
   love.graphics.setColor(0, 255, 255);
@@ -238,7 +238,7 @@ function Player:draw()
   end
 
   if DRAW_BOXES then
-    love.graphics.setColor(255, 255, 255);
+    love.graphics.setColor(255, 0, 0);
     love.graphics.rectangle("line", BumpWorld:getRect(self));
   end
 end
