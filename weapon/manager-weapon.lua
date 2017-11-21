@@ -49,6 +49,18 @@ function ManagerWeapon:updateWeapons(dt)
       table.insert(activeWeapons, weapon);
     elseif not weapon.isOffScreen then
       local ps = self.bulletDeathEffect:clone();
+      if weapon.type == "bullet" then
+        ps:setColors(
+          255, 0, 0, 255,
+          255, 0, 0, 0
+        );
+      elseif weapon.type == "bullet-pickup" then
+        ps:setColors(
+          0, 255, 0, 255,
+          0, 255, 0, 0
+        );
+      end
+
       ps:setPosition(weapon.box.x + weapon.box.w / 2, weapon.box.y + weapon.box.h / 2);
       ps:emit(50);
       table.insert(self.effects, ps);
@@ -73,6 +85,7 @@ function ManagerWeapon:updateEffects(dt)
 end
 
 function ManagerWeapon:draw()
+  love.graphics.setColor(255, 255, 255);
   for index, weapon in ipairs(self.weapons) do
     weapon:draw();
   end

@@ -76,6 +76,7 @@ function ManagerEnemy:updateEffects(dt)
 end
 
 function ManagerEnemy:draw()
+  love.graphics.setColor(255, 255, 255);
   for index, enemy in ipairs(self.enemies) do
     enemy:draw();
   end
