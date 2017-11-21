@@ -23,6 +23,7 @@ EnemySideways = Class {
 
     self.fireTimer:every(SIDEWAYS_ENEMY_FIRE_RATE, function() self:fireBullet() end);
 
+    self.isOffScreen = false;
     self.active = true;
     self.type = "enemy";
   end
@@ -54,6 +55,7 @@ function EnemySideways:update(dt)
   self.box.y = actualY;
 
   if (self.box.x < 0 - self.box.w and self.direction == -1) or (self.box.x > SCREEN_WIDTH and self.direction == 1) then
+    self.isOffScreen = true;
     self.active = false;
     return;
   end

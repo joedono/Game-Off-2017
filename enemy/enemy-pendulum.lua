@@ -21,6 +21,7 @@ EnemyPendulum = Class {
       self.fireStartTimer:clear();
     end);
 
+    self.isOffScreen = false;
     self.active = true;
     self.type = "enemy";
   end
@@ -69,6 +70,7 @@ function EnemyPendulum:update(dt)
   self.box.y = actualY;
 
   if self.box.y > SCREEN_HEIGHT then
+    self.isOffScreen = true;
     self.active = false;
     return;
   end

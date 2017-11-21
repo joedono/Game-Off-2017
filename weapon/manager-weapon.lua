@@ -12,7 +12,15 @@ ManagerWeapon = Class {
 
     local partImage = love.graphics.newImage("asset/image/effect-bullet-death.png");
     local ps = love.graphics.newParticleSystem(partImage, 50);
-    -- TODO build enemy death effect
+    ps:setColors(
+      255, 255, 255, 255,
+      255, 255, 175, 150,
+      255, 0, 0, 0
+    );
+    ps:setEmissionRate(0);
+    ps:setParticleLifetime(0.5, 1.5);
+    ps:setSpeed(10, 40);
+    ps:setSpread(math.pi * 2);
     self.bulletDeathEffect = ps;
   end
 };
@@ -39,7 +47,7 @@ function ManagerWeapon:updateWeapons(dt)
 
     if weapon.active then
       table.insert(activeWeapons, weapon);
-    else
+    elseif not weapon.isOffScreen then
       local ps = self.bulletDeathEffect:clone();
       ps:setPosition(weapon.box.x + weapon.box.w / 2, weapon.box.y + weapon.box.h / 2);
       ps:emit(50);
@@ -67,5 +75,9 @@ end
 function ManagerWeapon:draw()
   for index, weapon in ipairs(self.weapons) do
     weapon:draw();
+  end
+
+  for index, effect in ipairs(self.effects) do
+    love.graphics.draw(effect);
   end
 end

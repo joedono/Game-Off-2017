@@ -14,7 +14,15 @@ ManagerEnemy = Class {
 
     local partImage = love.graphics.newImage("asset/image/effect-enemy-death.png");
     local ps = love.graphics.newParticleSystem(partImage, 50);
-    -- TODO build enemy death effect
+    ps:setColors(
+      255, 255, 255, 255,
+      255, 255, 175, 150,
+      255, 0, 0, 0
+    );
+    ps:setEmissionRate(0);
+    ps:setParticleLifetime(0.5, 1.5);
+    ps:setSpeed(10, 40);
+    ps:setSpread(math.pi * 2);
     self.enemyDeathEffect = ps;
   end
 };
@@ -42,7 +50,7 @@ function ManagerEnemy:updateEnemies(dt)
 
     if enemy.active then
       table.insert(activeEnemies, enemy);
-    else
+    elseif not enemy.isOffScreen then
       local ps = self.enemyDeathEffect:clone();
       ps:setPosition(enemy.box.x + enemy.box.w / 2, enemy.box.y + enemy.box.h / 2);
       ps:emit(50);

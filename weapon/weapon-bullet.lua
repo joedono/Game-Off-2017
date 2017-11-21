@@ -12,6 +12,7 @@ Bullet = Class {
 
     self.velocity = { x = 0, y = BULLET_SPEED };
 
+    self.isOffScreen = false;
     self.active = true;
     self.type = "bullet";
   end
@@ -31,6 +32,7 @@ function Bullet:update(dt, player)
   self.box.y = actualY;
 
   if self.box.x < 0 - BULLET_WIDTH or self.box.x > SCREEN_WIDTH or self.box.y > SCREEN_HEIGHT then
+    self.isOffScreen = true;
     self.active = false;
   end
 end

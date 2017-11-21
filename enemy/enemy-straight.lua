@@ -16,6 +16,7 @@ EnemyStraight = Class {
 
     self.fireTimer:every(STRAIGHT_ENEMY_FIRE_RATE, function() self:fireBullet() end);
 
+    self.isOffScreen = false;
     self.active = true;
     self.type = "enemy";
   end
@@ -47,6 +48,7 @@ function EnemyStraight:update(dt)
   self.box.y = actualY;
 
   if self.box.y > SCREEN_HEIGHT then
+    self.isOffScreen = true;
     self.active = false;
     return;
   end

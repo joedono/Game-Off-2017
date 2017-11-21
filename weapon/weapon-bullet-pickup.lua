@@ -14,6 +14,7 @@ BulletPickup = Class {
 
     self.thrown = false;
     self.pickedUp = false;
+    self.isOffScreen = false;
     self.active = true;
 
     self.isForcefield = false;
@@ -93,6 +94,7 @@ function BulletPickup:updatePosition(dt)
   self.box.y = actualY;
 
   if self.box.x < 0 - BULLET_WIDTH or self.box.x > SCREEN_WIDTH or self.box.y < 0 - BULLET_WIDTH or self.box.y > SCREEN_HEIGHT then
+    self.isOffScreen = true;
     self.active = false;
   end
 end
