@@ -44,6 +44,7 @@ function ManagerWeapon:updateWeapons(dt)
       ps:setPosition(weapon.box.x + weapon.box.w / 2, weapon.box.y + weapon.box.h / 2);
       ps:emit(50);
       table.insert(self.effects, ps);
+    end
   end
 
   self.weapons = activeWeapons;
