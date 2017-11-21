@@ -10,7 +10,7 @@ State_Game = {};
 function State_Game:init()
   BumpWorld = Bump.newWorld(32);
 
-  self.music = love.audio.newSource("asset/music/gameplay.mp3");
+  self.musicGameplay = love.audio.newSource("asset/music/gameplay.mp3");
   self.deathTimer = Timer.new();
 end
 
@@ -38,14 +38,14 @@ function State_Game:enter()
   self.deathTimerRunning = false;
 
   if PLAY_MUSIC then
-    self.music:setVolume(0.3);
-    self.music:play();
+    self.musicGameplay:setVolume(0.3);
+    self.musicGameplay:play();
   end
 end
 
 function State_Game:leave()
   if PLAY_MUSIC then
-    self.music:stop();
+    self.musicGameplay:stop();
   end
 end
 
@@ -53,12 +53,12 @@ function State_Game:focus(focused)
   if focused then
     self.active = true;
     if PLAY_MUSIC then
-      self.music:resume();
+      self.musicGameplay:resume();
     end
   else
     self.active = false;
     if PLAY_MUSIC then
-      self.music:pause();
+      self.musicGameplay:pause();
     end
   end
 end
@@ -194,7 +194,7 @@ end
 function State_Game:resume()
   self.player:resetKeys();
   if PLAY_MUSIC then
-    self.music:resume();
+    self.musicGameplay:resume();
   end
 end
 
@@ -217,13 +217,13 @@ function State_Game:update(dt)
     self.deathTimerRunning = true;
 
     self.deathTimer:script(function(wait)
-      self.music:setVolume(0.2);
+      self.musicGameplay:setVolume(0.2);
       wait(2);
-      self.music:setVolume(0.1);
+      self.musicGameplay:setVolume(0.1);
       wait(2);
-      self.music:setVolume(0.05);
+      self.musicGameplay:setVolume(0.05);
       wait(1);
-      self.music:setVolume(0);
+      self.musicGameplay:setVolume(0);
       wait(0.5);
       GameState.switch(State_Credits);
     end);
