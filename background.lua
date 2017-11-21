@@ -5,6 +5,10 @@ Background = Class {
   end
 };
 
+function Background:reset()
+  self.positions = {-SCREEN_HEIGHT, 0};
+end
+
 function Background:update(dt)
   for i, p in ipairs(self.positions) do
     self.positions[i] = math.floor(self.positions[i] + BACKGROUND_SPEED * dt);

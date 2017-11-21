@@ -25,6 +25,11 @@ ManagerWeapon = Class {
   end
 };
 
+function ManagerWeapon:reset()
+  self.weapons = {};
+  self.effects = {};
+end
+
 function ManagerWeapon:spawnBullet(bx, by, type)
   if type == "bullet" then
     table.insert(self.weapons, Bullet(bx, by, self.imageBullet));
@@ -36,7 +41,6 @@ end
 function ManagerWeapon:update(dt)
   self:updateWeapons(dt);
   self:updateEffects(dt);
-
 end
 
 function ManagerWeapon:updateWeapons(dt)
@@ -47,23 +51,27 @@ function ManagerWeapon:updateWeapons(dt)
 
     if weapon.active then
       table.insert(activeWeapons, weapon);
-    elseif not weapon.isOffScreen then
-      local ps = self.bulletDeathEffect:clone();
-      if weapon.type == "bullet" then
-        ps:setColors(
-          255, 0, 0, 255,
-          255, 0, 0, 0
-        );
-      elseif weapon.type == "bullet-pickup" then
-        ps:setColors(
-          0, 255, 0, 255,
-          0, 255, 0, 0
-        );
-      end
+    else
+      BumpWorld:remove(weapon);
+      
+      if not weapon.isOffScreen then
+        local ps = self.bulletDeathEffect:clone();
+        if weapon.type == "bullet" then
+          ps:setColors(
+            255, 0, 0, 255,
+            255, 0, 0, 0
+          );
+        elseif weapon.type == "bullet-pickup" then
+          ps:setColors(
+            0, 255, 0, 255,
+            0, 255, 0, 0
+          );
+        end
 
-      ps:setPosition(weapon.box.x + weapon.box.w / 2, weapon.box.y + weapon.box.h / 2);
-      ps:emit(50);
-      table.insert(self.effects, ps);
+        ps:setPosition(weapon.box.x + weapon.box.w / 2, weapon.box.y + weapon.box.h / 2);
+        ps:emit(50);
+        table.insert(self.effects, ps);
+      end
     end
   end
 

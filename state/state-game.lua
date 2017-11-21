@@ -24,10 +24,28 @@ function State_Game:init()
   for index, event in ipairs(GAME_TIMELINE) do
     self.totalTime = self.totalTime + event.time;
   end
+
+  self.deathTimer = Timer.new();
+  self.deathTimerRunning = false;
 end
 
 function State_Game:enter()
+  self.player:reset();
+  self.weaponManager:reset();
+  self.enemyManager:reset();
+  self.background:reset();
+
+  self.timePassed = 0;
+  self.timelineIndex = 1;
+  self.lastTime = 0;
+  self.totalTime = 0;
+  for index, event in ipairs(GAME_TIMELINE) do
+    self.totalTime = self.totalTime + event.time;
+  end
+
   self.active = true;
+  self.deathTimer:clear();
+  self.deathTimerRunning = false;
 
   if PLAY_MUSIC then
     self.music:play();
@@ -194,11 +212,19 @@ function State_Game:update(dt)
     return;
   end
 
+  if self.deathTimerRunning then
+    self.deathTimer:update(dt);
+  end
+
   self:updateTimeline(dt);
   self.background:update(dt);
   self.enemyManager:update(dt);
   self.player:update(dt);
   self.weaponManager:update(dt);
+
+  if not self.player.active and not self.deathTimerRunning then
+    -- TODO fade out music then switch to State_Credits
+  end
 end
 
 function State_Game:updateTimeline(dt)

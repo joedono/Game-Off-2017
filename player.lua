@@ -34,6 +34,38 @@ Player = Class {
   end
 };
 
+function Player:reset()
+  self:resetKeys();
+
+  self.box = {
+    x = PLAYER_INITIAL_DIMENSIONS.x,
+    y = PLAYER_INITIAL_DIMENSIONS.y,
+    w = PLAYER_INITIAL_DIMENSIONS.w,
+    h = PLAYER_INITIAL_DIMENSIONS.h
+  };
+
+  self.pickupBox = {
+    x = PICKUP_BOX_INITIAL_DIMENSIONS.x,
+    y = PICKUP_BOX_INITIAL_DIMENSIONS.y,
+    w = PICKUP_BOX_INITIAL_DIMENSIONS.w,
+    h = PICKUP_BOX_INITIAL_DIMENSIONS.h,
+    type = "pickup-box"
+  };
+
+  BumpWorld:update(self, self.box.x, self.box.y, self.box.w, self.box.h);
+  BumpWorld:update(self.pickupBox, self.pickupBox.x, self.pickupBox.y, self.pickupBox.w, self.pickupBox.h);
+
+  self.velocity = { x = 0, y = 0 };
+  self.facing = { x = 0, y = 0 };
+  self.caughtBullets = {};
+  self.forcefieldBullets = {};
+  self.health = PLAYER_MAX_HEALTH;
+
+  self.streamTimer:clear();
+
+  self.active = true;
+end
+
 function Player:resetKeys()
   self.leftPressed = false;
   self.rightPressed = false;
