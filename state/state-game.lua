@@ -213,7 +213,7 @@ function State_Game:update(dt)
   self.player:update(dt);
   self.weaponManager:update(dt);
 
-  if not self.player.active and not self.deathTimerRunning then
+  if (not self.player.active or self.enemyManager:bossIsDead()) and not self.deathTimerRunning then
     self.deathTimerRunning = true;
 
     self.deathTimer:script(function(wait)

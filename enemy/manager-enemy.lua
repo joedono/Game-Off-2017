@@ -1,6 +1,7 @@
 require "enemy/enemy-straight";
 require "enemy/enemy-pendulum";
 require "enemy/enemy-sideways";
+require "enemy/enemy-boss";
 
 ManagerEnemy = Class {
   init = function(self, weaponManager)
@@ -11,6 +12,9 @@ ManagerEnemy = Class {
     self.imageEnemyStraight = love.graphics.newImage("asset/image/sprite/enemy-straight.png");
     self.imageEnemySideways = love.graphics.newImage("asset/image/sprite/enemy-sideways.png");
     self.imageEnemyPendulum = love.graphics.newImage("asset/image/sprite/enemy-pendulum.png");
+    self.imageEnemyBoss = love.graphics.newImage("asset/image/sprite/boss.png");
+
+    self.bossIsActive = false;
 
     local partImage = love.graphics.newImage("asset/image/effect/effect-enemy-death.png");
     local ps = love.graphics.newParticleSystem(partImage, 50);
@@ -27,6 +31,25 @@ ManagerEnemy = Class {
   end
 };
 
+function ManagerEnemy:bossIsDead()
+  if not self.bossIsActive then
+    return false;
+  end
+
+  local boss = nil;
+  for index, enemy in ipairs(self.enemies) do
+    if enemy.type == "boss" then
+      boss = enemy;
+    end
+  end
+
+  if boss and boss.active then
+    return false;
+  end
+
+  return true;
+end
+
 function ManagerEnemy:spawnEnemy(enemy)
   if enemy.type == "straight" then
     table.insert(self.enemies, EnemyStraight(enemy.x, enemy.y, self.weaponManager, self.imageEnemyStraight));
@@ -34,6 +57,9 @@ function ManagerEnemy:spawnEnemy(enemy)
     table.insert(self.enemies, EnemySideways(enemy.x, enemy.y, self.weaponManager, self.imageEnemySideways));
   elseif enemy.type == "pendulum" then
     table.insert(self.enemies, EnemyPendulum(enemy.x, enemy.y, self.weaponManager, self.imageEnemyPendulum));
+  elseif enemy.type == "boss" then
+    table.insert(self.enemies, EnemyBoss(enemy.x, enemy.y, self.weaponManager, self.imageEnemyBoss));
+    self.bossIsActive = true;
   end
 end
 
