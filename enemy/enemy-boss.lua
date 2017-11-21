@@ -17,9 +17,19 @@ EnemyBoss = Class {
 };
 
 function EnemyBoss:update(dt)
-
+  -- TODO
 end
 
 function EnemyBoss:draw()
-  
+  if not self.active then
+    return;
+  end
+
+  love.graphics.setColor(255, 255, 255);
+  love.graphics.draw(self.image, self.box.x - BOSS_OFFSET_X, self.box.y - BOSS_OFFSET_Y, 0, BOSS_SCALE, BOSS_SCALE);
+
+  if DRAW_BOXES then
+    love.graphics.setColor(255, 255, 255);
+    love.graphics.rectangle("line", BumpWorld:getRect(self));
+  end
 end
