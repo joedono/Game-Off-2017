@@ -22,8 +22,9 @@ function State_Game:enter()
   end
 
   self.player = Player();
+  self.pickupManager = ManagerPickup();
   self.weaponManager = ManagerWeapon(self.player);
-  self.enemyManager = ManagerEnemy(self.weaponManager);
+  self.enemyManager = ManagerEnemy(self.weaponManager, self.pickupManager);
   self.background = Background();
 
   self.timePassed = 0;
@@ -221,6 +222,7 @@ function State_Game:update(dt)
   self:updateTimeline(dt);
   self.background:update(dt);
   self.enemyManager:update(dt);
+  self.pickupManager:update(dt);
   self.player:update(dt);
   self.weaponManager:update(dt);
 
@@ -276,6 +278,7 @@ function State_Game:draw()
 
   self.background:draw();
   self.enemyManager:draw();
+  self.pickupManager:draw();
   self.player:draw();
   self.weaponManager:draw();
 

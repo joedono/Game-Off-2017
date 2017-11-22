@@ -4,8 +4,9 @@ require "enemy/enemy-sideways";
 require "enemy/enemy-boss";
 
 ManagerEnemy = Class {
-  init = function(self, weaponManager)
+  init = function(self, weaponManager, pickupManager)
     self.weaponManager = weaponManager;
+    self.pickupManager = pickupManager;
     self.enemies = {};
     self.effects = {};
 
@@ -84,6 +85,8 @@ function ManagerEnemy:updateEnemies(dt)
         ps:setPosition(enemy.box.x + enemy.box.w / 2, enemy.box.y + enemy.box.h / 2);
         ps:emit(50);
         table.insert(self.effects, ps);
+
+        -- TODO randomly spawn health pickups using self.pickupManager:spawnHealth(x, y);
       end
     end
   end
