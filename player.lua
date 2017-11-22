@@ -18,6 +18,7 @@ Player = Class {
     BumpWorld:add(self, self.box.x, self.box.y, self.box.w, self.box.h);
     BumpWorld:add(self.pickupBox, self.pickupBox.x, self.pickupBox.y, self.pickupBox.w, self.pickupBox.h);
     self.shipImage = love.graphics.newImage("asset/image/sprite/player.png");
+    self.bulletImage = love.graphics.newImage("asset/image/sprite/bullet-pickup.png");
 
     self:resetKeys();
 
@@ -171,7 +172,7 @@ function Player:updatePosition(dt)
   local dy = self.box.y + self.velocity.y * dt;
 
   dx = math.clamp(dx, 0, SCREEN_WIDTH - PLAYER_WIDTH);
-  dy = math.clamp(dy, 0, SCREEN_HEIGHT - PLAYER_HEIGHT);
+  dy = math.clamp(dy, 0, SCREEN_HEIGHT - PLAYER_HEIGHT - HUD_HEIGHT);
 
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, playerCollision);
 
@@ -228,13 +229,21 @@ function Player:draw()
   love.graphics.draw(self.shipImage, self.box.x - PLAYER_OFFSET_X, self.box.y - PLAYER_OFFSET_Y, 0, PLAYER_SCALE, PLAYER_SCALE);
 
   -- Draw Health
+  love.graphics.setColor(0, 0, 0);
+  love.graphics.rectangle("fill", 0, SCREEN_HEIGHT - HUD_HEIGHT, SCREEN_WIDTH, HUD_HEIGHT);
+
   love.graphics.setColor(0, 255, 255);
-  for i=1, self.health do
-    love.graphics.rectangle("fill", i * 68, 16, 60, 32);
+  for i = 1, self.health do
+    love.graphics.rectangle("fill", (i-1) * 68 + 15, HUD_HEALTH_COORDINATE, 60, 32);
   end
 
-  for i=self.health, PLAYER_MAX_HEALTH do
-    love.graphics.rectangle("line", i * 68, 16, 60, 32);
+  for i = self.health, PLAYER_MAX_HEALTH do
+    love.graphics.rectangle("line", (i-1) * 68 + 15, HUD_HEALTH_COORDINATE, 60, 32);
+  end
+
+  love.graphics.setColor(255, 255, 255);
+  for i = 1, #self.caughtBullets do
+    love.graphics.draw(self.bulletImage, i * (BULLET_WIDTH + 3) * 2 + 350, HUD_BULLET_COORDINATE, 0, 0.75, 0.75);
   end
 
   if DRAW_BOXES then
