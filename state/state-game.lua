@@ -2,6 +2,7 @@ require "config/collisions";
 require "player";
 require "weapon/manager-weapon";
 require "enemy/manager-enemy";
+require "pickup/manager-pickup";
 require "asset/config/game-timeline";
 require "background";
 
