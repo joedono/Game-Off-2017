@@ -35,7 +35,7 @@ function EnemyBoss:update(dt)
     end
 
     --self.mode = self.firingModes[love.math.random(1, 4)];
-    self.mode = "wave";
+    self.mode = "shield";
   end
 
   if self.mode == "entering" then
@@ -222,10 +222,31 @@ function EnemyBoss:fireBomb(dt)
 end
 
 function EnemyBoss:moveShield(dt)
-  local startX = 169;
-  local startY = 100;
+  local startX, startY = 0, 0;
+  local endX, endY = 0, 0;
+  local progress = 0;
+  local currentState = self.modeTimer / BOSS_MODE_TIMER;
+  local timerUnit = BOSS_MODE_TIMER / 6;
 
-  -- TODO
+  if currentState <= 1/6 then
+    startX = 169;
+    startY = 100;
+    endX = 169;
+    endY = 10;
+    progress = self.modeTimer / timerUnit;
+  elseif currentState > 1/6 and currentState <= 4/6 then
+    startX = 169;
+    startY = 10;
+    endX = 169;
+    endY = SCREEN_HEIGHT - BOSS_HEIGHT - 100;
+    progress = (self.modeTimer - BOSS_MODE_TIMER * 1/6) / (timerUnit * 3);
+  elseif currentState > 4/6 then
+    startX = 169;
+    startY = SCREEN_HEIGHT - BOSS_HEIGHT - 100;
+    endX = 169;
+    endY = 100;
+    progress = (self.modeTimer - BOSS_MODE_TIMER  * 4/6) / (timerUnit * 2);
+  end
 
   local curX = lerp(startX, endX, progress);
   local curY = lerp(startY, endY, progress);
