@@ -17,11 +17,19 @@ PickupHealth = Class {
   end
 };
 
-function BulletPickup:update(dt)
-  -- TODO
+function PickupHealth:update(dt)
+  local dx = self.box.x + HEALTH_SPEED * dt;
+  local actualX, actualY, cols, len = BumpWorld:move(self, self.box.x, dy);
+
+  self.box.x = actualX;
+  self.box.y = actualY;
+
+  if self.box.x < 0 - HEALTH_WIDTH or self.box.x > SCREEN_WIDTH or self.box.y > SCREEN_HEIGHT then
+    self.active = false;
+  end
 end
 
-function BulletPickup:draw()
+function PickupHealth:draw()
   if not self.active then
     return;
   end

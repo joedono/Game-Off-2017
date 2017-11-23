@@ -86,7 +86,10 @@ function ManagerEnemy:updateEnemies(dt)
         ps:emit(50);
         table.insert(self.effects, ps);
 
-        -- TODO randomly spawn health pickups using self.pickupManager:spawnHealth(x, y);
+        local spawnHealth = love.math.random(1, 10);
+        if spawnHealth <= 2 then
+          self.pickupManager:spawnHealth(enemy.box.x + enemy.box.w / 2, enemy.box.y + enemy.box.h / 2);
+        end
       end
     end
   end

@@ -10,7 +10,9 @@ ManagerPickup = Class {
 };
 
 function ManagerPickup:spawnHealth(x, y)
-  -- TODO
+  x = x - HEALTH_WIDTH / 2;
+  y = y - HEALTH_HEIGHT / 2;
+  table.insert(self.pickups, PickupHealth(x, y, slef.imagePickupHealth));
 end
 
 function ManagerPickup:update(dt)
@@ -21,6 +23,8 @@ function ManagerPickup:update(dt)
 
     if pickup.active then
       table.insert(activePickups, pickup);
+    else
+      BumpWorld:remove(pickup);
     end
   end
 
