@@ -3,7 +3,7 @@ playerCollision = function(player, other)
     return nil;
   end
 
-  if other.type == "bullet" or other.type == "bullet-pickup" then
+  if other.type == "bullet" or other.type == "bullet-pickup" or other.type == "pickup-health" then
     return "cross";
   end
 
@@ -40,6 +40,18 @@ enemyCollision = function(enemy, other)
   end
 
   if other.type == "bullet-pickup" then
+    return "cross";
+  end
+
+  return nil;
+end
+
+healthCollision = function(health, other)
+  if not other.active then
+    return nil;
+  end
+
+  if other.type == "player" then
     return "cross";
   end
 

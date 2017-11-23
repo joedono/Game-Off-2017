@@ -12,7 +12,7 @@ ManagerPickup = Class {
 function ManagerPickup:spawnHealth(x, y)
   x = x - HEALTH_WIDTH / 2;
   y = y - HEALTH_HEIGHT / 2;
-  table.insert(self.pickups, PickupHealth(x, y, slef.imagePickupHealth));
+  table.insert(self.pickups, PickupHealth(x, y, self.imagePickupHealth));
 end
 
 function ManagerPickup:update(dt)

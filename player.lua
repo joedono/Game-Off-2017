@@ -190,6 +190,10 @@ function Player:updatePosition(dt)
           self.active = false;
         end
       end
+
+      cols[i].other.active = false;
+    elseif cols[i].other.type == "pickup-health" then
+      self.health = math.clamp(self.health + 1, 0, PLAYER_MAX_HEALTH);
       cols[i].other.active = false;
     end
   end

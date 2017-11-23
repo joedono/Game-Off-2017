@@ -18,8 +18,12 @@ PickupHealth = Class {
 };
 
 function PickupHealth:update(dt)
-  local dx = self.box.x + HEALTH_SPEED * dt;
-  local actualX, actualY, cols, len = BumpWorld:move(self, self.box.x, dy);
+  if not self.active then
+    return;
+  end
+  
+  local dy = self.box.y + HEALTH_SPEED * dt;
+  local actualX, actualY, cols, len = BumpWorld:move(self, self.box.x, dy, healthCollision);
 
   self.box.x = actualX;
   self.box.y = actualY;
