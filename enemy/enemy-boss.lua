@@ -11,6 +11,7 @@ EnemyBoss = Class {
     self.image = image;
     self.weaponManager = weaponManager;
     self.pickupManager = pickupManager;
+    self.health = BOSS_HEALTH;
     self.modeTimer = 0;
     self.mode = "entering";
     self.firingModes = {
@@ -28,46 +29,85 @@ EnemyBoss = Class {
 function EnemyBoss:update(dt)
   self.modeTimer = self.modeTimer + dt;
   if self.modeTimer >= BOSS_MODE_TIMER then
-    self.modetimer = 0;
-    self.pickupManager:spawnHealth(SCREEN_WIDTH, -HEALTH_HEIGHT);
-    self:switchModes();
+    self.modeTimer = 0;
+    if not self.mode == "entering" then
+      self.pickupManager:spawnHealth(SCREEN_WIDTH / 2, -HEALTH_HEIGHT);
+    end
+    self.mode = self.firingModes[love.math.random(1, 4)];
   end
 
   if self.mode == "entering" then
-    self:updateEntering(dt);
+    self:moveEntering(dt);
   elseif self.mode == "stream" then
-    self:updateStream(dt);
+    self:moveStream(dt);
+    self:fireStream(dt);
   elseif self.mode == "wave" then
-    self:updateWave(dt);
+    self:moveWave(dt);
+    self:fireWave(dt);
   elseif self.mode == "bomb" then
-    self:updateBomb(dt);
+    self:moveBomb(dt);
+    self:fireBomb(dt);
   elseif self.mode == "shield" then
-    self:updateShield(dt);
+    self:moveShield(dt);
+    self:fireShield(dt);
+  end
+
+  if self.health <= 0 then
+    self.active = false;
   end
 end
 
-function EnemyBoss:switchModes();
+function EnemyBoss:moveEntering(dt)
+  local startY = -400;
+  local endY = 100;
+  local curY = lerp(startY, endY, self.modeTimer / BOSS_MODE_TIMER);
+  local actualX, actualY, cols, len = BumpWorld:move(self, self.box.x, curY, bossCollision);
+
+  self:handleCollision(cols, len);
+
+  self.box.x = actualX;
+  self.box.y = actualY;
+end
+
+function EnemyBoss:moveStream(dt)
   -- TODO
 end
 
-function EnemyBoss:updateEntering(dt);
+function EnemyBoss:fireStream(dt)
   -- TODO
 end
 
-function EnemyBoss:updateStream(dt);
+function EnemyBoss:moveWave(dt)
   -- TODO
 end
 
-function EnemyBoss:updateWave(dt);
+function EnemyBoss:fireWave(dt)
   -- TODO
 end
 
-function EnemyBoss:updateBomb(dt);
+function EnemyBoss:moveBomb(dt)
   -- TODO
 end
 
-function EnemyBoss:updateShield(dt);
+function EnemyBoss:fireBomb(dt)
   -- TODO
+end
+
+function EnemyBoss:moveShield(dt)
+  -- TODO
+end
+
+function EnemyBoss:fireShield(dt)
+  -- TODO
+end
+
+function EnemyBoss:handleCollision(cols, len)
+  for i = 1, len do
+    if cols[i].other.type == "bullet-pickup" and cols[i].other.thrown and not cols[i].other.isSlave then
+      self.health = self.health - 1;
+      cols[i].other.active = false;
+    end
+  end
 end
 
 function EnemyBoss:draw()

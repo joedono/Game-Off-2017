@@ -57,3 +57,15 @@ healthCollision = function(health, other)
 
   return nil;
 end
+
+bossCollision = function(health, other)
+  if not other.active then
+    return nil;
+  end
+
+  if other.type == "bullet-pickup" then
+    return "cross";
+  end
+
+  return nil;
+end
