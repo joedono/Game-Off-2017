@@ -34,8 +34,7 @@ function EnemyBoss:update(dt)
       self.pickupManager:spawnHealth(SCREEN_WIDTH / 2, -HEALTH_HEIGHT);
     end
 
-    --self.mode = self.firingModes[love.math.random(1, 4)];
-    self.mode = "shield";
+    self.mode = self.firingModes[love.math.random(1, 4)];
   end
 
   if self.mode == "entering" then
