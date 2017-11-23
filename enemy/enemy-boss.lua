@@ -35,7 +35,7 @@ function EnemyBoss:update(dt)
     end
 
     --self.mode = self.firingModes[love.math.random(1, 4)];
-    self.mode = "bomb";
+    self.mode = "wave";
   end
 
   if self.mode == "entering" then
@@ -123,11 +123,11 @@ function EnemyBoss:moveWave(dt)
   if currentState <= 1/4 then
     startX = 169;
     startY = 100;
-    endX = SCREEN_WIDTH - BOSS_WIDTH - 10;
+    endX = 10;
     endY = 100;
     progress = self.modeTimer / timerUnit;
   elseif currentState > 1/4 and currentState <= 2/4 then
-    startX = SCREEN_WIDTH - BOSS_WIDTH - 10;
+    startX = 10;
     startY = 100;
     endX = 169;
     endY = 10;
@@ -135,11 +135,11 @@ function EnemyBoss:moveWave(dt)
   elseif currentState > 2/4 and currentState <= 3/4 then
     startX = 169;
     startY = 10;
-    endX = 10;
+    endX = SCREEN_WIDTH - BOSS_WIDTH - 10;
     endY = 100;
     progress = (self.modeTimer - BOSS_MODE_TIMER / 2) / timerUnit;
   elseif currentState > 3/4 then
-    startX = 10;
+    startX = SCREEN_WIDTH - BOSS_WIDTH - 10;
     startY = 100;
     endX = 169;
     endY = 100;
