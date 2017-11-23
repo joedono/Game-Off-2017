@@ -128,7 +128,7 @@ BOSS_INITIAL_DIMENSIONS = {
 
 -- Debug Variables
 DRAW_POSITIONS = false;
-DRAW_BOXES = true;
+DRAW_BOXES = false;
 DRAW_COUNTS = false;
 KILL_PLAYER = false;
 PLAY_MUSIC = false;
