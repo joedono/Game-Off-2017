@@ -59,7 +59,7 @@ function ManagerEnemy:spawnEnemy(enemy)
   elseif enemy.type == "pendulum" then
     table.insert(self.enemies, EnemyPendulum(enemy.x, enemy.y, self.weaponManager, self.imageEnemyPendulum));
   elseif enemy.type == "boss" then
-    table.insert(self.enemies, EnemyBoss(enemy.x, enemy.y, self.weaponManager, self.imageEnemyBoss));
+    table.insert(self.enemies, EnemyBoss(enemy.x, enemy.y, self.weaponManager, self.pickupManager, self.imageEnemyBoss));
     self.bossIsActive = true;
   end
 end
