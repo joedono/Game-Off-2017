@@ -35,7 +35,7 @@ function EnemyBoss:update(dt)
     end
 
     --self.mode = self.firingModes[love.math.random(1, 4)];
-    self.mode = "wave";
+    self.mode = "bomb";
   end
 
   if self.mode == "entering" then
@@ -76,28 +76,26 @@ function EnemyBoss:moveStream(dt)
   local endX, endY = 0, 0;
   local progress = 0;
   local currentState = self.modeTimer / BOSS_MODE_TIMER;
+  local timerUnit = BOSS_MODE_TIMER / 4;
 
   if currentState <= 1/4 then
-    -- Move from center to the right
     startX = 169;
     startY = 100;
-    endX = SCREEN_WIDTH - BOSS_WIDTH - 30;
+    endX = SCREEN_WIDTH - BOSS_WIDTH - 10;
     endY = 100;
-    progress = self.modeTimer / (BOSS_MODE_TIMER / 4);
+    progress = self.modeTimer / timerUnit;
   elseif currentState > 1/4 and currentState <= 3/4 then
-    -- Move from the right to the left
-    startX = SCREEN_WIDTH - BOSS_WIDTH - 30;
+    startX = SCREEN_WIDTH - BOSS_WIDTH - 10;
     startY = 100;
-    endX = 30;
+    endX = 10;
     endY = 100;
-    progress = (self.modeTimer - BOSS_MODE_TIMER / 4) / (BOSS_MODE_TIMER / 2);
+    progress = (self.modeTimer - BOSS_MODE_TIMER / 4) / (timerUnit * 2);
   elseif currentState > 3/4 then
-    -- Move from the left to the center
-    startX = 30;
+    startX = 10;
     startY = 100;
     endX = 169;
     endY = 100;
-    progress = (self.modeTimer - BOSS_MODE_TIMER  * 3/4) / (BOSS_MODE_TIMER / 4);
+    progress = (self.modeTimer - BOSS_MODE_TIMER  * 3/4) / timerUnit;
   end
 
   local curX = lerp(startX, endX, progress);
@@ -120,35 +118,32 @@ function EnemyBoss:moveWave(dt)
   local endX, endY = 0, 0;
   local progress = 0;
   local currentState = self.modeTimer / BOSS_MODE_TIMER;
+  local timerUnit = BOSS_MODE_TIMER / 4;
 
   if currentState <= 1/4 then
-    -- Move from center to the right
     startX = 169;
     startY = 100;
-    endX = SCREEN_WIDTH - BOSS_WIDTH - 30;
+    endX = SCREEN_WIDTH - BOSS_WIDTH - 10;
     endY = 100;
-    progress = self.modeTimer / (BOSS_MODE_TIMER / 4);
+    progress = self.modeTimer / timerUnit;
   elseif currentState > 1/4 and currentState <= 2/4 then
-    -- Move from the right to the left
-    startX = SCREEN_WIDTH - BOSS_WIDTH - 30;
+    startX = SCREEN_WIDTH - BOSS_WIDTH - 10;
     startY = 100;
     endX = 169;
     endY = 10;
-    progress = (self.modeTimer - BOSS_MODE_TIMER / 4) / (BOSS_MODE_TIMER / 4);
+    progress = (self.modeTimer - BOSS_MODE_TIMER / 4) / timerUnit;
   elseif currentState > 2/4 and currentState <= 3/4 then
-    -- Move from the right to the left
     startX = 169;
     startY = 10;
-    endX = 30;
+    endX = 10;
     endY = 100;
-    progress = (self.modeTimer - BOSS_MODE_TIMER / 2) / (BOSS_MODE_TIMER / 4);
+    progress = (self.modeTimer - BOSS_MODE_TIMER / 2) / timerUnit;
   elseif currentState > 3/4 then
-    -- Move from the left to the center
-    startX = 30;
+    startX = 10;
     startY = 100;
     endX = 169;
     endY = 100;
-    progress = (self.modeTimer - BOSS_MODE_TIMER  * 3/4) / (BOSS_MODE_TIMER / 4);
+    progress = (self.modeTimer - BOSS_MODE_TIMER  * 3/4) / timerUnit;
   end
 
   local curX = lerp(startX, endX, progress);
@@ -167,10 +162,49 @@ function EnemyBoss:fireWave(dt)
 end
 
 function EnemyBoss:moveBomb(dt)
-  local startX = 169;
-  local startY = 100;
+  local startX, startY = 0, 0;
+  local endX, endY = 0, 0;
+  local progress = 0;
+  local currentState = self.modeTimer / BOSS_MODE_TIMER;
+  local timerUnit = BOSS_MODE_TIMER / 6;
 
-  -- TODO
+  if currentState <= 1/6 then
+    startX = 169;
+    startY = 100;
+    endX = 169;
+    endY = 200;
+    progress = self.modeTimer / timerUnit;
+  elseif currentState > 1/6 and currentState <= 2/6 then
+    startX = 169;
+    startY = 200;
+    endX = SCREEN_WIDTH - BOSS_WIDTH - 10;
+    endY = 100;
+    progress = (self.modeTimer - BOSS_MODE_TIMER * 1/6) / timerUnit;
+  elseif currentState > 2/6 and currentState <= 3/6 then
+    startX = SCREEN_WIDTH - BOSS_WIDTH - 10;
+    startY = 100;
+    endX = 169;
+    endY = 10;
+    progress = (self.modeTimer - BOSS_MODE_TIMER * 2/6) / timerUnit;
+  elseif currentState > 3/6 and currentState <= 4/6 then
+    startX = 169;
+    startY = 10;
+    endX = 10;
+    endY = 100;
+    progress = (self.modeTimer - BOSS_MODE_TIMER  * 3/6) / timerUnit;
+  elseif currentState > 4/6 and currentState <= 5/6 then
+    startX = 10;
+    startY = 100;
+    endX = 169;
+    endY = 200;
+    progress = (self.modeTimer - BOSS_MODE_TIMER  * 4/6) / timerUnit;
+  elseif currentState > 5/6 then
+    startX = 169;
+    startY = 200;
+    endX = 169;
+    endY = 100;
+    progress = (self.modeTimer - BOSS_MODE_TIMER  * 5/6) / timerUnit;
+  end
 
   local curX = lerp(startX, endX, progress);
   local curY = lerp(startY, endY, progress);
