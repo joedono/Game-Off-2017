@@ -33,7 +33,9 @@ function EnemyBoss:update(dt)
     if not self.mode == "entering" then
       self.pickupManager:spawnHealth(SCREEN_WIDTH / 2, -HEALTH_HEIGHT);
     end
-    self.mode = self.firingModes[love.math.random(1, 4)];
+
+    --self.mode = self.firingModes[love.math.random(1, 4)];
+    self.mode = "stream";
   end
 
   if self.mode == "entering" then
@@ -70,7 +72,43 @@ function EnemyBoss:moveEntering(dt)
 end
 
 function EnemyBoss:moveStream(dt)
-  -- TODO
+  local startX, startY = 0, 0;
+  local endX, endY = 0, 0;
+  local progress = 0;
+  local currentState = self.modeTimer / BOSS_MODE_TIMER;
+
+  if currentState <= 1/4 then
+    -- Move from center to the right
+    startX = 169;
+    startY = 100;
+    endX = SCREEN_WIDTH - BOSS_WIDTH - 30;
+    endY = 100;
+    progress = self.modeTimer / (BOSS_MODE_TIMER / 4);
+  elseif currentState > 1/4 and currentState <= 3/4 then
+    -- Move from the right to the left
+    startX = SCREEN_WIDTH - BOSS_WIDTH - 30;
+    startY = 100;
+    endX = 30;
+    endY = 100;
+    progress = (self.modeTimer - BOSS_MODE_TIMER / 4) / (BOSS_MODE_TIMER / 2);
+  elseif currentState > 3/4 then
+    -- Move from the left to the center
+    startX = 30;
+    startY = 100;
+    endX = 169;
+    endY = 100;
+    progress = (self.modeTimer - BOSS_MODE_TIMER  * 3/4) / (BOSS_MODE_TIMER / 4);
+  end
+
+  local curX = lerp(startX, endX, progress);
+  local curY = lerp(startY, endY, progress);
+
+  local actualX, actualY, cols, len = BumpWorld:move(self, curX, curY, bossCollision);
+
+  self:handleCollision(cols, len);
+
+  self.box.x = actualX;
+  self.box.y = actualY;
 end
 
 function EnemyBoss:fireStream(dt)
@@ -78,7 +116,20 @@ function EnemyBoss:fireStream(dt)
 end
 
 function EnemyBoss:moveWave(dt)
+  local startX = 169;
+  local startY = 100;
+
   -- TODO
+
+  local curX = lerp(startX, endX, progress);
+  local curY = lerp(startY, endY, progress);
+
+  local actualX, actualY, cols, len = BumpWorld:move(self, curX, curY, bossCollision);
+
+  self:handleCollision(cols, len);
+
+  self.box.x = actualX;
+  self.box.y = actualY;
 end
 
 function EnemyBoss:fireWave(dt)
@@ -86,7 +137,20 @@ function EnemyBoss:fireWave(dt)
 end
 
 function EnemyBoss:moveBomb(dt)
+  local startX = 169;
+  local startY = 100;
+
   -- TODO
+
+  local curX = lerp(startX, endX, progress);
+  local curY = lerp(startY, endY, progress);
+
+  local actualX, actualY, cols, len = BumpWorld:move(self, curX, curY, bossCollision);
+
+  self:handleCollision(cols, len);
+
+  self.box.x = actualX;
+  self.box.y = actualY;
 end
 
 function EnemyBoss:fireBomb(dt)
@@ -94,7 +158,20 @@ function EnemyBoss:fireBomb(dt)
 end
 
 function EnemyBoss:moveShield(dt)
+  local startX = 169;
+  local startY = 100;
+
   -- TODO
+
+  local curX = lerp(startX, endX, progress);
+  local curY = lerp(startY, endY, progress);
+
+  local actualX, actualY, cols, len = BumpWorld:move(self, curX, curY, bossCollision);
+
+  self:handleCollision(cols, len);
+
+  self.box.x = actualX;
+  self.box.y = actualY;
 end
 
 function EnemyBoss:fireShield(dt)
