@@ -100,5 +100,5 @@ GAME_TIMELINE = {
   {time = 1, enemies = {{type = "pendulum", x = 288, y = -70}}},
   {time = 6, enemies = {{type = "pendulum", x = 0, y = -70}, {type = "pendulum", x = 32, y = -70}, {type = "pendulum", x = 64, y = -70}, {type = "pendulum", x = 96, y = -70}, {type = "pendulum", x = 128, y = -70}}},
   -- 3 Minutes
-  {time = 10, enemies = {{type = "boss", x = 130, y = -400}}},
+  {time = 10, enemies = {{type = "boss", x = 169, y = -400}}},
 };

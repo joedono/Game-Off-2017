@@ -229,7 +229,7 @@ function State_Game:update(dt)
 
   -- Switch to boss music
   if PLAY_MUSIC and self.enemyManager.bossIsActive and not self.musicBoss:isPlaying() then
-    self.musicGamePlay:stop();
+    self.musicGameplay:stop();
     self.musicBoss:setVolume(0.3);
     self.musicBoss:play();
   end
