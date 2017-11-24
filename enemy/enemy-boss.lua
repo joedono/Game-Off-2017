@@ -21,8 +21,6 @@ EnemyBoss = Class {
       "shield"
     };
 
-    self.bulletIndex = 0;
-
     self.straightFireTimer = Timer.new();
     self.straightFireTimer:every(BOSS_STRAIGHT_FIRE_RATE, function() self:fireStream() end);
 
@@ -140,8 +138,7 @@ end
 
 function EnemyBoss:fireStream()
   local type = "bullet";
-  self.bulletIndex = self.bulletIndex + 1;
-  if self.bulletIndex % 4 == 1 then
+  if love.math.random() < 0.4 then
     type = "bullet-pickup";
   end
 
@@ -197,8 +194,7 @@ end
 function EnemyBoss:fireWave(dt)
   for index = 1, BOSS_WAVE_SIZE do
     local type = "bullet";
-    self.bulletIndex = self.bulletIndex + 1;
-    if self.bulletIndex % 4 == 1 then
+    if love.math.random() < 0.4 then
       type = "bullet-pickup";
     end
 
@@ -318,8 +314,7 @@ function EnemyBoss:fireShield()
   local shieldBullets = {};
   for index = 1, BOSS_SHIELD_SIZE do
     local type = "bullet";
-    self.bulletIndex = self.bulletIndex + 1;
-    if self.bulletIndex % 4 == 1 then
+    if love.math.random() < 0.4 then
       type = "bullet-pickup";
     end
 

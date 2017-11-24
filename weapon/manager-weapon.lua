@@ -59,7 +59,7 @@ function ManagerWeapon:spawnBossBomb(bx, by)
   local slaveBullets = {};
 
   for index = 1, BOSS_BOMB_SIZE - 1 do
-    if index % 4 == 1 then
+    if love.math.random() < 0.4 then
       table.insert(slaveBullets, BulletPickup(bx, by, self.imageBulletPickup));
     else
       table.insert(slaveBullets, Bullet(bx, by, self.imageBullet));
