@@ -55,7 +55,7 @@ end
 function ManagerWeapon:spawnBossBomb(bx, by)
   local bombBullets;
   local masterBullet = Bullet(bx, by + 1, self.imageBullet);
-  masterBullet:setLife(1);
+  masterBullet:setLife(BOSS_BOMB_LIFE);
   local slaveBullets = {};
 
   for index = 1, BOSS_BOMB_SIZE - 1 do
@@ -73,8 +73,6 @@ function ManagerWeapon:spawnBossBomb(bx, by)
     bullet.isSlave = true;
     table.insert(self.weapons, bullet);
   end
-
-  return masterBullet;
 end
 
 function ManagerWeapon:update(dt)
