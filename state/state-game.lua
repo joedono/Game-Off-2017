@@ -231,6 +231,7 @@ function State_Game:update(dt)
   if PLAY_MUSIC and self.enemyManager.bossIsActive and not self.musicBoss:isPlaying() then
     self.musicGameplay:stop();
     self.musicBoss:setVolume(0.3);
+    self.musicBoss:rewind();
     self.musicBoss:play();
   end
 
