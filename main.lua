@@ -10,6 +10,7 @@ require "config/sound-effects";
 
 require "state/state-title";
 require "state/state-game";
+require "state/state-pause";
 require "state/state-credits";
 
 BumpWorld = {};

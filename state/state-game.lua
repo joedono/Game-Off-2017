@@ -53,6 +53,16 @@ function State_Game:leave()
   end
 end
 
+function State_Game:resume()
+  if PLAY_MUSIC then
+    if self.enemyManager.bossIsActive then
+      self.musicBoss:resume();
+    else
+      self.musicGameplay:resume();
+    end
+  end
+end
+
 function State_Game:focus(focused)
   if focused then
     self.active = true;
@@ -75,6 +85,12 @@ end
 function State_Game:keypressed(key, scancode, isrepeat)
   if not self.active then
     return;
+  end
+
+  if key == KEY_PAUSE then
+    self.musicGameplay:pause();
+    self.musicBoss:pause();
+    GameState.push(State_Pause);
   end
 
   if key == KEY_LEFT then
@@ -143,6 +159,12 @@ end
 function State_Game:gamepadpressed(joystick, button)
   if not self.active then
     return;
+  end
+
+  if button == JOY_START then
+    self.musicGameplay:pause();
+    self.musicBoss:pause();
+    GameState.push(State_Pause);
   end
 
   if button == JOY_LEFT then

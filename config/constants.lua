@@ -7,6 +7,7 @@ KEY_UP = "up";
 KEY_DOWN = "down";
 KEY_RUN = "lshift";
 KEY_QUIT = "escape";
+KEY_PAUSE = "return";
 
 KEY_FIRE_STREAM = "z";
 KEY_FIRE_SPREAD = "x";
