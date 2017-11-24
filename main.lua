@@ -25,3 +25,9 @@ function love.keypressed(key, scancode, isrepeat)
     love.event.quit();
   end
 end
+
+function love.gamepadpressed(joystick, button)
+  if button == JOY_QUIT then
+    love.event.quit();
+  end
+end

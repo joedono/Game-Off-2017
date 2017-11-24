@@ -21,6 +21,8 @@ JOY_FIRE_STREAM = "a";
 JOY_FIRE_SPREAD = "b";
 JOY_FIRE_BOMB = "x";
 JOY_FIRE_FORCEFIELD = "y";
+JOY_START = "start";
+JOY_QUIT = "back";
 
 BACKGROUND_SPEED = 150;
 

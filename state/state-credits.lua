@@ -31,7 +31,7 @@ function State_Credits:keypressed(key, scancode, isrepeat)
 end
 
 function State_Credits:gamepadpressed(joystick, button)
-  if button == "start" then
+  if button == JOY_START then
     GameState.switch(State_Title);
   end
 end
