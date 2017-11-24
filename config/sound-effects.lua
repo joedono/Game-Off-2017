@@ -7,7 +7,3 @@ SFX_PLAYER_DEATH = love.audio.newSource("asset/sound/player-death.wav", "static"
 SFX_BULLET_PICKUP = love.audio.newSource("asset/sound/player-pickup.wav", "static");
 SFX_PLAYER_SHIELD = love.audio.newSource("asset/sound/player-shield.wav", "static");
 SFX_SHOOT = love.audio.newSource("asset/sound/player-shoot.wav", "static");
-
-if PLAY_SOUNDS then
-  love.audio.play(SFX_SHOOT);
-end
