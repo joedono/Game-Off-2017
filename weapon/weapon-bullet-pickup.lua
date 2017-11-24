@@ -186,6 +186,10 @@ function BulletPickup:throwSlaves()
     bullet.velocity.x = v.x * BULLET_SPEED;
     bullet.velocity.y = v.y * BULLET_SPEED;
   end
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_BOMB_EXPLODE);
+  end
 end
 
 function BulletPickup:throwForcefield(ratio)
