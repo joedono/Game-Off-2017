@@ -5,6 +5,8 @@ You're here looking for JoeZ's entry into [Game Off 2017](https://itch.io/jam/ga
 
 When the game is all completed and packaged up, you'll be able to download it on [itch.io](http://itch.io/) or from this page through that "# releases" link up above.
 
+UPDATE: The game is completed. View it on [itch.io](https://joedono.itch.io/game-off-2017-in-space).
+
 ## Running the game
 Otherwise, here's how to play the most up-to-date version:
 1. Download and install the appropriate version of [Love2D](http://love2d.org/) for your operating system. This game uses version 0.10.
