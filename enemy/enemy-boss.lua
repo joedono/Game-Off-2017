@@ -52,7 +52,6 @@ function EnemyBoss:update(dt)
     self:clearShield();
 
     self.mode = self.firingModes[love.math.random(1, 4)];
-    self.mode = "shield";
 
     if self.mode == "shield" then
       self:fireShield();
