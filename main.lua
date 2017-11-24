@@ -15,6 +15,7 @@ require "state/state-credits";
 BumpWorld = {};
 
 function love.load()
+  SFX_SHOOT:setVolume(0.2);
   GameState.registerEvents();
   --GameState.switch(State_Title);
   GameState.switch(State_Game);
