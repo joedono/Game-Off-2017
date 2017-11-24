@@ -31,6 +31,11 @@ function EnemyPendulum:fireBullets()
   self.fireTimer:script(function(wait)
     for i = 1, 5 do
       self:fireBullet(i);
+
+      if PLAY_SOUNDS then
+        love.audio.play(SFX_SHOOT);
+      end
+      
       wait(0.3);
     end
   end);
@@ -80,7 +85,7 @@ function EnemyPendulum:update(dt)
       if PLAY_SOUNDS then
         love.audio.play(SFX_ENEMY_DEATH);
       end
-      
+
       self.active = false;
       cols[i].other.active = false;
     end

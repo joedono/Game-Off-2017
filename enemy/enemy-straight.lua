@@ -32,6 +32,10 @@ function EnemyStraight:fireBullet()
   local bx = self.box.x + self.box.w / 2 - BULLET_WIDTH;
   local by = self.box.y + self.box.h / 2 - BULLET_WIDTH;
   self.weaponManager:spawnBullet(bx, by, type);
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_SHOOT);
+  end
 end
 
 function EnemyStraight:update(dt)

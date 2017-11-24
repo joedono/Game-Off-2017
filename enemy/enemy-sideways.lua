@@ -39,6 +39,10 @@ function EnemySideways:fireBullet()
   local bx = self.box.x + self.box.w / 2 - BULLET_WIDTH;
   local by = self.box.y + self.box.h / 2 - BULLET_WIDTH;
   self.weaponManager:spawnBullet(bx, by, type);
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_SHOOT);
+  end
 end
 
 function EnemySideways:update(dt)
@@ -65,7 +69,7 @@ function EnemySideways:update(dt)
       if PLAY_SOUNDS then
         love.audio.play(SFX_ENEMY_DEATH);
       end
-      
+
       self.active = false;
       cols[i].other.active = false;
     end
