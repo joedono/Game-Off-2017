@@ -251,6 +251,9 @@ function State_Game:update(dt)
       self.musicGameplay:setVolume(0);
       self.musicBoss:setVolume(0);
       wait(0.5);
+      self.musicGameplay:stop();
+      self.musicBoss:stop();
+      self.enemyManager.bossIsActive = false;
       GameState.switch(State_Credits);
     end);
   end
