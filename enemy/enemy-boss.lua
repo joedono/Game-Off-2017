@@ -150,6 +150,10 @@ function EnemyBoss:fireStream()
   local bx = self.box.x + self.box.w / 2 - BULLET_WIDTH;
   local by = self.box.y + self.box.h - BULLET_WIDTH;
   self.weaponManager:spawnBullet(bx, by, type);
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_SHOOT);
+  end
 end
 
 function EnemyBoss:moveWave(dt)
@@ -211,6 +215,10 @@ function EnemyBoss:fireWave(dt)
     local vx = v.x * BULLET_SPEED;
     local vy = v.y * BULLET_SPEED;
     self.weaponManager:spawnBulletWithVelocity(bx, by, vx, vy, type);
+  end
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_SHOOT);
   end
 end
 
@@ -275,6 +283,10 @@ function EnemyBoss:fireBomb(dt)
   local by = self.box.y + self.box.h - BULLET_WIDTH;
 
   self.weaponManager:spawnBossBomb(bx, by);
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_SHOOT);
+  end
 end
 
 function EnemyBoss:moveShield(dt)
@@ -339,6 +351,10 @@ function EnemyBoss:fireShield()
     bullet.boss = self;
     bullet.forcefieldPosition = ratio * math.pi * 2;
   end
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_PLAYER_SHIELD);
+  end
 end
 
 function EnemyBoss:checkShield()
@@ -360,7 +376,7 @@ function EnemyBoss:handleCollision(cols, len)
       if PLAY_SOUNDS then
         love.audio.play(SFX_BULLET_IMPACT);
       end
-      
+
       cols[i].other.active = false;
     end
   end
