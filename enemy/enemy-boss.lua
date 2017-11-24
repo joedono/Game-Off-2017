@@ -74,6 +74,11 @@ function EnemyBoss:update(dt)
 
   if self.health <= 0 then
     self:clearShield();
+
+    if PLAY_SOUNDS then
+      love.audio.play(SFX_BOSS_DEATH);
+    end
+
     self.active = false;
   end
 end
@@ -351,6 +356,11 @@ function EnemyBoss:handleCollision(cols, len)
   for i = 1, len do
     if cols[i].other.type == "bullet-pickup" and cols[i].other.thrown and not cols[i].other.isSlave then
       self.health = self.health - 1;
+
+      if PLAY_SOUNDS then
+        love.audio.play(SFX_BULLET_IMPACT);
+      end
+      
       cols[i].other.active = false;
     end
   end
