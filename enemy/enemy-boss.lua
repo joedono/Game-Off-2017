@@ -21,6 +21,17 @@ EnemyBoss = Class {
       "shield"
     };
 
+    self.bulletIndex = 0;
+
+    self.straightFireTimer = Timer.new();
+    self.straightFireTimer:every(BOSS_STRAIGHT_FIRE_RATE, function() self:fireStream() end);
+
+    self.waveFireTimer = Timer.new();
+    self.waveFireTimer:every(BOSS_WAVE_FIRE_RATE, function() self:fireWave() end);
+
+    self.bombFireTimer = Timer.new();
+    self.bombFireTimer:every(BOSS_WAVE_FIRE_RATE, function() self:fireBomb() end);
+
     self.active = true;
     self.type = "boss";
   end
@@ -34,20 +45,21 @@ function EnemyBoss:update(dt)
       self.pickupManager:spawnHealth(SCREEN_WIDTH / 2, -HEALTH_HEIGHT);
     end
 
-    self.mode = self.firingModes[love.math.random(1, 4)];
+    self.mode = "wave";
+    --self.mode = self.firingModes[love.math.random(1, 4)];
   end
 
   if self.mode == "entering" then
     self:moveEntering(dt);
   elseif self.mode == "stream" then
     self:moveStream(dt);
-    self:fireStream(dt);
+    self.straightFireTimer:update(dt);
   elseif self.mode == "wave" then
     self:moveWave(dt);
-    self:fireWave(dt);
+    self.waveFireTimer:update(dt);
   elseif self.mode == "bomb" then
     self:moveBomb(dt);
-    self:fireBomb(dt);
+    self.bombFireTimer:update(dt);
   elseif self.mode == "shield" then
     self:moveShield(dt);
     self:fireShield(dt);
@@ -108,8 +120,16 @@ function EnemyBoss:moveStream(dt)
   self.box.y = actualY;
 end
 
-function EnemyBoss:fireStream(dt)
-  -- TODO
+function EnemyBoss:fireStream()
+  local type = "bullet";
+  self.bulletIndex = self.bulletIndex + 1;
+  if self.bulletIndex % 4 == 1 then
+    type = "bullet-pickup";
+  end
+
+  local bx = self.box.x + self.box.w / 2 - BULLET_WIDTH;
+  local by = self.box.y + self.box.h - BULLET_WIDTH;
+  self.weaponManager:spawnBullet(bx, by, type);
 end
 
 function EnemyBoss:moveWave(dt)
@@ -157,7 +177,22 @@ function EnemyBoss:moveWave(dt)
 end
 
 function EnemyBoss:fireWave(dt)
-  -- TODO
+  for index = 1, BOSS_WAVE_SIZE do
+    local type = "bullet";
+    self.bulletIndex = self.bulletIndex + 1;
+    if self.bulletIndex % 4 == 1 then
+      type = "bullet-pickup";
+    end
+
+    local bx = self.box.x + self.box.w / 2 - BULLET_WIDTH;
+    local by = self.box.y + self.box.h - BULLET_WIDTH;
+
+    local angle = BULLET_SPREAD[index] - math.pi;
+    local v = Vector.fromPolar(angle, 1);
+    local vx = v.x * BULLET_SPEED;
+    local vy = v.y * BULLET_SPEED;
+    self.weaponManager:spawnBulletWithVelocity(bx, by, vx, vy, type);
+  end
 end
 
 function EnemyBoss:moveBomb(dt)

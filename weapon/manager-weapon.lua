@@ -33,6 +33,21 @@ function ManagerWeapon:spawnBullet(bx, by, type)
   end
 end
 
+function ManagerWeapon:spawnBulletWithVelocity(bx, by, vx, vy, type)
+  local bullet = nil;
+
+  if type == "bullet" then
+    bullet = Bullet(bx, by, self.imageBullet);
+  elseif type == "bullet-pickup" then
+    bullet = BulletPickup(bx, by, self.imageBulletPickup);
+  end
+
+  bullet.velocity.x = vx;
+  bullet.velocity.y = vy;
+
+  table.insert(self.weapons, bullet);
+end
+
 function ManagerWeapon:update(dt)
   self:updateWeapons(dt);
   self:updateEffects(dt);
