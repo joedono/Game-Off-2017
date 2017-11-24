@@ -41,7 +41,7 @@ function EnemyBoss:update(dt)
   self.modeTimer = self.modeTimer + dt;
   if self.modeTimer >= BOSS_MODE_TIMER then
     self.modeTimer = 0;
-    if not self.mode == "entering" then
+    if self.mode ~= "entering" then
       self.pickupManager:spawnHealth(SCREEN_WIDTH / 2, -HEALTH_HEIGHT);
     end
 
