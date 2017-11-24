@@ -369,6 +369,12 @@ function EnemyBoss:draw()
   love.graphics.setColor(255, 255, 255);
   love.graphics.draw(self.image, self.box.x - BOSS_OFFSET_X, self.box.y - BOSS_OFFSET_Y, 0, BOSS_SCALE, BOSS_SCALE);
 
+  love.graphics.setColor(255, 0, 0);
+  love.graphics.rectangle("fill", 20, 20, SCREEN_WIDTH - 40, 32);
+  love.graphics.setColor(0, 255, 0);
+  local w = self.health / BOSS_HEALTH * (SCREEN_WIDTH - 48);
+  love.graphics.rectangle("fill", 24, 24, w, 24);
+
   if DRAW_BOXES then
     love.graphics.setColor(255, 255, 255);
     love.graphics.rectangle("line", BumpWorld:getRect(self));
