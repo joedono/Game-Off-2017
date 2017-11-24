@@ -188,7 +188,8 @@ function BulletPickup:throwSlaves()
   end
 
   if PLAY_SOUNDS then
-    love.audio.play(SFX_BOMB_EXPLODE);
+    SFX_BOMB_EXPLODE:rewind();
+    SFX_BOMB_EXPLODE:play();
   end
 end
 

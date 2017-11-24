@@ -76,7 +76,8 @@ function EnemyBoss:update(dt)
     self:clearShield();
 
     if PLAY_SOUNDS then
-      love.audio.play(SFX_BOSS_DEATH);
+      SFX_BOSS_DEATH:rewind();
+      SFX_BOSS_DEATH:play();
     end
 
     self.active = false;
@@ -152,7 +153,8 @@ function EnemyBoss:fireStream()
   self.weaponManager:spawnBullet(bx, by, type);
 
   if PLAY_SOUNDS then
-    love.audio.play(SFX_SHOOT);
+    SFX_SHOOT:rewind();
+    SFX_SHOOT:play();
   end
 end
 
@@ -218,7 +220,8 @@ function EnemyBoss:fireWave(dt)
   end
 
   if PLAY_SOUNDS then
-    love.audio.play(SFX_SHOOT);
+    SFX_SHOOT:rewind();
+    SFX_SHOOT:play();
   end
 end
 
@@ -285,7 +288,8 @@ function EnemyBoss:fireBomb(dt)
   self.weaponManager:spawnBossBomb(bx, by);
 
   if PLAY_SOUNDS then
-    love.audio.play(SFX_SHOOT);
+    SFX_SHOOT:rewind();
+    SFX_SHOOT:play();
   end
 end
 
@@ -353,7 +357,8 @@ function EnemyBoss:fireShield()
   end
 
   if PLAY_SOUNDS then
-    love.audio.play(SFX_PLAYER_SHIELD);
+    SFX_PLAYER_SHIELD:rewind();
+    SFX_PLAYER_SHIELD:play();
   end
 end
 
@@ -374,7 +379,8 @@ function EnemyBoss:handleCollision(cols, len)
       self.health = self.health - 1;
 
       if PLAY_SOUNDS then
-        love.audio.play(SFX_BULLET_IMPACT);
+        SFX_BULLET_IMPACT:rewind();
+        SFX_BULLET_IMPACT:play();
       end
 
       cols[i].other.active = false;

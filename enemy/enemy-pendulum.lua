@@ -33,9 +33,10 @@ function EnemyPendulum:fireBullets()
       self:fireBullet(i);
 
       if PLAY_SOUNDS then
-        love.audio.play(SFX_SHOOT);
+        SFX_SHOOT:rewind();
+        SFX_SHOOT:play();
       end
-      
+
       wait(0.3);
     end
   end);
@@ -83,7 +84,8 @@ function EnemyPendulum:update(dt)
   for i = 1, len do
     if cols[i].other.type == "bullet-pickup" and cols[i].other.thrown and not cols[i].other.isSlave then
       if PLAY_SOUNDS then
-        love.audio.play(SFX_ENEMY_DEATH);
+        SFX_ENEMY_DEATH:rewind();
+        SFX_ENEMY_DEATH:play();
       end
 
       self.active = false;

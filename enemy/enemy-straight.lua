@@ -34,7 +34,8 @@ function EnemyStraight:fireBullet()
   self.weaponManager:spawnBullet(bx, by, type);
 
   if PLAY_SOUNDS then
-    love.audio.play(SFX_SHOOT);
+    SFX_SHOOT:rewind();
+    SFX_SHOOT:play();
   end
 end
 
@@ -60,7 +61,8 @@ function EnemyStraight:update(dt)
   for i = 1, len do
     if cols[i].other.type == "bullet-pickup" and cols[i].other.thrown and not cols[i].other.isSlave then
       if PLAY_SOUNDS then
-        love.audio.play(SFX_ENEMY_DEATH);
+        SFX_ENEMY_DEATH:rewind();
+        SFX_ENEMY_DEATH:play();
       end
 
       self.active = false;

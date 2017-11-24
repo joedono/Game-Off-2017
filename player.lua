@@ -60,9 +60,10 @@ function Player:fireStream()
         table.remove(caughtBullets, 1);
 
         if PLAY_SOUNDS then
-          love.audio.play(SFX_SHOOT);
+          SFX_SHOOT:rewind();
+          SFX_SHOOT:play();
         end
-        
+
         wait(0.2);
       end
 
@@ -83,7 +84,8 @@ function Player:fireSpread()
   end
 
   if PLAY_SOUNDS then
-    love.audio.play(SFX_SHOOT);
+    SFX_SHOOT:rewind();
+    SFX_SHOOT:play();
   end
 end
 
@@ -102,7 +104,8 @@ function Player:fireBomb()
   end
 
   if PLAY_SOUNDS then
-    love.audio.play(SFX_SHOOT);
+    SFX_SHOOT:rewind();
+    SFX_SHOOT:play();
   end
 end
 
@@ -125,7 +128,8 @@ function Player:fireForcefield()
   end
 
   if PLAY_SOUNDS then
-    love.audio.play(SFX_PLAYER_SHIELD);
+    SFX_PLAYER_SHIELD:rewind();
+    SFX_PLAYER_SHIELD:play();
   end
 end
 
@@ -206,12 +210,14 @@ function Player:updatePosition(dt)
           self.caughtBullets = {};
 
           if PLAY_SOUNDS then
-            love.audio.play(SFX_PLAYER_DEATH);
+            SFX_PLAYER_DEATH:rewind();
+            SFX_PLAYER_DEATH:play();
           end
 
           self.active = false;
         elseif PLAY_SOUNDS then
-          love.audio.play(SFX_BULLET_IMPACT);
+          SFX_BULLET_IMPACT:rewind();
+          SFX_BULLET_IMPACT:play();
         end
       end
 
@@ -221,7 +227,8 @@ function Player:updatePosition(dt)
       cols[i].other.active = false;
 
       if PLAY_SOUNDS then
-        love.audio.play(SFX_HEALTH_PICKUP);
+        SFX_HEALTH_PICKUP:rewind();
+        SFX_HEALTH_PICKUP:play();
       end
     end
   end
@@ -241,7 +248,8 @@ function Player:updatePosition(dt)
         cols[i].other:pickUp();
 
         if PLAY_SOUNDS then
-          love.audio.play(SFX_BULLET_PICKUP);
+          SFX_BULLET_PICKUP:rewind();
+          SFX_BULLET_PICKUP:play();
         end
       else
         cols[i].other.active = false;
