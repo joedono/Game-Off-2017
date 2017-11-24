@@ -17,9 +17,7 @@ BumpWorld = {};
 function love.load()
   SFX_SHOOT:setVolume(0.2);
   GameState.registerEvents();
-  --GameState.switch(State_Title);
-  GameState.switch(State_Game);
-  --GameState.switch(State_Credits);
+  GameState.switch(State_Title);
 end
 
 function love.keypressed(key, scancode, isrepeat)
