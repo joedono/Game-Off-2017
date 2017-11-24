@@ -6,6 +6,7 @@ Bump = require "lib/bump";
 
 require "lib/general";
 require "config/constants";
+require "config/sound-effects";
 
 require "state/state-title";
 require "state/state-game";
