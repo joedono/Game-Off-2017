@@ -55,6 +55,10 @@ function EnemyStraight:update(dt)
 
   for i = 1, len do
     if cols[i].other.type == "bullet-pickup" and cols[i].other.thrown and not cols[i].other.isSlave then
+      if PLAY_SOUNDS then
+        love.audio.play(SFX_ENEMY_DEATH);
+      end
+
       self.active = false;
       cols[i].other.active = false;
     end
