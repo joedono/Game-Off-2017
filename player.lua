@@ -58,6 +58,11 @@ function Player:fireStream()
       while #caughtBullets > 0 do
         caughtBullets[1]:throwStraight(false);
         table.remove(caughtBullets, 1);
+
+        if PLAY_SOUNDS then
+          love.audio.play(SFX_SHOOT);
+        end
+        
         wait(0.2);
       end
 
@@ -76,6 +81,10 @@ function Player:fireSpread()
     local angle = BULLET_SPREAD[index];
     bullet:throwSpread(angle);
   end
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_SHOOT);
+  end
 end
 
 function Player:fireBomb()
@@ -90,6 +99,10 @@ function Player:fireBomb()
     else
       bullet:throwStraight(true);
     end
+  end
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_SHOOT);
   end
 end
 
@@ -109,6 +122,10 @@ function Player:fireForcefield()
   for index, bullet in ipairs(caughtBullets) do
     ratio = index / count;
     bullet:throwForcefield(ratio);
+  end
+
+  if PLAY_SOUNDS then
+    love.audio.play(SFX_PLAYER_SHIELD);
   end
 end
 
@@ -187,7 +204,14 @@ function Player:updatePosition(dt)
           end
 
           self.caughtBullets = {};
+
+          if PLAY_SOUNDS then
+            love.audio.play(SFX_PLAYER_DEATH);
+          end
+
           self.active = false;
+        elseif PLAY_SOUNDS then
+          love.audio.play(SFX_BULLET_IMPACT);
         end
       end
 
@@ -195,6 +219,10 @@ function Player:updatePosition(dt)
     elseif cols[i].other.type == "pickup-health" then
       self.health = math.clamp(self.health + 1, 0, PLAYER_MAX_HEALTH);
       cols[i].other.active = false;
+
+      if PLAY_SOUNDS then
+        love.audio.play(SFX_HEALTH_PICKUP);
+      end
     end
   end
 
@@ -211,6 +239,10 @@ function Player:updatePosition(dt)
       if #self.caughtBullets < MAX_HELD_BULLETS then
         table.insert(self.caughtBullets, cols[i].other);
         cols[i].other:pickUp();
+
+        if PLAY_SOUNDS then
+          love.audio.play(SFX_BULLET_PICKUP);
+        end
       else
         cols[i].other.active = false;
       end
