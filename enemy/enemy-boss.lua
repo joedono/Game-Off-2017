@@ -32,6 +32,8 @@ EnemyBoss = Class {
     self.bombFireTimer = Timer.new();
     self.bombFireTimer:every(BOSS_WAVE_FIRE_RATE, function() self:fireBomb() end);
 
+    self.shieldBullets = {};
+
     self.active = true;
     self.type = "boss";
   end
@@ -39,14 +41,21 @@ EnemyBoss = Class {
 
 function EnemyBoss:update(dt)
   self.modeTimer = self.modeTimer + dt;
+  self:checkShield();
+
   if self.modeTimer >= BOSS_MODE_TIMER then
     self.modeTimer = 0;
-    if self.mode ~= "entering" then
+    if self.mode ~= "entering" and love.math.random() < 0.5 then
       self.pickupManager:spawnHealth(SCREEN_WIDTH / 2, -HEALTH_HEIGHT);
     end
 
-    self.mode = "bomb";
-    --self.mode = self.firingModes[love.math.random(1, 4)];
+    self:clearShield();
+
+    self.mode = self.firingModes[love.math.random(1, 4)];
+
+    if self.mode == "shield" then
+      self:fireShield();
+    end
   end
 
   if self.mode == "entering" then
@@ -62,12 +71,19 @@ function EnemyBoss:update(dt)
     self.bombFireTimer:update(dt);
   elseif self.mode == "shield" then
     self:moveShield(dt);
-    self:fireShield(dt);
   end
 
   if self.health <= 0 then
     self.active = false;
   end
+end
+
+function EnemyBoss:clearShield()
+  for index, bullet in ipairs(self.shieldBullets) do
+    bullet.active = false;
+  end
+
+  self.shieldBullets = {};
 end
 
 function EnemyBoss:moveEntering(dt)
@@ -296,8 +312,42 @@ function EnemyBoss:moveShield(dt)
   self.box.y = actualY;
 end
 
-function EnemyBoss:fireShield(dt)
-  -- TODO
+function EnemyBoss:fireShield()
+  local shieldBullets = {};
+  for index = 1, BOSS_SHIELD_SIZE do
+    local type = "bullet";
+    self.bulletIndex = self.bulletIndex + 1;
+    if self.bulletIndex % 4 == 1 then
+      type = "bullet-pickup";
+    end
+
+    local bx = self.box.x + self.box.w / 2 - BULLET_WIDTH;
+    local by = self.box.y + self.box.h / 2 - BULLET_WIDTH;
+
+    table.insert(shieldBullets, self.weaponManager:spawnBullet(bx, by, type));
+  end
+
+  local count = #shieldBullets;
+  local ratio = 0;
+  self.shieldBullets = shieldBullets;
+
+  for index, bullet in ipairs(shieldBullets) do
+    ratio = index / count;
+    bullet.isBossForcefield = true;
+    bullet.boss = self;
+    bullet.forcefieldPosition = ratio * math.pi * 2;
+  end
+end
+
+function EnemyBoss:checkShield()
+  local shieldBullets = {};
+  for index, bullet in ipairs(self.shieldBullets) do
+    if not bullet.pickedUp and not bullet.thrown then
+      table.insert(shieldBullets, bullet);
+    end
+  end
+
+  self.shieldBullets = shieldBullets;
 end
 
 function EnemyBoss:handleCollision(cols, len)

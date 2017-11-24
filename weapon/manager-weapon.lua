@@ -26,11 +26,15 @@ ManagerWeapon = Class {
 };
 
 function ManagerWeapon:spawnBullet(bx, by, type)
+  local bullet = nil;
   if type == "bullet" then
-    table.insert(self.weapons, Bullet(bx, by, self.imageBullet));
+    bullet = Bullet(bx, by, self.imageBullet);
   elseif type == "bullet-pickup" then
-    table.insert(self.weapons, BulletPickup(bx, by, self.imageBulletPickup));
+    bullet = BulletPickup(bx, by, self.imageBulletPickup);
   end
+
+  table.insert(self.weapons, bullet);
+  return bullet;
 end
 
 function ManagerWeapon:spawnBulletWithVelocity(bx, by, vx, vy, type)

@@ -18,8 +18,11 @@ BulletPickup = Class {
     self.active = true;
 
     self.isForcefield = false;
+    self.isBossForcefield = false;
     self.forcefieldPosition = 0;
     self.forcefieldTimer = 0;
+    self.boss = nil;
+
     self.isSlave = false;
     self.slaves = {};
 
@@ -29,6 +32,8 @@ BulletPickup = Class {
 
 function BulletPickup:pickUp()
   self.pickedUp = true;
+  self.isBossForcefield = false;
+  self.boss = nil;
 end
 
 function BulletPickup:update(dt, player)
@@ -40,6 +45,8 @@ function BulletPickup:update(dt, player)
     self:followPlayer(player);
   elseif self.isForcefield then
     self:protectPlayer(dt, player);
+  elseif self.isBossForcefield then
+    self:protectBoss(dt);
   else
     self:updatePosition(dt);
   end
@@ -59,8 +66,8 @@ function BulletPickup:followPlayer(player)
 end
 
 function BulletPickup:protectPlayer(dt, player)
-  local playerCenterX = player.box.x + player.box.w / 2;
-  local playerCenterY = player.box.y + player.box.h / 2;
+  local cx = player.box.x + player.box.w / 2;
+  local cy = player.box.y + player.box.h / 2;
 
   -- Increment the movement timer
   self.forcefieldTimer = self.forcefieldTimer + dt * FORCEFIELD_RATE;
@@ -71,8 +78,30 @@ function BulletPickup:protectPlayer(dt, player)
   -- Find the current angle based on rotation rate and initial forcefield position
   local angle = self.forcefieldPosition + math.pi * 2 * self.forcefieldTimer / FORCEFIELD_RATE;
   local bv = Vector.fromPolar(angle, FORCEFIELD_DISTANCE);
-  local dx = playerCenterX + bv.x - self.box.w / 2;
-  local dy = playerCenterY + bv.y - self.box.h / 2;
+  local dx = cx + bv.x - self.box.w / 2;
+  local dy = cy + bv.y - self.box.h / 2;
+
+  local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, bulletCollision);
+
+  self.box.x = actualX;
+  self.box.y = actualY;
+end
+
+function BulletPickup:protectBoss(dt)
+  local cx = self.boss.box.x + self.boss.box.w / 2;
+  local cy = self.boss.box.y + self.boss.box.h / 2;
+
+  -- Increment the movement timer
+  self.forcefieldTimer = self.forcefieldTimer + dt;
+  if self.forcefieldTimer > BOSS_SHIELD_RATE then
+    self.forcefieldTimer = 0;
+  end
+
+  -- Find the current angle based on rotation rate and initial forcefield position
+  local angle = self.forcefieldPosition + math.pi * 2 * self.forcefieldTimer / BOSS_SHIELD_RATE;
+  local bv = Vector.fromPolar(angle, BOSS_SHIELD_DISTANCE);
+  local dx = cx + bv.x - self.box.w / 2;
+  local dy = cy + bv.y - self.box.h / 2;
 
   local actualX, actualY, cols, len = BumpWorld:move(self, dx, dy, bulletCollision);
 
