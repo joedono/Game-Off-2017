@@ -12,15 +12,26 @@ Bullet = Class {
 
     self.velocity = { x = 0, y = BULLET_SPEED };
 
+    self.hasLifespan = false;
+    self.lifeTimer = Timer.new();
     self.isOffScreen = false;
     self.active = true;
     self.type = "bullet";
   end
 };
 
+function Bullet:setLife(life)
+  self.hasLifespan = true;
+  self.lifeTimer:after(life, function() self.active = false end);
+end
+
 function Bullet:update(dt, player)
   if not self.active then
     return;
+  end
+
+  if self.hasLifespan then
+    self.lifeTimer:update(dt);
   end
 
   local dx = self.box.x + self.velocity.x * dt;
@@ -34,6 +45,28 @@ function Bullet:update(dt, player)
   if self.box.x < 0 - BULLET_WIDTH or self.box.x > SCREEN_WIDTH or self.box.y > SCREEN_HEIGHT then
     self.isOffScreen = true;
     self.active = false;
+  end
+end
+
+function Bullet:throwSlaves()
+  local slaves = self.slaves;
+  local count = #slaves;
+  if count == 0 then
+    return;
+  end
+
+  local ratio = 0;
+  local angle = 0;
+  self.slaves = {};
+
+  for index, bullet in ipairs(slaves) do
+    bullet.isSlave = false;
+    ratio = (index - 1) / count;
+    angle = ratio * math.pi * 2;
+
+    local v = Vector.fromPolar(angle, 1);
+    bullet.velocity.x = v.x * BULLET_SPEED;
+    bullet.velocity.y = v.y * BULLET_SPEED;
   end
 end
 

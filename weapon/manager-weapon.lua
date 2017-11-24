@@ -48,6 +48,31 @@ function ManagerWeapon:spawnBulletWithVelocity(bx, by, vx, vy, type)
   table.insert(self.weapons, bullet);
 end
 
+function ManagerWeapon:spawnBossBomb(bx, by)
+  local bombBullets;
+  local masterBullet = Bullet(bx, by + 1, self.imageBullet);
+  masterBullet:setLife(1);
+  local slaveBullets = {};
+
+  for index = 1, BOSS_BOMB_SIZE - 1 do
+    if index % 4 == 1 then
+      table.insert(slaveBullets, BulletPickup(bx, by, self.imageBulletPickup));
+    else
+      table.insert(slaveBullets, Bullet(bx, by, self.imageBullet));
+    end
+  end
+
+  masterBullet.slaves = slaveBullets;
+  table.insert(self.weapons, masterBullet);
+
+  for index, bullet in ipairs(slaveBullets) do
+    bullet.isSlave = true;
+    table.insert(self.weapons, bullet);
+  end
+
+  return masterBullet;
+end
+
 function ManagerWeapon:update(dt)
   self:updateWeapons(dt);
   self:updateEffects(dt);
@@ -62,6 +87,10 @@ function ManagerWeapon:updateWeapons(dt)
     if weapon.active then
       table.insert(activeWeapons, weapon);
     else
+      if weapon.slaves and #weapon.slaves > 0 then
+        weapon:throwSlaves();
+      end
+
       BumpWorld:remove(weapon);
 
       if not weapon.isOffScreen then

@@ -33,10 +33,6 @@ end
 
 function BulletPickup:update(dt, player)
   if not self.active then
-    if #self.slaves > 0 then
-      self:throwSlaves();
-    end
-
     return;
   end
 

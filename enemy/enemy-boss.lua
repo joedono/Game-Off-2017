@@ -45,7 +45,7 @@ function EnemyBoss:update(dt)
       self.pickupManager:spawnHealth(SCREEN_WIDTH / 2, -HEALTH_HEIGHT);
     end
 
-    self.mode = "wave";
+    self.mode = "bomb";
     --self.mode = self.firingModes[love.math.random(1, 4)];
   end
 
@@ -252,7 +252,10 @@ function EnemyBoss:moveBomb(dt)
 end
 
 function EnemyBoss:fireBomb(dt)
-  -- TODO
+  local bx = self.box.x + self.box.w / 2 - BULLET_WIDTH;
+  local by = self.box.y + self.box.h - BULLET_WIDTH;
+
+  self.weaponManager:spawnBossBomb(bx, by);
 end
 
 function EnemyBoss:moveShield(dt)
