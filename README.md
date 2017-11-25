@@ -14,7 +14,7 @@ Otherwise, here's how to play the most up-to-date version:
 3. Double-click the .love file download in step 2.
 
 ## How to Play
-The blue box is you. Use the arrow keys to move around. The grey box is your "tractor field" that will grab the green bullets for you. Press Z to fire all your grabbed bullets in a line. Press X to fire all your grabbed bullets in a spreading wave. Press C to fire all your bullets in a small bomb that explodes when it hits an enemy. Press V to turn your bullets into a protective force field. The blue boxes at the bottom of the screen are your health. You'll also see your stored ammo at the bottom of the screen as green bullets. Press Escape to quit and Enter/Return to pause.
+The blue ship is you. Use the arrow keys to move around. The grey box is your "tractor field" that will grab the green bullets for you. Press Z to fire all your grabbed bullets in a line. Press X to fire all your grabbed bullets in a spreading wave. Press C to fire all your bullets in a small bomb that explodes when it hits an enemy. Press V to turn your bullets into a protective force field. The blue boxes at the bottom of the screen are your health. You'll also see your stored ammo at the bottom of the screen as green bullets. Press Escape to quit and Enter/Return to pause.
 
 The game also provides controller support. Use the d-pad to move and the face buttons to fire. Press Select/Back to quit and Start to pause.
 
