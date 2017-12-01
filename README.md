@@ -18,7 +18,7 @@ The blue ship is you. Use the arrow keys to move around. The grey box is your "t
 
 The game also provides controller support. Use the d-pad to move and the face buttons to fire. Press Select/Back to quit and Start to pause.
 
-Game is also playable (without sound or music) [here](https://joedono.github.io/Game-Off-2017/)
+Game is also playable [here](https://joedono.github.io/Game-Off-2017/)
 
 ## Progress
 If you're interested in a log of my progress, click on the "# commits" link in the upper-left of this page.
