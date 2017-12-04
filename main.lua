@@ -16,6 +16,14 @@ require "state/state-credits";
 BumpWorld = {};
 
 function love.load()
+  love.window.setFullscreen(FULLSCREEN);
+  
+  CANVAS = love.graphics.newCanvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+  CANVAS:setFilter("nearest");
+
+  CANVAS_OFFSET_X = love.graphics.getWidth() / 2 - SCREEN_WIDTH / 2;
+  CANVAS_OFFSET_Y = love.graphics.getHeight() / 2 - SCREEN_HEIGHT / 2;
+
   SFX_SHOOT:setVolume(0.2);
   GameState.registerEvents();
   GameState.switch(State_Title);

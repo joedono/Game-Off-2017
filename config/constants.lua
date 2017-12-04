@@ -1,5 +1,6 @@
 SCREEN_WIDTH = 600;
 SCREEN_HEIGHT = 800;
+FULLSCREEN = true;
 
 KEY_LEFT = "left";
 KEY_RIGHT = "right";

@@ -43,6 +43,12 @@ function State_Title:leave()
 end
 
 function State_Title:draw()
+  CANVAS:renderTo(function()
+    love.graphics.clear();
+    love.graphics.setColor(255, 255, 255);
+    love.graphics.draw(self.image, 0, 0);
+  end);
+
   love.graphics.setColor(255, 255, 255);
-  love.graphics.draw(self.image, 0, 0);
+  love.graphics.draw(CANVAS, CANVAS_OFFSET_X, CANVAS_OFFSET_Y);
 end

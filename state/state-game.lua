@@ -301,17 +301,20 @@ function State_Game:updateTimeline(dt)
 end
 
 function State_Game:draw()
+  CANVAS:renderTo(function()
+    self.background:draw();
+    self.enemyManager:draw();
+    self.pickupManager:draw();
+    self.player:draw();
+    self.weaponManager:draw();
+
+    if DRAW_POSITIONS then
+      love.graphics.setColor(255, 255, 255);
+      love.graphics.print("Player: " .. self.player.box.x .. ", " .. self.player.box.y, 32, 32);
+      love.graphics.print("Total Time: " .. (self.totalTime / 60), 32, 64);
+    end
+  end);
+
   love.graphics.setColor(255, 255, 255);
-
-  self.background:draw();
-  self.enemyManager:draw();
-  self.pickupManager:draw();
-  self.player:draw();
-  self.weaponManager:draw();
-
-  if DRAW_POSITIONS then
-    love.graphics.setColor(255, 255, 255);
-    love.graphics.print("Player: " .. self.player.box.x .. ", " .. self.player.box.y, 32, 32);
-    love.graphics.print("Total Time: " .. (self.totalTime / 60), 32, 64);
-  end
+  love.graphics.draw(CANVAS, CANVAS_OFFSET_X, CANVAS_OFFSET_Y);
 end
