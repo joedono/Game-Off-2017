@@ -27,18 +27,15 @@ function love.load()
   local scaleX = 1;
   local scaleY = 1;
 
-  if w < SCREEN_WIDTH then
+  if FULLSCREEN then
     scaleX = w / SCREEN_WIDTH;
-  end
-
-  if h < SCREEN_HEIGHT then
-    scaleY = h / SCREEN_WIDTH;
+    scaleY = h / SCREEN_HEIGHT;
   end
 
   CANVAS_SCALE = math.min(scaleX, scaleY);
 
-  CANVAS_OFFSET_X = w / 2 - SCREEN_WIDTH / 2;
-  CANVAS_OFFSET_Y = h / 2 - SCREEN_HEIGHT / 2;
+  CANVAS_OFFSET_X = w / 2 - (SCREEN_WIDTH * CANVAS_SCALE) / 2;
+  CANVAS_OFFSET_Y = h / 2 - (SCREEN_HEIGHT * CANVAS_SCALE) / 2;
 
   SFX_SHOOT:setVolume(0.2);
   GameState.registerEvents();
