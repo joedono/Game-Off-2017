@@ -316,5 +316,5 @@ function State_Game:draw()
   end);
 
   love.graphics.setColor(255, 255, 255);
-  love.graphics.draw(CANVAS, CANVAS_OFFSET_X, CANVAS_OFFSET_Y);
+  love.graphics.draw(CANVAS, CANVAS_OFFSET_X, CANVAS_OFFSET_Y, 0, CANVAS_SCALE, CANVAS_SCALE);
 end

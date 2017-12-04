@@ -17,12 +17,28 @@ BumpWorld = {};
 
 function love.load()
   love.window.setFullscreen(FULLSCREEN);
-  
+
   CANVAS = love.graphics.newCanvas(SCREEN_WIDTH, SCREEN_HEIGHT);
   CANVAS:setFilter("nearest");
 
-  CANVAS_OFFSET_X = love.graphics.getWidth() / 2 - SCREEN_WIDTH / 2;
-  CANVAS_OFFSET_Y = love.graphics.getHeight() / 2 - SCREEN_HEIGHT / 2;
+  local w = love.graphics.getWidth();
+  local h = love.graphics.getHeight();
+
+  local scaleX = 1;
+  local scaleY = 1;
+
+  if w < SCREEN_WIDTH then
+    scaleX = w / SCREEN_WIDTH;
+  end
+
+  if h < SCREEN_HEIGHT then
+    scaleY = h / SCREEN_WIDTH;
+  end
+
+  CANVAS_SCALE = math.min(scaleX, scaleY);
+
+  CANVAS_OFFSET_X = w / 2 - SCREEN_WIDTH / 2;
+  CANVAS_OFFSET_Y = h / 2 - SCREEN_HEIGHT / 2;
 
   SFX_SHOOT:setVolume(0.2);
   GameState.registerEvents();
