@@ -8,6 +8,8 @@ require "lib/general";
 require "config/constants";
 require "config/sound-effects";
 
+require "state/state-splash-hive";
+require "state/state-splash-love";
 require "state/state-title";
 require "state/state-game";
 require "state/state-pause";
@@ -39,7 +41,7 @@ function love.load()
 
   SFX_SHOOT:setVolume(0.2);
   GameState.registerEvents();
-  GameState.switch(State_Title);
+  GameState.switch(State_Splash_Hive);
 end
 
 function love.keypressed(key, scancode, isrepeat)
